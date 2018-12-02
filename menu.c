@@ -43,7 +43,7 @@ void menu(labyrinthe* L)
 	while(quit != 1)
 	{
 		// refresh
-		menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+		menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 
 
 
@@ -56,23 +56,28 @@ void menu(labyrinthe* L)
 		switch (ctemp)
 		{
 		    case 27: // ESC
-		    	printf("\rVoulez vous quitter ? (y/n) ");
+		    	printf("\r   Voulez vous quitter ? (y/n) ");
 		    	scanf("%1c",&ctemp);
 		    	if (ctemp=='y')
 		        	quit = 1;
 		        break;
-		    case 'e': // créer via l'éditeur
+		    case 'n': // créer via l'éditeur
 
 		        break;
-		    case 'm': // modifier via l'éditeur
+		    case 'e': // modifier via l'éditeur
 
 		        break;
 		    case 'a': // créer aléatoirement
 
 		    	break;
 		    case 'l': // charger depuis un fichier
-			read_file(L);
-
+				if(L->lab_width!=0 && L->lab_height!=0)
+			    {
+			    	printf("\r   Attention, un Labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
+			    	scanf("%1c",&ctemp);
+			    	if (ctemp=='y')
+					read_file(L);
+				}
 		        break;
 		    case 's': // sauvegarder dans un fichier
 			save_file(L);
@@ -109,7 +114,7 @@ void menu(labyrinthe* L)
 									for(int i=0;i<18;i++)
 									{
 										pos_dragon.x++;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 									}
 									for(int i=0;i<3;i++)
@@ -117,34 +122,34 @@ void menu(labyrinthe* L)
 										pos_dragon.x++;
 										pos_lab.x++;
 										pos_oratoire.x++;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 										pos_dragon.x++;
 										pos_lab.x++;
 										pos_oratoire.x++;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 										pos_dragon.x++;
 										pos_lab.x++;
 										pos_lab.y--;
 										pos_oratoire.x++;
 										pos_oratoire.y++;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 									}
 									for(int i=0;i<4;i++)
 									{
 										pos_dragon.x++;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 										pos_dragon.x++;
 										pos_lab.x++;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 										pos_dragon.x++;
 										pos_lab.x++;
 										pos_oratoire.x++;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 									}
 									for(int i=0;i<2;i++)
@@ -152,7 +157,7 @@ void menu(labyrinthe* L)
 										pos_dragon.x++;
 										pos_lab.x++;
 										pos_oratoire.x++;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 									}
 									//positions finals atteintes
@@ -191,37 +196,37 @@ void menu(labyrinthe* L)
 									for(int i=0;i<3;i++)
 									{
 										pos_knight.x--;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 									}
 									for(int i=0;i<8;i++)
 									{
 										pos_knight.x--;
 										pos_oratoire.x--;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 										pos_knight.x--;
 										pos_oratoire.x--;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 										pos_knight.x--;
 										pos_oratoire.x--;
 										pos_oratoire.y++;
 										pos_lab.y--;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 									}
 									for(int i=0;i<33;i++)
 									{
 										pos_knight.x--;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 									}
 									for(int i=0;i<30;i++)
 									{
 										pos_dragon.x--;
 										pos_knight.x--;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 									}
 									pos_lab.x 		= 19;
@@ -230,17 +235,17 @@ void menu(labyrinthe* L)
 									{
 										pos_dragon.x--;
 										pos_knight.x--;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 										pos_dragon.x--;
 										pos_knight.x--;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 										pos_dragon.x--;
 										pos_knight.x--;
 										pos_lab.y++;
 										pos_oratoire.y--;
-										menu_display(*L,pos_dragon,pos_knight,pos_lab,pos_oratoire);
+										menu_display(*L,'c',pos_dragon,pos_knight,pos_lab,pos_oratoire);
 										usleep(micro_delay);
 									}
 									//usleep(2000000);

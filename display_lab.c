@@ -39,7 +39,7 @@ void	display(labyrinthe L)
 	{
 		printf("+---");
 	}
-	printf("+\n");
+	printf("+\n\n");
 }
 
 
@@ -78,8 +78,15 @@ void	creating_display(labyrinthe L, int half)
 
 
 
-void	menu_display(labyrinthe L, position pos_dragon, position pos_knight, position pos_lab, position pos_oratoire)
+void	menu_display(labyrinthe L, char mode, position pos_dragon, position pos_knight, position pos_lab, position pos_oratoire)
 {
+	/*
+	mode :
+	'c' mode classic
+	'e' mode édition
+	'x' mode analyse
+	*/
+	printf("%c\n", mode);
 	// refresh
 	system("clear");
 	char ctemp;
@@ -87,17 +94,24 @@ void	menu_display(labyrinthe L, position pos_dragon, position pos_knight, positi
 	{
 		for(int j = 0 ; j < 100 ; j++)
 		{
+			set_color(DEFAULT,8);
 			ctemp = '$';
 			if(i>=pos_dragon.y && j>=pos_dragon.x && i<=pos_dragon.y+14 && j<=pos_dragon.x+39)
 			{
 				ctemp = dragon[i-pos_dragon.y][j-pos_dragon.x];
+				if (ctemp!='$')
+				{
+					set_color(DEFAULT,LIGHT_GREY);
+				}
 			}
 			if(i>=pos_lab.y && j>=pos_lab.x && i<=pos_lab.y+5 && j<=pos_lab.x+21)
 			{
+				set_color(BLOOD,YELLOW);
 				ctemp = lab[i-pos_lab.y][j-pos_lab.x];
 			}
 			if(i>=pos_oratoire.y && j>=pos_oratoire.x && i<=pos_oratoire.y+5 && j<=pos_oratoire.x+40)
 			{
+				set_color(BLOOD,YELLOW);
 				ctemp = oratoire[i-pos_oratoire.y][j-pos_oratoire.x];
 			}
 			if(i>=pos_knight.y && j>=pos_knight.x && i<=pos_knight.y+9 && j<=pos_knight.x+13)
@@ -116,24 +130,37 @@ void	menu_display(labyrinthe L, position pos_dragon, position pos_knight, positi
 
 
 	printf("\n");
-	printf("\tBienvenue sur Lab Oratoire, gestionnaire de labyrinthes, que voulez vous faire ?\n");
+	set_color(BLOOD,RED);
+	printf("\tBienvenue sur ");
+	set_color(UNDERLINE,RED);
+	printf("Lab Oratoire");
+	set_color(DEFAULT,RED);
+	set_color(BLOOD,RED);
+	printf(", gestionnaire de labyrinthes, que voulez vous faire ?\n");
+	set_color(DEFAULT, WHITE);
+
+
+
+
+
 	if(L.lab_width==0 || L.lab_height==0)
 	{
 		printf("\n\tIl n'y a pas de labyrinthe chargé.\n");
-		printf(" -e- créer un labyrinthe via l'éditeur.\n");
+		printf(" -n- créer un labyrinthe via l'éditeur.\n");
 		printf(" -a- générer un labyrinthe aléatoirement.\n");
 		printf(" -l- charger un labyrinthe depuis un fichier.\n");
 	}
 	else
 	{
 		printf("\n\tIl y a un labyrinthe de taille %d %d en mémoire.\n",L.lab_width,L.lab_height);
-		printf(" -e- créer un labyrinthe via l'éditeur.\n");
-		printf(" -m- modifier le labyrinthe via l'éditeur.\n");
+		printf(" -n- créer un labyrinthe via l'éditeur.\n");
+		printf(" -e- modifier le labyrinthe via l'éditeur.\n");
 		printf(" -a- générer un labyrinthe aléatoirement.\n");
 		printf(" -l- charger un labyrinthe depuis un fichier.\n");
 		printf(" -s- sauvegarder le labyrinthe courant dans un fichier.\n");
 		printf(" -x- analyser le labyrinthe courant\n\n\n");
 	display(L);
+	//creating_display(L,0);
 	}
 }
 
@@ -182,3 +209,7 @@ void	init_displayer()
 	oratoire[4] = "   \\___/|_|  \\__,_|\\__\\___/|_|_|  \\___|  ";
 	oratoire[5] = "                                         ";
 }
+
+
+
+// │ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · 

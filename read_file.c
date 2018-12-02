@@ -4,23 +4,24 @@ void read_file(labyrinthe *L)
 {
 	char name_file[100]="";
 
-	printf("\tNom du fichier ?");
-	scanf("%s",name_file);
-
 	FILE* file = NULL;
-	file = fopen(name_file,"r");
+	
 
 	while(file == NULL)
 	{
-		printf("Impossible d'ouvrir le fichier %s\n",name_file);
-		printf("-m- pour retourner au menu ou Nom du fichier : ");
+		printf("   (-m- pour retourner au menu) Quel fichier souhaiter vous charger ? ");
 		scanf("%s",name_file);
 		if(strcmp(name_file,"m") == 0)
 			return;
 		else
 			file = fopen(name_file,"r");
+		if (file == NULL)
+			printf("Impossible d'ouvrir le fichier %s.\n",name_file);
 	}
-	
+
+
+
+
 	//on récupère les informations de la 1ère ligne	
 	fscanf(file, "%d ", &L->lab_height);	
 	fscanf(file, "%d ", &L->lab_width);
@@ -35,11 +36,11 @@ void read_file(labyrinthe *L)
 
 	for(int i=0; i<L->lab_height; i++)
 	{
-		for(int j=0; j<(L->lab_width)-1; j++)
+		for(int j=0; j<(L->lab_width); j++)
 		{
-			fscanf(file, "%hu ", &(L->grid)[i][j]);
+			fscanf(file, "%hu", &(L->grid)[i][j]);
 		}
-		fscanf(file, "%hu", &(L->grid)[i][L->lab_width]);
+		//fscanf(file, "%hu", &(L->grid)[i][L->lab_width]);
 	}
 
 	fclose(file);
