@@ -77,9 +77,9 @@ typedef	struct		labyrinthe
 
 typedef struct  	path
 {
-	path 			*precedent;
+	struct path 	*precedent;
 	position		actuel;
-	path			*suivant;
+	struct path		*suivant;
 }					path;
 
 
@@ -93,6 +93,7 @@ char	right_wall(unsigned short cell);
 char	top_wall(unsigned short cell);
 void	temp_display(labyrinthe L);
 void	display(labyrinthe L);
+void	displayV2(labyrinthe L);
 void	creating_display(labyrinthe L, int half);
 void	create_lab(labyrinthe *L, int lab_height, int lab_width);
 void	init_displayer();

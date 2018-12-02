@@ -5,19 +5,18 @@ void	display(labyrinthe L)
 {
 	int i;
 	int j;
-	printf("\n");
 	for(i = 0 ; i < L.lab_height ; i++)
 	{
-		printf("\t");
+		printf("    ");
 		for(j = 0 ; j < L.lab_width ; j++)
 		{
 			printf("+");
-			(L.grid[i][j]>=8) ?	printf("---") : printf("   ");
+			((L.grid[i][j]/8)%2) ?	printf("---") : printf("   ");
 		}
-		printf("+\n\t");
+		printf("+\n    ");
 		for(j = 0 ; j < L.lab_width ; j++)
 		{
-			(L.grid[i][j]%2==1) ? printf("|") : printf(" ");
+			(L.grid[i][j]%2) ? printf("|") : printf(" ");
 
 			if (L.pos_entrance.x==j && L.pos_entrance.y==i)
 			{
@@ -34,13 +33,167 @@ void	display(labyrinthe L)
 		}
 		printf("|\n");
 	}
-	printf("\t");
+	printf("    ");
 	for(j = 0 ; j < L.lab_width ; j++)
 	{
 		printf("+---");
 	}
 	printf("+\n\n");
 }
+
+void	displayV2(labyrinthe L)
+{
+	int i;
+	int j;
+	// │ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · ╴ ╶ ╵ ╷
+	/*
+		┌───────┬───┐
+		│       │   │
+		├───┐   ·   │
+		│   │       │
+		│   ·   ·   │
+		│           │
+		└───────────┘
+
+		┌───────┬───┐
+		│       │   │
+		├───┐   │   │
+		│   │       │
+		│   │   ·   │
+		│           │
+		└───────────┘
+
+printf("│ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · ───");
+	*/
+
+
+
+
+
+	for(i=0 ; i<L.lab_height ; i++)
+	{
+		printf("    ");
+		for(j=0 ; j<L.lab_width ; j++)
+		{
+			if(i==0)
+			{
+				if(j==0)
+					printf("┌───");
+				else
+				{
+					(L.grid[i][j]%2) ? printf("┬───") : printf("────");
+
+				}
+				if (j==L.lab_width-1)
+					printf("┐");
+			}
+			else
+			{
+				if(j==0)
+					((L.grid[i][j]/8)%2) ? printf("├───") : printf("│   ");
+				else
+				{
+					if((L.grid[i-1][j-1]/4)%2) // R? ?
+					{
+						if((L.grid[i-1][j-1]/2)%2) // RD ?
+						{
+							if(L.grid[i][j]%2) // RD L?
+							{
+								if((L.grid[i][j]/8)%2) // RD LU
+									printf("┼───");
+								else // RD L
+									printf("┤   ");
+							}
+							else if((L.grid[i][j]/8)%2) // RD U
+								printf("┴───");
+							else // RD NONE
+								printf("┘   ");
+						}
+						else // R ?
+						{
+							if(L.grid[i][j]%2) // R L?
+							{
+								if((L.grid[i][j]/8)%2) // R LU
+									printf("├───");
+								else // R L
+									printf("│   ");
+							}
+							else if((L.grid[i][j]/8)%2) // R U
+								printf("└───");
+							else // R NONE
+								printf("╵   ");
+						}
+					}
+					else if((L.grid[i-1][j-1]/2)%2) // D NONE
+					{
+						if(L.grid[i][j]%2) // D L?
+						{
+							if((L.grid[i][j]/8)%2) // D LU
+								printf("┬───");
+							else // D L
+								printf("┐   ");
+						}
+						else if((L.grid[i][j]/8)%2) // D U
+							printf("────");
+						else // D NONE
+							printf("╴   ");
+					}
+					else // NONE ?
+					{
+						if(L.grid[i][j]%2) // NONE L?
+						{
+							if((L.grid[i][j]/8)%2) // NONE LU
+								printf("┌───");
+							else // NONE L
+								printf("╷   ");
+						}
+						else if((L.grid[i][j]/8)%2) // NONE U
+							printf("╶───");
+						else // NONE NONE
+							printf("·   ");
+					}
+				}
+				if (j==L.lab_width-1)
+					((L.grid[i][j]/8)%2) ? printf("┤") : printf("│");
+
+			}
+		}
+		printf("\n    ");
+		for(j=0 ; j<L.lab_width ; j++)
+		{
+			(L.grid[i][j]%2) ? printf("│") : printf(" ");
+
+			if (L.pos_entrance.x==j && L.pos_entrance.y==i)
+			{
+				if (L.pos_exit.x==j && L.pos_exit.y==i)
+					printf("EX!"); //// le ! est de la part de Clément :)
+				else
+					printf(" E ");
+			}
+			else if (L.pos_exit.x==j && L.pos_exit.y==i)
+				printf(" X ");
+			else
+				printf("   ");
+
+
+		}
+		printf("│\n");
+	}
+	printf("    └───");
+	for(j=1 ; j<L.lab_width ; j++)
+	{
+		(L.grid[L.lab_height-1][j]%2) ? printf("┴───") : printf("────");
+	}
+	printf("┘\n\n");
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -159,7 +312,9 @@ void	menu_display(labyrinthe L, char mode, position pos_dragon, position pos_kni
 		printf(" -l- charger un labyrinthe depuis un fichier.\n");
 		printf(" -s- sauvegarder le labyrinthe courant dans un fichier.\n");
 		printf(" -x- analyser le labyrinthe courant\n\n\n");
-	display(L);
+
+
+	displayV2(L);
 	//creating_display(L,0);
 	}
 }
@@ -212,4 +367,3 @@ void	init_displayer()
 
 
 
-// │ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · 

@@ -91,7 +91,7 @@ void	create_lab(labyrinthe *L, int lab_height, int lab_width)
 
 	}
 
-
+	
 
 
 	// loop do

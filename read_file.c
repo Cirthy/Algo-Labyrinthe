@@ -16,7 +16,7 @@ void read_file(labyrinthe *L)
 		else
 			file = fopen(name_file,"r");
 		if (file == NULL)
-			printf("Impossible d'ouvrir le fichier %s.\n",name_file);
+			printf("      Impossible d'ouvrir le fichier %s.\n",name_file);
 	}
 
 

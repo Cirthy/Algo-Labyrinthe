@@ -56,7 +56,7 @@ void menu(labyrinthe* L)
 		switch (ctemp)
 		{
 		    case 27: // ESC
-		    	printf("\r   Voulez vous quitter ? (y/n) ");
+		    	printf("\r     \n   Voulez vous quitter ? (y/n) ");
 		    	scanf("%1c",&ctemp);
 		    	if (ctemp=='y')
 		        	quit = 1;
@@ -68,14 +68,40 @@ void menu(labyrinthe* L)
 
 		        break;
 		    case 'a': // créer aléatoirement
-
+				if(L->lab_width!=0 && L->lab_height!=0)
+			    {
+			    	printf("\r   Attention, un Labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
+			    	scanf("%1c",&ctemp);
+			    	if (ctemp=='y')
+			    	{
+			    		printf("   Hauteur du nouveau labyrinthe aléatoire : ");
+			    		scanf("%d", &(L->lab_height));
+			    		printf("   Largeur du nouveau labyrinthe aléatoire : ");
+			    		scanf("%d", &(L->lab_width));
+						init_lab(L, L->lab_height, L->lab_width);
+					}
+				}
+				else
+				{
+			 		printf("\r \n   Hauteur du nouveau labyrinthe aléatoire : ");
+		    		scanf("%d", &(L->lab_height));
+		    		printf("   Largeur du nouveau labyrinthe aléatoire : ");
+		    		scanf("%d", &(L->lab_width));
+					init_lab(L, L->lab_height, L->lab_width);
+				}
 		    	break;
+
 		    case 'l': // charger depuis un fichier
 				if(L->lab_width!=0 && L->lab_height!=0)
 			    {
 			    	printf("\r   Attention, un Labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
 			    	scanf("%1c",&ctemp);
 			    	if (ctemp=='y')
+						read_file(L);
+				}
+				else
+				{
+					printf("\r \n");
 					read_file(L);
 				}
 		        break;
