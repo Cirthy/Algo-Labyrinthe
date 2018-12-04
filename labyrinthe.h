@@ -77,9 +77,11 @@ typedef	struct		labyrinthe
 
 typedef struct  	path
 {
-	struct path 	*precedent;
+	/*struct path 	*precedent;
 	position		actuel;
-	struct path		*suivant;
+	struct path		*suivant;*/
+	int				length;
+	position		*cells;
 }					path;
 
 
@@ -104,8 +106,23 @@ void 	menu(labyrinthe* L);
 void	read_file(labyrinthe *L);
 void	save_file(labyrinthe *L);
 
+// pathfinding
+int		set_distance(labyrinthe L, position p, int distance);
+int		distance(labyrinthe L, position p);
+int		init_distances(labyrinthe L);
+int		actualize_distance(labyrinthe L, position s1, position s2);
+unsigned int cell(labyrinthe L, position p);
+int mark (labyrinthe L, position p);
+int is_marked (labyrinthe L, position p);
+int in_tab(position p, position* V, int size);
+int pos_equal(position s1, position s2);
+position copy_pos(position s);
+int display_pos(position p);
+int display_tab(position* T, int size_T);
+path BFS(labyrinthe L);
 
 
-
+void	display_marked(labyrinthe L);
+void	display_visit_order(labyrinthe L, position *V);
 
 #endif

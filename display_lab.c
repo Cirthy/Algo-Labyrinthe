@@ -187,13 +187,34 @@ printf("│ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · ───");
 	printf("┘\n\n");
 }
 
+void	display_marked(labyrinthe L)
+{
+	int i, j;
+	position pos;
+
+	for(i = 0 ; i < L.lab_height ; i++)
+	{
+		for(j = 0 ; j < L.lab_width ; j++)
+		{
+			pos.x = j;
+			pos.y = i;
+			if(is_marked(L, pos))
+				printf("1\t");
+			else
+				printf("0\t");
+		}
+		printf("\n");
+	}
+	printf("\n\n");
+}
 
 
-
-
-
-
-
+void	display_visit_order(labyrinthe L, position *V)
+{
+	for(int i = 0 ; i < L.lab_width * L.lab_height ; i++)
+		printf("(%d, %d) ", V[i].y, V[i].x);
+	printf("\n");
+}
 
 
 
