@@ -41,32 +41,21 @@ void	display(labyrinthe L)
 	printf("+\n\n");
 }
 
-void	displayV2(labyrinthe L)
+void	displayV2(labyrinthe L, char mode, path* plusCourt)
 {
 	int i;
 	int j;
 	// │ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · ╴ ╶ ╵ ╷
-	/*
-		┌───────┬───┐
-		│       │   │
-		├───┐   ·   │
-		│   │       │
-		│   ·   ·   │
-		│           │
-		└───────────┘
+	if (plusCourt)
+		printf("e");
 
-		┌───────┬───┐
-		│       │   │
-		├───┐   │   │
-		│   │       │
-		│   │   ·   │
-		│           │
-		└───────────┘
-
-printf("│ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · ───");
-	*/
-
-
+	if (mode=='e')
+	{
+		printf("     ");
+		for(j=0 ; j<L.lab_width ; j++)
+			printf("%2d  ",j);
+	}
+	printf("\n");
 
 
 
@@ -90,7 +79,18 @@ printf("│ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · ───");
 			else
 			{
 				if(j==0)
+				{
 					((L.grid[i][j]/8)%2) ? printf("├───") : printf("│   ");
+					//if (path_to(plusCourt, j, i-1,j,i))
+					//{
+					//	set_color(BLOOD,RED);
+					//	printf("│ ");
+					//	set_color(DEFAULT,WHITE);
+					//}
+					//else
+					//	printf("  ");
+
+				}
 				else
 				{
 					if((L.grid[i-1][j-1]/4)%2) // R? ?
@@ -158,24 +158,47 @@ printf("│ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · ───");
 
 			}
 		}
-		printf("\n    ");
+		(mode=='e') ? printf("\n %2d ",i): printf("\n    ");
 		for(j=0 ; j<L.lab_width ; j++)
 		{
 			(L.grid[i][j]%2) ? printf("│") : printf(" ");
-
-			if (L.pos_entrance.x==j && L.pos_entrance.y==i)
+			if (mode == 'c')
 			{
-				if (L.pos_exit.x==j && L.pos_exit.y==i)
-					printf("EX!"); //// le ! est de la part de Clément :)
+				if (L.pos_entrance.x==j && L.pos_entrance.y==i)
+				{
+					if (L.pos_exit.x==j && L.pos_exit.y==i)
+						printf("EX!"); //// le ! est de la part de Clément :)
+					else
+						printf(" E ");
+				}
+				else if (L.pos_exit.x==j && L.pos_exit.y==i)
+					printf(" X ");
 				else
-					printf(" E ");
+					printf("   ");
 			}
-			else if (L.pos_exit.x==j && L.pos_exit.y==i)
-				printf(" X ");
-			else
-				printf("   ");
-
-
+			else if (mode == 'e')
+			{
+				if (L.cursor.x==j && L.cursor.y==i)
+				{
+					set_color(WINKER,YELLOW);
+					printf(" ☐ ");
+					set_color(DEFAULT,WHITE);
+				}
+				else
+				{
+					if (L.pos_entrance.x==j && L.pos_entrance.y==i)
+					{
+						if (L.pos_exit.x==j && L.pos_exit.y==i)
+							printf("EX!"); //// le ! est de la part de Clément :)
+						else
+							printf(" E ");
+					}
+					else if (L.pos_exit.x==j && L.pos_exit.y==i)
+						printf(" X ");
+					else
+						printf("   ");
+				}			
+			}
 		}
 		printf("│\n");
 	}
@@ -186,6 +209,9 @@ printf("│ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · ───");
 	}
 	printf("┘\n\n");
 }
+
+
+
 
 void	display_marked(labyrinthe L)
 {
@@ -218,41 +244,9 @@ void	display_visit_order(labyrinthe L, position *V)
 
 
 
-void	creating_display(labyrinthe L, int half)
-{
-	int i;
-	int j;
-	printf("\n\n\n\n\n\nzqsd pour se déplacer et 8462 pour placer/retirer les murs :\n");
-	for(i = 0 ; i < L.lab_height ; i++)
-	{
-		for(j = 0 ; j < L.lab_width ; j++)
-		{
-			printf("+");
-			(L.grid[i][j]>=8) ?	printf("---") : printf("   ");
-		}
-		printf("+\n");
-		for(j = 0 ; j < L.lab_width ; j++)
-		{
-			(L.grid[i][j]%2==1) ? printf("|") : printf(" ");
-			if (half == 1 && L.cursor.x == j && L.cursor.y == i)
-				printf(" _ ");
-			else
-				printf("%2hu ",L.grid[i][j]);
-		}
-		printf("|\n");
-	}
-	for(j = 0 ; j < L.lab_width ; j++)
-	{
-		printf("+---");
-	}
-	printf("+\n\tvaleur courante    : %d\n",L.grid[L.cursor.y][L.cursor.x]);
-	printf(   "\tposition d'entrée  : (%d,%d)\n",L.pos_entrance.x ,L.pos_entrance.y);
-	printf(   "\tposition de sortie : (%d,%d)\n\n\n\n\n\n\n",L.pos_exit.x ,L.pos_exit.y);
-}
 
 
-
-void	menu_display(labyrinthe L, char mode, position pos_dragon, position pos_knight, position pos_lab, position pos_oratoire)
+void	menu_display(labyrinthe L, char mode)
 {
 	/*
 	mode :
@@ -315,30 +309,54 @@ void	menu_display(labyrinthe L, char mode, position pos_dragon, position pos_kni
 
 
 
-
-
-	if(L.lab_width==0 || L.lab_height==0)
+	switch (mode)
 	{
-		printf("\n\tIl n'y a pas de labyrinthe chargé.\n");
-		printf(" -n- créer un labyrinthe via l'éditeur.\n");
-		printf(" -a- générer un labyrinthe aléatoirement.\n");
-		printf(" -l- charger un labyrinthe depuis un fichier.\n");
-	}
-	else
-	{
-		printf("\n\tIl y a un labyrinthe de taille %d %d en mémoire.\n",L.lab_width,L.lab_height);
-		printf(" -n- créer un labyrinthe via l'éditeur.\n");
-		printf(" -e- modifier le labyrinthe via l'éditeur.\n");
-		printf(" -a- générer un labyrinthe aléatoirement.\n");
-		printf(" -l- charger un labyrinthe depuis un fichier.\n");
-		printf(" -s- sauvegarder le labyrinthe courant dans un fichier.\n");
-		printf(" -x- analyser le labyrinthe courant\n\n\n");
+	    case 'c': // classic
+			if(L.lab_width==0 || L.lab_height==0)
+			{
+				printf("\n\tIl n'y a pas de labyrinthe chargé.\n");
+				printf(" -n- créer un labyrinthe via l'éditeur.\n");
+				printf(" -a- générer un labyrinthe aléatoirement.\n");
+				printf(" -l- charger un labyrinthe depuis un fichier.\n");
+			}
+			else
+			{
+				printf("\n\tIl y a un labyrinthe de taille %dx%d en mémoire.\n",L.lab_height,L.lab_width);
+				printf(" -n- créer un labyrinthe via l'éditeur.\n");
+				printf(" -e- modifier le labyrinthe via l'éditeur.\n");
+				printf(" -a- générer un labyrinthe aléatoirement.\n");
+				printf(" -l- charger un labyrinthe depuis un fichier.\n");
+				printf(" -s- sauvegarder le labyrinthe courant dans un fichier.\n");
+				printf(" -x- analyser le labyrinthe courant\n\n");
+				displayV2(L,mode,NULL);			
+			}
+	        break;
+	    case 'e': // édition
+				printf("\n\tBienvenue sur le menu d'édition du labyrinthe courant.\n");
+				printf("\tLa labyrinthe courant est de taille %dx%d.\n",L.lab_height,L.lab_width);
+				printf(" -zqsd- déplacer le curseur dans le labyrinthe.\n");
+				printf(" -8462- placer/retirer un mur.\n");
+				printf(" -e- positionner l'entrée.\n");
+				printf(" -x- positionner la sortie.\n");
+				printf(" -a- sauvegarder et quitter l'éditeur.\n\n");
+				displayV2(L,mode,NULL);
+	        break;
+	    case 'x': // analyse
+				printf("\n\tBienvenue sur le menu d'analyse du labyrinthe courant.\n");
+				printf("La labyrinthe courant est de taille %dx%d.\n",L.lab_height,L.lab_width);
+				printf(" -h- lancer une recherche de plus court chemin par heuristique.\n");
+				printf(" -b- lancer une recherche de plus court chemin par backtraking.\n");
+				printf(" -l- lancer une recherche de plus court chemin par parcours en largeur.\n");
+				printf(" -s- afficher les statistiques du labyrinthe.\n");
+				printf(" -m- revenir au menu principal.\n\n");
+				displayV2(L,'c',NULL);
+	        break;
 
-
-	displayV2(L);
 	//creating_display(L,0);
 	}
 }
+
+
 
 
 
