@@ -85,8 +85,10 @@ void	display(labyrinthe L);
 void	displayV2(labyrinthe L, char mode, path* plusCourt);
 void	creating_display(labyrinthe L, int half);
 void	create_lab(labyrinthe *L, int lab_height, int lab_width);
+void 	edit_lab(labyrinthe *L);
+void 	analyse_menu(labyrinthe *L);
 void	init_displayer();
-void	menu_display(labyrinthe L, char mode, position pos_dragon, position pos_knight, position pos_lab, position pos_oratoire);
+void	menu_display(labyrinthe L, char mode);
 
 void 	menu(labyrinthe* L);
 

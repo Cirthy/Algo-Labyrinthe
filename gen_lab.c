@@ -16,7 +16,8 @@ void	init_lab(labyrinthe *L, int lab_height, int lab_width)
 	temp.x = rand() % lab_width;
 	temp.y = rand() % lab_height;
 	L->pos_exit = temp;
-	L->cursor = L->pos_entrance;
+	L->cursor.x = 0;
+	L->cursor.y = 0;
 	init_wall(*L);
 }
 
@@ -56,15 +57,26 @@ char	top_wall(unsigned short cell)
 }
 
 
+char 	path_to(path* p, int x1, int y1, int x2, int y2)
+{
+	for (int i=0 ; i<p->length ; i++)
+	{
+		if (p->cells[i].x == x1 && p->cells[i].y == y1)
+		{
+			if ((i==0 && p->cells[i+1].x == x2 && p->cells[i+1].y == y2) || (i==p->length-1 && p->cells[i-1].x == x2 && p->cells[i-1].y == y2) || (p->cells[i+1].x == x2 && p->cells[i+1].y == y2) || (p->cells[i-1].x == x2 && p->cells[i-1].y == y2))
+				return 1;
+		}
+	}
+	return 0;
+}
+
+
 
 void	create_lab(labyrinthe *L, int lab_height, int lab_width)
 {
 	//initialisation
-	int					i;
-	int					j;
-	unsigned char		ctemp;
-	long				compteur;
-	int 				quit;
+	int		i;
+	int		j;
 
 	L->grid = (unsigned short **)malloc(sizeof(unsigned short *) * lab_height);
 	for(i = 0 ; i < lab_height ; i++)
@@ -90,126 +102,6 @@ void	create_lab(labyrinthe *L, int lab_height, int lab_width)
 		L->grid[L->lab_height-1][j] += BW; //bottom wall
 
 	}
-
-	
-
-
-	// loop do
-	compteur = 0;
-	quit = 0;
-	while(quit != 1)
-	{
-		// refresh
-		system("clear");
-		creating_display(*L,1);//compteur%2);
-		// refresh
-
-		system("/bin/stty raw");
-		ctemp = getc(stdin);
-		//fflush(stdin);
-		system("/bin/stty cooked");
-
-
-		switch (ctemp)
-		{
-		    case 27: // ESC
-		    	printf("Voulez vous quitter l'éditeur ? (y/n) ");
-		    	scanf("%1c",&ctemp);
-		    	if (ctemp=='y')
-		        	quit = 1;
-		        break;
-		    case 'z': // UP
-		    	L->cursor.y--;
-		    	if (L->cursor.y<0) L->cursor.y=0;
-		        break;
-		    case 's': // DOWN
-		    	L->cursor.y++;
-		    	if (L->cursor.y>=L->lab_height) L->cursor.y=L->lab_height-1;
-		        break;
-		    case 'q': // LEFT
-		    	L->cursor.x--;
-		    	if (L->cursor.x<0) L->cursor.x=0;
-		        break;
-		    case 'd': // RIGHT
-		    	L->cursor.x++;
-		    	if (L->cursor.x>=L->lab_width) L->cursor.x=L->lab_width-1;
-		        break;
-		    case 'e': // Select ENTRANCE
-		    	L->pos_entrance = L->cursor;
-		        break;
-		    case 'x': // Select EXIT
-		    	L->pos_exit = L->cursor;
-		        break;
-		    case '4': // LW
-		    	if (L->cursor.x>0)
-		    	{
-		    		if(left_wall(L->grid[L->cursor.y][L->cursor.x]))
-		    		{
-		    			L->grid[L->cursor.y][L->cursor.x]   -= LW;
-		    			L->grid[L->cursor.y][L->cursor.x-1] -= RW;
-		    		}
-		    		else
-		    		{
-		    			L->grid[L->cursor.y][L->cursor.x]   += LW;
-		    			L->grid[L->cursor.y][L->cursor.x-1] += RW;
-		    		}
-		    	}
-	        	break;
-		    case '2': // BW
-		    	if (L->cursor.y<L->lab_height-1)
-		    	{
-			    	if(bottom_wall(L->grid[L->cursor.y][L->cursor.x]))
-			    	{
-			    		L->grid[L->cursor.y][L->cursor.x]   -= BW;
-			    		L->grid[L->cursor.y+1][L->cursor.x] -= TW;
-			    	}
-			    	else
-			    	{
-			    		L->grid[L->cursor.y][L->cursor.x]   += BW;
-			    		L->grid[L->cursor.y+1][L->cursor.x] += TW;		    		
-			    	}
-			    }
-		        break;
-		    case '6': // RW
-		    	if (L->cursor.x<L->lab_width-1)
-		    	{
-			    	if(right_wall(L->grid[L->cursor.y][L->cursor.x]))
-			    	{
-			    		L->grid[L->cursor.y][L->cursor.x]   -= RW;
-			    		L->grid[L->cursor.y][L->cursor.x+1] -= LW;
-			    	}
-			    	else
-			    	{
-			    		L->grid[L->cursor.y][L->cursor.x]   += RW;
-			    		L->grid[L->cursor.y][L->cursor.x+1] += LW;
-			    	}
-			    }
-			    break;
-		    case '8': // TW
-		    	if (L->cursor.y>0)
-		    	{
-			    	if(top_wall(L->grid[L->cursor.y][L->cursor.x]))
-			    	{
-			    		L->grid[L->cursor.y][L->cursor.x]   -= TW;
-			    		L->grid[L->cursor.y-1][L->cursor.x] -= BW;			    		
-			    	}
-			    	else
-			    	{
-			    		L->grid[L->cursor.y][L->cursor.x]   += TW;
-			    		L->grid[L->cursor.y-1][L->cursor.x] += BW;			    		
-			    	}
-			    }
-		        break;
-			default:
-				break;
-		}
-
-
-		//usleep(500000);
-		compteur++;
-	}
-
-
-
-
 }
+
+
