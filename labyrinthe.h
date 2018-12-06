@@ -54,6 +54,7 @@ typedef	struct		labyrinthe
 
 typedef struct  	path
 {
+	char			type;
 	int				length;
 	position		*cells;
 }					path;
@@ -88,12 +89,16 @@ void	create_lab(labyrinthe *L, int lab_height, int lab_width);
 void 	edit_lab(labyrinthe *L);
 void 	analyse_menu(labyrinthe *L);
 void	init_displayer();
-void	menu_display(labyrinthe L, char mode);
+void	menu_display(labyrinthe L, char mode, path* chemin);
 
 void 	menu(labyrinthe* L);
 
 void	read_file(labyrinthe *L);
 void	save_file(labyrinthe *L);
+
+
+void 	display_path(path* chemin);
+
 
 // pathfinding
 int		set_distance(labyrinthe L, position p, int distance);

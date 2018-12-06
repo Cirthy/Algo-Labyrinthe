@@ -228,6 +228,17 @@ path BFS(labyrinthe L) {
     path Path;
     Path.length = distance_shortest_path;
     Path.cells = shortest_path;
+    Path.type = 'l';
+
+    for(int tempi=0 ; tempi<L.lab_height ; tempi++)
+    {
+		for(int tempj=0 ; tempj<L.lab_width ; tempj++)
+		{
+			L.grid[tempi][tempj] %= 16 ;
+		}
+    }
+
+
 
     return Path;
 

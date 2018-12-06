@@ -47,7 +47,7 @@ void	displayV2(labyrinthe L, char mode, path* plusCourt)
 	int j;
 	// │ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · ╴ ╶ ╵ ╷
 	if (plusCourt)
-		printf("e");
+		printf("plus court");
 
 	if (mode=='e')
 	{
@@ -211,6 +211,18 @@ void	displayV2(labyrinthe L, char mode, path* plusCourt)
 }
 
 
+void 	display_path(path* chemin)
+{
+	if (chemin)
+	{
+		printf("de type %c : ", chemin->type);
+		for(int i = 0 ; i<=chemin->length ; i++)
+			printf("[%d:%d] ", chemin->cells[i].x, chemin->cells[i].y);
+	}
+	printf("\n");
+}
+
+
 
 
 void	display_marked(labyrinthe L)
@@ -246,7 +258,7 @@ void	display_visit_order(labyrinthe L, position *V)
 
 
 
-void	menu_display(labyrinthe L, char mode)
+void	menu_display(labyrinthe L, char mode, path* chemin)
 {
 	/*
 	mode :
@@ -349,7 +361,7 @@ void	menu_display(labyrinthe L, char mode)
 				printf(" -l- lancer une recherche de plus court chemin par parcours en largeur.\n");
 				printf(" -s- afficher les statistiques du labyrinthe.\n");
 				printf(" -m- revenir au menu principal.\n\n");
-				displayV2(L,'c',NULL);
+				displayV2(L,'c',chemin);
 	        break;
 
 	//creating_display(L,0);
