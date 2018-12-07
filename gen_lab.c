@@ -57,13 +57,13 @@ char	top_wall(unsigned short cell)
 }
 
 
-char 	path_to(path* p, int x1, int y1, int x2, int y2)
+char 	is_in_path(path *p, int x1, int y1, int x2, int y2)
 {
-	for (int i=0 ; i<p->length ; i++)
+	for (int i=0 ; i<=p->length ; i++)
 	{
 		if (p->cells[i].x == x1 && p->cells[i].y == y1)
 		{
-			if ((i==0 && p->cells[i+1].x == x2 && p->cells[i+1].y == y2) || (i==p->length-1 && p->cells[i-1].x == x2 && p->cells[i-1].y == y2) || (p->cells[i+1].x == x2 && p->cells[i+1].y == y2) || (p->cells[i-1].x == x2 && p->cells[i-1].y == y2))
+			if ((i==0 && p->cells[i+1].x == x2 && p->cells[i+1].y == y2) || (i==p->length && p->cells[i-1].x == x2 && p->cells[i-1].y == y2) || (p->cells[i+1].x == x2 && p->cells[i+1].y == y2) || (p->cells[i-1].x == x2 && p->cells[i-1].y == y2))
 				return 1;
 		}
 	}

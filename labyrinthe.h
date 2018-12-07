@@ -81,6 +81,8 @@ char	left_wall(unsigned short cell);
 char	bottom_wall(unsigned short cell);
 char	right_wall(unsigned short cell);
 char	top_wall(unsigned short cell);
+char 	is_in_path(path *p, int x1, int y1, int x2, int y2);
+
 void	temp_display(labyrinthe L);
 void	display(labyrinthe L);
 void	displayV2(labyrinthe L, char mode, path* plusCourt);
@@ -95,6 +97,8 @@ void 	menu(labyrinthe* L);
 
 void	read_file(labyrinthe *L);
 void	save_file(labyrinthe *L);
+
+
 
 
 void 	display_path(path* chemin);

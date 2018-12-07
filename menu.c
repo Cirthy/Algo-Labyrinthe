@@ -471,7 +471,7 @@ void 	analyse_menu(labyrinthe *L)
 		menu_display(*L,'x', chemin);
 		//if (chemin)
 			//printf("%d\n", chemin->length);
-		display_path(chemin);
+		//display_path(chemin);
 
 		// refresh
 

@@ -45,9 +45,24 @@ void	displayV2(labyrinthe L, char mode, path* plusCourt)
 {
 	int i;
 	int j;
+
 	// │ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · ╴ ╶ ╵ ╷
+
 	if (plusCourt)
-		printf("plus court");
+	{
+		if (plusCourt->type=='h')
+			printf("Analyse par heuristique, ");
+		if (plusCourt->type=='b')
+			printf("Analyse par backtraking, ");
+		if (plusCourt->type=='l')
+			printf("Analyse par parcours en largeur, ");
+		if (plusCourt->length == L.lab_width*L.lab_height)
+			printf("pas de chemin trouvé !");
+		else
+			printf("un chemin minimum trouvé de longeur %d.", plusCourt->length);
+	}
+
+
 
 	if (mode=='e')
 	{
@@ -80,16 +95,20 @@ void	displayV2(labyrinthe L, char mode, path* plusCourt)
 			{
 				if(j==0)
 				{
-					((L.grid[i][j]/8)%2) ? printf("├───") : printf("│   ");
-					//if (path_to(plusCourt, j, i-1,j,i))
-					//{
-					//	set_color(BLOOD,RED);
-					//	printf("│ ");
-					//	set_color(DEFAULT,WHITE);
-					//}
-					//else
-					//	printf("  ");
-
+					if ((L.grid[i][j]/8)%2)
+						printf("├───");
+					else
+					{
+						printf("│ ");
+						if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+						{
+							set_color(BLOOD,RED);
+							printf("│ ");
+							set_color(DEFAULT,WHITE);
+						}
+						else
+							printf("  ");
+					}
 				}
 				else
 				{
@@ -102,12 +121,32 @@ void	displayV2(labyrinthe L, char mode, path* plusCourt)
 								if((L.grid[i][j]/8)%2) // RD LU
 									printf("┼───");
 								else // RD L
-									printf("┤   ");
+								{
+									printf("┤ ");
+									if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+									{
+										set_color(BLOOD,RED);
+										printf("│ ");
+										set_color(DEFAULT,WHITE);
+									}
+									else
+										printf("  ");
+								}	
 							}
 							else if((L.grid[i][j]/8)%2) // RD U
 								printf("┴───");
 							else // RD NONE
-								printf("┘   ");
+							{
+								printf("┘ ");
+								if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+								{
+									set_color(BLOOD,RED);
+									printf("│ ");
+									set_color(DEFAULT,WHITE);
+								}
+								else
+									printf("  ");
+							}	
 						}
 						else // R ?
 						{
@@ -116,12 +155,32 @@ void	displayV2(labyrinthe L, char mode, path* plusCourt)
 								if((L.grid[i][j]/8)%2) // R LU
 									printf("├───");
 								else // R L
-									printf("│   ");
+								{
+									printf("│ ");
+									if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+									{
+										set_color(BLOOD,RED);
+										printf("│ ");
+										set_color(DEFAULT,WHITE);
+									}
+									else
+										printf("  ");
+								}		
 							}
 							else if((L.grid[i][j]/8)%2) // R U
 								printf("└───");
 							else // R NONE
-								printf("╵   ");
+							{
+								printf("╵ ");
+								if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+								{
+									set_color(BLOOD,RED);
+									printf("│ ");
+									set_color(DEFAULT,WHITE);
+								}
+								else
+									printf("  ");
+							}	
 						}
 					}
 					else if((L.grid[i-1][j-1]/2)%2) // D NONE
@@ -131,12 +190,33 @@ void	displayV2(labyrinthe L, char mode, path* plusCourt)
 							if((L.grid[i][j]/8)%2) // D LU
 								printf("┬───");
 							else // D L
-								printf("┐   ");
+							{
+								printf("┐ ");
+								if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+								{
+									set_color(BLOOD,RED);
+									printf("│ ");
+									set_color(DEFAULT,WHITE);
+								}
+								else
+									printf("  ");
+							}	
+
 						}
 						else if((L.grid[i][j]/8)%2) // D U
 							printf("────");
 						else // D NONE
-							printf("╴   ");
+						{
+							printf("╴ ");
+							if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+							{
+								set_color(BLOOD,RED);
+								printf("│ ");
+								set_color(DEFAULT,WHITE);
+							}
+							else
+								printf("  ");
+						}
 					}
 					else // NONE ?
 					{
@@ -145,12 +225,32 @@ void	displayV2(labyrinthe L, char mode, path* plusCourt)
 							if((L.grid[i][j]/8)%2) // NONE LU
 								printf("┌───");
 							else // NONE L
-								printf("╷   ");
+							{
+								printf("╷ ");
+								if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+								{
+									set_color(BLOOD,RED);
+									printf("│ ");
+									set_color(DEFAULT,WHITE);
+								}
+								else
+									printf("  ");
+							}	
 						}
 						else if((L.grid[i][j]/8)%2) // NONE U
 							printf("╶───");
 						else // NONE NONE
-							printf("·   ");
+						{
+							printf("· ");
+							if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+							{
+								set_color(BLOOD,RED);
+								printf("│ ");
+								set_color(DEFAULT,WHITE);
+							}
+							else
+								printf("  ");
+						}
 					}
 				}
 				if (j==L.lab_width-1)
@@ -161,7 +261,16 @@ void	displayV2(labyrinthe L, char mode, path* plusCourt)
 		(mode=='e') ? printf("\n %2d ",i): printf("\n    ");
 		for(j=0 ; j<L.lab_width ; j++)
 		{
-			(L.grid[i][j]%2) ? printf("│") : printf(" ");
+			if (L.grid[i][j]%2)
+				printf("│");
+			else if (plusCourt && is_in_path(plusCourt,j,i,j-1,i))
+				{
+					set_color(BLOOD,RED);
+					printf("─");
+					set_color(DEFAULT,WHITE);
+				}
+			else
+				printf(" ");
 			if (mode == 'c')
 			{
 				if (L.pos_entrance.x==j && L.pos_entrance.y==i)
@@ -174,7 +283,29 @@ void	displayV2(labyrinthe L, char mode, path* plusCourt)
 				else if (L.pos_exit.x==j && L.pos_exit.y==i)
 					printf(" X ");
 				else
-					printf("   ");
+				{
+					if (plusCourt)
+					{
+						set_color(BLOOD,RED);
+						if (is_in_path(plusCourt,j,i,j,i-1) && is_in_path(plusCourt,j,i,j,i+1))
+							printf(" │ ");
+						else if (is_in_path(plusCourt,j,i,j+1,i) && is_in_path(plusCourt,j,i,j-1,i))
+							printf("───");
+						else if (is_in_path(plusCourt,j,i,j+1,i) && is_in_path(plusCourt,j,i,j,i+1))
+							printf(" ┌─");
+						else if (is_in_path(plusCourt,j,i,j-1,i) && is_in_path(plusCourt,j,i,j,i+1))
+							printf("─┐ ");
+						else if (is_in_path(plusCourt,j,i,j,i-1) && is_in_path(plusCourt,j,i,j+1,i))
+							printf(" └─");
+						else if (is_in_path(plusCourt,j,i,j,i-1) && is_in_path(plusCourt,j,i,j-1,i))
+							printf("─┘ ");
+						else 
+							printf("   ");
+						set_color(DEFAULT,WHITE);
+					}
+					else
+						printf("   ");
+				}
 			}
 			else if (mode == 'e')
 			{
@@ -218,8 +349,9 @@ void 	display_path(path* chemin)
 		printf("de type %c : ", chemin->type);
 		for(int i = 0 ; i<=chemin->length ; i++)
 			printf("[%d:%d] ", chemin->cells[i].x, chemin->cells[i].y);
+		printf("\n");
+
 	}
-	printf("\n");
 }
 
 
