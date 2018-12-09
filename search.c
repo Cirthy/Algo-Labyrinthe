@@ -5,7 +5,11 @@
 
 int set_distance(labyrinthe L, position p, int distance) {
     L.grid[p.y][p.x] %= 256; // it remains the 8 least significant bits
-    L.grid[p.y][p.x] += distance * 256;
+    if (distance<=255)
+    	L.grid[p.y][p.x] += distance * 256;
+    else
+    	L.grid[p.y][p.x] += 255 * 256;
+
     return 0;
 }
 
@@ -108,7 +112,7 @@ path BFS(labyrinthe L) {
     init_distances(L);
 
     int size_V = L.lab_height * L.lab_width;
-    position* V = malloc(size_V * sizeof(position));    // order of visit of the vertex
+	position* V = malloc(size_V * sizeof(position));    // order of visit of the vertex
     position* P = malloc(size_V * sizeof(position));    // P[i] predecessor of V[i]
 
 
@@ -223,8 +227,12 @@ path BFS(labyrinthe L) {
 
         }
 
-    free(V);
-    free(P);
+    printf("avant free\n");
+
+    //free(V);
+    //free(P);
+
+    printf("apres free\n");
     path Path;
     Path.length = distance_shortest_path;
     Path.cells = shortest_path;

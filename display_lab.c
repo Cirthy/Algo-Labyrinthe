@@ -311,7 +311,7 @@ void	displayV2(labyrinthe L, char mode, path* plusCourt)
 			{
 				if (L.cursor.x==j && L.cursor.y==i)
 				{
-					set_color(WINKER,YELLOW);
+					set_color(BLOOD,YELLOW);
 					printf(" ☐ ");
 					set_color(DEFAULT,WHITE);
 				}
