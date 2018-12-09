@@ -5,6 +5,8 @@ void	display(labyrinthe L)
 {
 	int i;
 	int j;
+	position temp;
+	int dist;
 	for(i = 0 ; i < L.lab_height ; i++)
 	{
 		printf("    ");
@@ -17,18 +19,25 @@ void	display(labyrinthe L)
 		for(j = 0 ; j < L.lab_width ; j++)
 		{
 			(L.grid[i][j]%2) ? printf("|") : printf(" ");
-
-			if (L.pos_entrance.x==j && L.pos_entrance.y==i)
+			temp.x = j;
+			temp.y = i;
+			dist = distance(L,temp);
+			if (dist ==0)
 			{
-				if (L.pos_exit.x==j && L.pos_exit.y==i)
-					printf("EX!"); // le ! est de la part de Clément :)
+				if (L.pos_entrance.x==j && L.pos_entrance.y==i)
+				{
+					if (L.pos_exit.x==j && L.pos_exit.y==i)
+						printf("EX!"); // le ! est de la part de Clément :)
+					else
+						printf(" E ");
+				}
+				else if (L.pos_exit.x==j && L.pos_exit.y==i)
+					printf(" X ");
 				else
-					printf(" E ");
+					printf("   ");
 			}
-			else if (L.pos_exit.x==j && L.pos_exit.y==i)
-				printf(" X ");
 			else
-				printf("   ");
+				printf("%3d",distance(L,temp));
 
 		}
 		printf("|\n");
@@ -48,19 +57,6 @@ void	displayV2(labyrinthe L, char mode, path* plusCourt)
 
 	// │ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · ╴ ╶ ╵ ╷
 
-	if (plusCourt)
-	{
-		if (plusCourt->type=='h')
-			printf("Analyse par heuristique, ");
-		if (plusCourt->type=='b')
-			printf("Analyse par backtraking, ");
-		if (plusCourt->type=='l')
-			printf("Analyse par parcours en largeur, ");
-		if (plusCourt->length == L.lab_width*L.lab_height)
-			printf("pas de chemin trouvé !");
-		else
-			printf("un chemin minimum trouvé de longeur %d.", plusCourt->length);
-	}
 
 
 
@@ -482,7 +478,7 @@ void	menu_display(labyrinthe L, char mode, path* chemin)
 				printf(" -8462- placer/retirer un mur.\n");
 				printf(" -e- positionner l'entrée.\n");
 				printf(" -x- positionner la sortie.\n");
-				printf(" -a- sauvegarder et quitter l'éditeur.\n\n");
+				printf(" -m- sauvegarder et quitter l'éditeur.\n\n");
 				displayV2(L,mode,NULL);
 	        break;
 	    case 'x': // analyse
@@ -493,7 +489,29 @@ void	menu_display(labyrinthe L, char mode, path* chemin)
 				printf(" -l- lancer une recherche de plus court chemin par parcours en largeur.\n");
 				printf(" -s- afficher les statistiques du labyrinthe.\n");
 				printf(" -m- revenir au menu principal.\n\n");
-				displayV2(L,'c',chemin);
+
+				if (chemin)
+				{
+					if (chemin->type=='h')
+						printf("Analyse par heuristique, ");
+					if (chemin->type=='b')
+						printf("Analyse par backtraking, ");
+					if (chemin->type=='l')
+						printf("Analyse par parcours en largeur, ");
+					if (chemin->length == L.lab_width*L.lab_height || chemin->length == 255)
+						{
+							printf("pas de chemin trouvé !");
+							displayV2(L,'c',NULL);
+						}
+					else
+						{
+							printf("un chemin minimum trouvé de longeur %d.", chemin->length);
+							displayV2(L,'c',chemin);
+						}
+				}
+				else
+					displayV2(L,'c',NULL);
+
 	        break;
 
 	//creating_display(L,0);

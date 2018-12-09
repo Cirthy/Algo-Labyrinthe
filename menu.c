@@ -221,6 +221,8 @@ void menu(labyrinthe* L)
 				system("/bin/stty cooked");
 	        	break;
 		    case 'k': // knight
+		    	if (pos_dragon.x == -40)
+		    		break;
 		    	printf("\r \r");
 		    	system("/bin/stty raw");
 				ctemp = getc(stdin);
@@ -347,6 +349,12 @@ void 	edit_lab(labyrinthe *L)
 		switch (ctemp)
 		{
 		    case 27: // ESC
+		    	printf("\r        (Labyrinthe en mémoire)\n        Voulez vous quitter l'éditeur ? (y/n) ");
+		    	scanf("%1c",&ctemp);
+		    	if (ctemp=='y')
+		        	quit = 1;
+		        break;
+		    case 'm': // ESC
 		    	printf("\r        (Labyrinthe en mémoire)\n        Voulez vous quitter l'éditeur ? (y/n) ");
 		    	scanf("%1c",&ctemp);
 		    	if (ctemp=='y')
@@ -490,10 +498,11 @@ void 	analyse_menu(labyrinthe *L)
 		        	quit = 1;
 		        break;
 		    case 'h': // heuristique
-		    	
+		    	chemin = NULL;
 		        break;
 		    case 'b': // backtraking (profondeur)
-		       
+		    	temp = profondeur_baptiste(L);
+		    	chemin = &temp;
 		        break;
 		    case 'l': // largeur
 		    	temp = BFS(*L);

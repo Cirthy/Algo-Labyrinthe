@@ -123,4 +123,20 @@ path 	BFS(labyrinthe L);
 void	display_marked(labyrinthe L);
 void	display_visit_order(labyrinthe L, position *V);
 
+
+
+
+
+//////////////////////////////////////////
+
+char 	can_go_there(labyrinthe *L, char dir, int d);
+void 	parcour(labyrinthe *L, int d);
+int 	min_dist_in_tab4(int *d);
+path 	profondeur_baptiste(labyrinthe *L);
+
+//////////////////////////////////////////
+
+
+
+
 #endif
