@@ -3,57 +3,10 @@
 #include    "labyrinthe.h"
 
 
-int set_distance(labyrinthe L, position p, int distance) {
-    L.grid[p.y][p.x] %= 256; // it remains the 8 least significant bits
-    if (distance<=255)
-    	L.grid[p.y][p.x] += distance * 256;
-    else
-    	L.grid[p.y][p.x] += 255 * 256;
-
-    return 0;
-}
-
-int distance(labyrinthe L, position p) {
-    return L.grid[p.y][p.x] / 256;
-}
 
 
 
 
-
-/*** A FAIRE
-init distance à 11111111
-test actu distances si >= 128***/
-int init_distances(labyrinthe L) {
-    int i;
-    int j;
-    position tmp;
-    for(i = 0 ; i < L.lab_height ; i++) {
-        for(j = 0 ; j < L.lab_width ; j++) {
-            if ( (i != L.pos_entrance.y) || (j != L.pos_entrance.x) ) {        // distance entrance/entrance = 0
-                tmp.x = j;
-                tmp.y = i;
-                set_distance(L, tmp, L.lab_height * L.lab_width);    // "infinite" = height * width (the distances never exceeds that)
-            }
-        }
-    }
-    return 0;
-}
-
-//18.04.1
-int actualize_distance(labyrinthe L, position s1, position s2) {
-    if ( distance(L, s1) + 1 < distance(L, s2) ) {
-        set_distance(L, s2, distance(L, s1)+1);
-        return 1;    // distance actualized
-    }
-    return 0;    // s1 is not a good way to access to s2
-}
-
-
-
-unsigned int cell(labyrinthe L, position p) {
-    return L.grid[p.y][p.x];
-}
 
 int mark (labyrinthe L, position p) {
     if ( is_marked(L, p) == 0 ) {
@@ -68,44 +21,10 @@ int is_marked (labyrinthe L, position p) {
 
 
 
-int in_tab(position p, position* V, int size) {
-    int i;
-    for (i=0; i<size; i++) {
-        if (V[i].x == p.x && V[i].y == p.y) {
-            return i;    // p is in T at the index i
-        }
-    }
-    printf("(%d, %d) not in V\n", p.x, p.y);
-    return -1; // p is not in T
-}
 
 
-int pos_equal(position s1, position s2) {
-    return (s1.x == s2.x) && (s1.y == s2.y) ? 1 : 0;
-}
-
-position copy_pos(position s) {
-    position p;
-    p.x = s.x;
-    p.y = s.y;
-    return p;
-}
 
 
-int display_pos(position p) {
-    printf("(%d, %d)\n", p.x, p.y);
-    return 0;
-}
-
-int display_tab(position* T, int size_T) {
-    int i;
-    for (i=0; i<size_T; i++) {
-        printf("%d : ", i);
-        display_pos(T[i]);
-    }
-    printf("\n");
-    return 0;
-}
 
 
 path BFS(labyrinthe L) {
@@ -123,8 +42,8 @@ path BFS(labyrinthe L) {
 
     int i;
     for (i=0; i< size_V; i++) {
-        V[i] = copy_pos(pos_null);
-        P[i] = copy_pos(pos_null);
+        V[i] = pos_null;
+        P[i] = pos_null;
     }
     V[0] = L.pos_entrance;
     mark(L, L.pos_entrance);
@@ -197,7 +116,7 @@ path BFS(labyrinthe L) {
 
     /*** Find the way backwards ***/
 
-    int distance_shortest_path = distance(L, L.pos_exit) ;
+    int distance_shortest_path = get_distance(L, L.pos_exit) ;
     position* shortest_path;    // AMELIORATION POSSIBLE : STRUCTURE LISTE CHAÎNEE
     shortest_path = malloc( (distance_shortest_path +1) * sizeof(position));    // (+1) for the entrance
 
@@ -218,7 +137,7 @@ path BFS(labyrinthe L) {
 
             index_pos = in_tab(P[ index_pos ], V, size_V);
             }    // A VERIFIER
-        shortest_path[0] = copy_pos(V[0]);    // add the entrance
+        shortest_path[0] = V[0];    // add the entrance
 
 
         /*** display the liste ***/
@@ -227,12 +146,9 @@ path BFS(labyrinthe L) {
 
         }
 
-    printf("avant free\n");
+    free(V);
+    free(P);
 
-    //free(V);
-    //free(P);
-
-    printf("apres free\n");
     path Path;
     Path.length = distance_shortest_path;
     Path.cells = shortest_path;

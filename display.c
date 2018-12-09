@@ -1,7 +1,7 @@
 #include	"labyrinthe.h"
 
 
-void	display(labyrinthe L)
+void	display_lab_V1(labyrinthe L)
 {
 	int i;
 	int j;
@@ -21,7 +21,7 @@ void	display(labyrinthe L)
 			(L.grid[i][j]%2) ? printf("|") : printf(" ");
 			temp.x = j;
 			temp.y = i;
-			dist = distance(L,temp);
+			dist = get_distance(L,temp);
 			if (dist ==0)
 			{
 				if (L.pos_entrance.x==j && L.pos_entrance.y==i)
@@ -37,7 +37,7 @@ void	display(labyrinthe L)
 					printf("   ");
 			}
 			else
-				printf("%3d",distance(L,temp));
+				printf("%3d",dist);
 
 		}
 		printf("|\n");
@@ -50,7 +50,7 @@ void	display(labyrinthe L)
 	printf("+\n\n");
 }
 
-void	displayV2(labyrinthe L, char mode, path* plusCourt)
+void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 {
 	int i;
 	int j;
@@ -344,7 +344,10 @@ void 	display_path(path* chemin)
 	{
 		printf("de type %c : ", chemin->type);
 		for(int i = 0 ; i<=chemin->length ; i++)
-			printf("[%d:%d] ", chemin->cells[i].x, chemin->cells[i].y);
+		{
+			display_position(chemin->cells[i]);
+			printf(" ");
+		}
 		printf("\n");
 
 	}
@@ -386,7 +389,7 @@ void	display_visit_order(labyrinthe L, position *V)
 
 
 
-void	menu_display(labyrinthe L, char mode, path* chemin)
+void	display_menu(labyrinthe L, char mode, path* chemin)
 {
 	/*
 	mode :
@@ -468,10 +471,10 @@ void	menu_display(labyrinthe L, char mode, path* chemin)
 				printf(" -l- charger un labyrinthe depuis un fichier.\n");
 				printf(" -s- sauvegarder le labyrinthe courant dans un fichier.\n");
 				printf(" -x- analyser le labyrinthe courant\n\n");
-				displayV2(L,mode,NULL);			
+				display_lab_V2(L,mode,NULL);			
 			}
-	        break;
-	    case 'e': // édition
+			break;
+		case 'e': // édition
 				printf("\n\tBienvenue sur le menu d'édition du labyrinthe courant.\n");
 				printf("\tLa labyrinthe courant est de taille %dx%d.\n",L.lab_height,L.lab_width);
 				printf(" -zqsd- déplacer le curseur dans le labyrinthe.\n");
@@ -479,9 +482,9 @@ void	menu_display(labyrinthe L, char mode, path* chemin)
 				printf(" -e- positionner l'entrée.\n");
 				printf(" -x- positionner la sortie.\n");
 				printf(" -m- sauvegarder et quitter l'éditeur.\n\n");
-				displayV2(L,mode,NULL);
-	        break;
-	    case 'x': // analyse
+				display_lab_V2(L,mode,NULL);
+			break;
+		case 'x': // analyse
 				printf("\n\tBienvenue sur le menu d'analyse du labyrinthe courant.\n");
 				printf("La labyrinthe courant est de taille %dx%d.\n",L.lab_height,L.lab_width);
 				printf(" -h- lancer une recherche de plus court chemin par heuristique.\n");
@@ -501,23 +504,38 @@ void	menu_display(labyrinthe L, char mode, path* chemin)
 					if (chemin->length == L.lab_width*L.lab_height || chemin->length == 255)
 						{
 							printf("pas de chemin trouvé !");
-							displayV2(L,'c',NULL);
+							display_lab_V2(L,'c',NULL);
 						}
 					else
 						{
 							printf("un chemin minimum trouvé de longeur %d.", chemin->length);
-							displayV2(L,'c',chemin);
+							display_lab_V2(L,'c',chemin);
 						}
 				}
 				else
-					displayV2(L,'c',NULL);
-
-	        break;
-
-	//creating_display(L,0);
+					display_lab_V2(L,'c',NULL);
+			break;
 	}
 }
 
+
+
+void 	display_position(position p)
+{
+	printf("[%d:%d]", p.x, p.y);
+}
+
+void 	display_positions_tab(position* T, int size_T)
+{
+	int i;
+	for (i=0; i<size_T; i++)
+	{
+		printf("%d : ", i);
+		display_position(T[i]);
+		printf("\n");
+	}
+	printf("\n");
+}
 
 
 

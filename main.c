@@ -3,6 +3,7 @@
 int	main()//int argc, char const *argv[])
 {
 	srand(time(NULL));
+	init_displayer();
 
 	
 
@@ -36,7 +37,7 @@ int	main()//int argc, char const *argv[])
 	display_path(&chemin);
 	*/
 
-	menu(&L);
+	home_menu(&L);
 
 
 

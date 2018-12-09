@@ -1,13 +1,12 @@
 #include	"labyrinthe.h"
 
 
-void menu(labyrinthe* L)
+void 	home_menu(labyrinthe* L)
 {
 	char			ctemp;
 	char			quit;
 	int 			micro_delay;
 
-	init_displayer();
 
 
 	pos_dragon.x 	= -40;
@@ -39,7 +38,7 @@ void menu(labyrinthe* L)
 	while(quit != 1)
 	{
 		// refresh
-		menu_display(*L,'c', NULL);
+		display_menu(*L,'c', NULL);
 
 
 
@@ -68,8 +67,8 @@ void menu(labyrinthe* L)
 			    		scanf("%d", &(L->lab_height));
 			    		printf("   Largeur du nouveau labyrinthe vide : ");
 			    		scanf("%d", &(L->lab_width));
-						create_lab(L, L->lab_height, L->lab_width);
-						edit_lab(L);
+						create_empty_lab(L, L->lab_height, L->lab_width);
+						edit_menu(L);
 					}
 				}
 				else
@@ -78,14 +77,14 @@ void menu(labyrinthe* L)
 		    		scanf("%d", &(L->lab_height));
 		    		printf("   Largeur du nouveau labyrinthe vide : ");
 		    		scanf("%d", &(L->lab_width));
-					create_lab(L, L->lab_height, L->lab_width);
-					edit_lab(L);
+					create_empty_lab(L, L->lab_height, L->lab_width);
+					edit_menu(L);
 				}
 				break;
 		    case 'e': // modifier via l'éditeur
 		    	if(L->lab_width!=0 && L->lab_height!=0)
 			    {
-			    	edit_lab(L);
+			    	edit_menu(L);
 			    }
 		        break;
 		    case 'a': // créer aléatoirement
@@ -99,7 +98,7 @@ void menu(labyrinthe* L)
 			    		scanf("%d", &(L->lab_height));
 			    		printf("   Largeur du nouveau labyrinthe aléatoire : ");
 			    		scanf("%d", &(L->lab_width));
-						init_lab(L, L->lab_height, L->lab_width);
+						create_alea_lab(L, L->lab_height, L->lab_width);
 					}
 				}
 				else
@@ -108,7 +107,7 @@ void menu(labyrinthe* L)
 		    		scanf("%d", &(L->lab_height));
 		    		printf("   Largeur du nouveau labyrinthe aléatoire : ");
 		    		scanf("%d", &(L->lab_width));
-					init_lab(L, L->lab_height, L->lab_width);
+					create_alea_lab(L, L->lab_height, L->lab_width);
 				}
 		    	break;
 
@@ -118,12 +117,12 @@ void menu(labyrinthe* L)
 			    	printf("\r   Attention, un Labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
 			    	scanf("%1c",&ctemp);
 			    	if (ctemp=='y')
-						read_file(L);
+						load_file(L);
 				}
 				else
 				{
 					printf("\r \n");
-					read_file(L);
+					load_file(L);
 				}
 		        break;
 		    case 's': // sauvegarder dans un fichier
@@ -135,7 +134,7 @@ void menu(labyrinthe* L)
 		    case 'x': // analyser le labyrinthe
 		    	if(L->lab_width!=0 && L->lab_height!=0)
 			    {
-					analyse_menu(L);
+					analysis_menu(L);
 				}
 		        break;
 		    case 'd': // dragon
@@ -166,7 +165,7 @@ void menu(labyrinthe* L)
 									for(int i=0;i<18;i++)
 									{
 										pos_dragon.x++;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 									}
 									for(int i=0;i<3;i++)
@@ -174,34 +173,34 @@ void menu(labyrinthe* L)
 										pos_dragon.x++;
 										pos_lab.x++;
 										pos_oratoire.x++;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 										pos_dragon.x++;
 										pos_lab.x++;
 										pos_oratoire.x++;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 										pos_dragon.x++;
 										pos_lab.x++;
 										pos_lab.y--;
 										pos_oratoire.x++;
 										pos_oratoire.y++;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 									}
 									for(int i=0;i<4;i++)
 									{
 										pos_dragon.x++;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 										pos_dragon.x++;
 										pos_lab.x++;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 										pos_dragon.x++;
 										pos_lab.x++;
 										pos_oratoire.x++;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 									}
 									for(int i=0;i<2;i++)
@@ -209,7 +208,7 @@ void menu(labyrinthe* L)
 										pos_dragon.x++;
 										pos_lab.x++;
 										pos_oratoire.x++;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 									}
 									//positions finals atteintes
@@ -250,37 +249,37 @@ void menu(labyrinthe* L)
 									for(int i=0;i<3;i++)
 									{
 										pos_knight.x--;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 									}
 									for(int i=0;i<8;i++)
 									{
 										pos_knight.x--;
 										pos_oratoire.x--;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 										pos_knight.x--;
 										pos_oratoire.x--;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 										pos_knight.x--;
 										pos_oratoire.x--;
 										pos_oratoire.y++;
 										pos_lab.y--;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 									}
 									for(int i=0;i<33;i++)
 									{
 										pos_knight.x--;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 									}
 									for(int i=0;i<30;i++)
 									{
 										pos_dragon.x--;
 										pos_knight.x--;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 									}
 									pos_lab.x 		= 19;
@@ -289,17 +288,17 @@ void menu(labyrinthe* L)
 									{
 										pos_dragon.x--;
 										pos_knight.x--;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 										pos_dragon.x--;
 										pos_knight.x--;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 										pos_dragon.x--;
 										pos_knight.x--;
 										pos_lab.y++;
 										pos_oratoire.y--;
-										menu_display(*L,'c', NULL);
+										display_menu(*L,'c', NULL);
 										usleep(micro_delay);
 									}
 									//usleep(2000000);
@@ -322,7 +321,7 @@ void menu(labyrinthe* L)
 
 
 
-void 	edit_lab(labyrinthe *L)
+void 	edit_menu(labyrinthe *L)
 {
 	unsigned char		ctemp;
 	int 				quit;
@@ -337,7 +336,7 @@ void 	edit_lab(labyrinthe *L)
 		// refresh
 		system("clear");
 
-		menu_display(*L,'e', NULL);
+		display_menu(*L,'e', NULL);
 		// refresh
 
 		system("/bin/stty raw");
@@ -460,7 +459,7 @@ void 	edit_lab(labyrinthe *L)
 
 
 
-void 	analyse_menu(labyrinthe *L)
+void 	analysis_menu(labyrinthe *L)
 {
 	unsigned char		ctemp;
 	int 				quit;
@@ -476,7 +475,7 @@ void 	analyse_menu(labyrinthe *L)
 		// refresh
 		system("clear");
 
-		menu_display(*L,'x', chemin);
+		display_menu(*L,'x', chemin);
 		//if (chemin)
 			//printf("%d\n", chemin->length);
 		//display_path(chemin);

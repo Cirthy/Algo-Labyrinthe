@@ -10,7 +10,7 @@ char can_go_there(labyrinthe *L, char dir, int d)
     position temp;
     temp.y = L->cursor.y + (dir==2) - (dir==8);
     temp.x = L->cursor.x + (dir==4) - (dir==1);
-    if (d>=distance(*L,temp))
+    if (d>=get_distance(*L,temp))
         return 0;
     return 1;
 }
@@ -72,7 +72,7 @@ path profondeur_baptiste(labyrinthe *L)
 
 
     path plusCourt;
-    plusCourt.length = distance(*L, L->pos_exit);
+    plusCourt.length = get_distance(*L, L->pos_exit);
     plusCourt.cells = malloc((plusCourt.length+1) * sizeof(position));
     plusCourt.cells[0] = L->pos_exit;
 
