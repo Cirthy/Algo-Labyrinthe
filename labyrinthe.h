@@ -71,7 +71,7 @@ position pos_oratoire;
 
 
 
-// gen_lab.c ===== A RENOMER EN generator.c =====
+// generator.c
 void	create_empty_lab(labyrinthe *L, int height, int width);
 void 	create_alea_lab(labyrinthe *L, int height, int width);
 void	init_wall(labyrinthe *L);
@@ -80,7 +80,7 @@ void	init_wall(labyrinthe *L);
 
 
 
-// display_lab.c ===== A RENOMER EN display.c =====
+// display.c
 void	display_lab_V1(labyrinthe L);
 void	display_lab_V2(labyrinthe L, char mode, path* plusCourt);
 void 	display_path(path* chemin);
