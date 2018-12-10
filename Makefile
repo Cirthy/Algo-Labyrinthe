@@ -6,7 +6,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = main.c generator.c display.c menu.c loadsave.c management.c widthbrowser.c depthbrowser.c 
+SRCS = main.c generator.c display.c menu.c loadsave.c management.c widthbrowser.c depthbrowser.c pathfinding.c
 
 all : $(NAME)			## Compile le projet
 

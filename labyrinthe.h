@@ -3,11 +3,12 @@
 
 #include		<stdio.h>
 #include		<stdlib.h>
-#include		<time.h>		//pour srand(tinme(NULL))
-#include		<unistd.h>		//pour usleep()
-#include 		<string.h>		//pour strcmp
+#include		<time.h>		// pour srand(tinme(NULL))
+#include		<unistd.h>		// pour usleep()
+#include 		<string.h>		// pour strcmp
 
-#define			WALL_PROB		3 //probabilité de mettre un mur lors de la génération aléatoire := 1 / WALL_PROB
+#define			WALL_PROB		3 // probabilité de mettre un mur lors de la génération aléatoire := 1 / WALL_PROB
+#define			DISTANCE_MAX	4095 // 2**12 - 1
 
 
 // outil de mise en forme coloré
@@ -55,7 +56,7 @@ typedef	struct		labyrinthe
 
 typedef struct  	path
 {
-	char			type;
+	char			type; // 'l' pour largeur, 'h' pour largeur avec heuristique, 'p' pour profondeur
 	int				length;
 	position		*cells;
 }					path;
@@ -75,8 +76,6 @@ position pos_oratoire;
 void	create_empty_lab(labyrinthe *L, int height, int width);
 void 	create_alea_lab(labyrinthe *L, int height, int width);
 void	init_wall(labyrinthe *L);
-//void	init_lab(labyrinthe *L, int lab_height, int lab_width);
-//void	init_wall2(labyrinthe *L);
 
 
 
@@ -90,6 +89,7 @@ void	display_menu(labyrinthe L, char mode, path* chemin);
 void 	display_position(position p);
 void 	display_positions_tab(position* T, int size_T);
 void	init_displayer();
+void	display_distance(labyrinthe *L);
 
 
 
@@ -112,6 +112,7 @@ char	left_wall(unsigned short cell);
 char	bottom_wall(unsigned short cell);
 char	right_wall(unsigned short cell);
 char	top_wall(unsigned short cell);
+char	is_wall(unsigned short cell, int dir);
 position pos(int x , int y);
 char 	is_in_path(path *p, int x1, int y1, int x2, int y2);
 int		set_distance(labyrinthe L, position p , int distance);
@@ -121,6 +122,11 @@ int		actualize_distance(labyrinthe L, position s1, position s2);
 unsigned int cell(labyrinthe L, position p);
 int 	in_tab(position p, position* V, int size);
 int 	pos_equal(position s1, position s2);
+void	set_distance_12b(labyrinthe *L, position p, int distance);
+void	set_default_distance(labyrinthe *L);
+int		get_distance_12b(labyrinthe *L, position p);
+void	move_cursor(labyrinthe *L, int dir);
+position pos_after_move(position pos, int dir);
 
 
 
@@ -128,8 +134,6 @@ int 	pos_equal(position s1, position s2);
 int 	mark (labyrinthe L, position p);
 int 	is_marked (labyrinthe L, position p);
 path 	BFS(labyrinthe L);
-
-
 
 
 
@@ -141,7 +145,9 @@ path 	profondeur_baptiste(labyrinthe *L);
 
 
 
-
-
+//pathfinding.c
+path	search_path_depth(labyrinthe *L);
+void	browse_maze(labyrinthe *L, int distance);
+int		dir_adjacent_cell(labyrinthe *L, position pos);
 
 #endif

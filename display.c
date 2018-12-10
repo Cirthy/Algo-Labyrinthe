@@ -5,8 +5,6 @@ void	display_lab_V1(labyrinthe L)
 {
 	int i;
 	int j;
-	position temp;
-	int dist;
 	for(i = 0 ; i < L.lab_height ; i++)
 	{
 		printf("    ");
@@ -19,26 +17,20 @@ void	display_lab_V1(labyrinthe L)
 		for(j = 0 ; j < L.lab_width ; j++)
 		{
 			(L.grid[i][j]%2) ? printf("|") : printf(" ");
-			temp.x = j;
-			temp.y = i;
-			dist = get_distance(L,temp);
-			if (dist ==0)
+			//dist = get_distance(L,temp);
+			if (L.pos_entrance.x==j && L.pos_entrance.y==i)
 			{
-				if (L.pos_entrance.x==j && L.pos_entrance.y==i)
-				{
-					if (L.pos_exit.x==j && L.pos_exit.y==i)
-						printf("EX!"); // le ! est de la part de Clément :)
-					else
-						printf(" E ");
-				}
-				else if (L.pos_exit.x==j && L.pos_exit.y==i)
-					printf(" X ");
+				if (L.pos_exit.x==j && L.pos_exit.y==i)
+					printf("EX!"); // le ! est de la part de Clément :)
 				else
-					printf("   ");
+					printf(" E ");
 			}
+			else if (L.pos_exit.x==j && L.pos_exit.y==i)
+				printf(" X ");
+			else if (pos_equal(L.cursor, pos(j, i)))
+				printf(" C ");
 			else
-				printf("%3d",dist);
-
+				printf("   ");
 		}
 		printf("|\n");
 	}
@@ -342,18 +334,32 @@ void 	display_path(path* chemin)
 {
 	if (chemin)
 	{
-		printf("de type %c : ", chemin->type);
-		for(int i = 0 ; i<=chemin->length ; i++)
+		if(chemin->length == -1)
+			printf("Pas de chemin\n");
+		else
 		{
-			display_position(chemin->cells[i]);
-			printf(" ");
+			printf("de type %c, longueur %d : ", chemin->type, chemin->length);
+			for(int i = 0 ; i<=chemin->length ; i++)
+			{
+				display_position(chemin->cells[i]);
+				printf("%s", i == chemin->length ? "" : " -> ");
+			}
+			printf("\n");
 		}
-		printf("\n");
-
 	}
 }
 
 
+void	display_distance(labyrinthe *L)
+{
+	for(int i = 0 ; i < L->lab_height ; i++)
+	{
+		for(int j = 0 ; j < L->lab_width ; j++)
+			printf("%d\t", get_distance_12b(L, pos(j, i)));
+	printf("\n");
+	}
+	printf("\n\n");
+}
 
 
 void	display_marked(labyrinthe L)
@@ -384,9 +390,6 @@ void	display_visit_order(labyrinthe L, position *V)
 		printf("(%d, %d) ", V[i].y, V[i].x);
 	printf("\n");
 }
-
-
-
 
 
 void	display_menu(labyrinthe L, char mode, path* chemin)
