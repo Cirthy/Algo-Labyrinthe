@@ -5,27 +5,27 @@ void	display_lab_V1(labyrinthe L)
 {
 	int i;
 	int j;
-	for(i = 0 ; i < L.lab_height ; i++)
+	for(i = 0 ; i < L.height ; i++)
 	{
 		printf("    ");
-		for(j = 0 ; j < L.lab_width ; j++)
+		for(j = 0 ; j < L.width ; j++)
 		{
 			printf("+");
 			((L.grid[i][j]/8)%2) ?	printf("---") : printf("   ");
 		}
 		printf("+\n    ");
-		for(j = 0 ; j < L.lab_width ; j++)
+		for(j = 0 ; j < L.width ; j++)
 		{
 			(L.grid[i][j]%2) ? printf("|") : printf(" ");
 			//dist = get_distance(L,temp);
-			if (L.pos_entrance.x==j && L.pos_entrance.y==i)
+			if (L.entrance.x==j && L.entrance.y==i)
 			{
-				if (L.pos_exit.x==j && L.pos_exit.y==i)
+				if (L.exit.x==j && L.exit.y==i)
 					printf("EX!"); // le ! est de la part de Clément :)
 				else
 					printf(" E ");
 			}
-			else if (L.pos_exit.x==j && L.pos_exit.y==i)
+			else if (L.exit.x==j && L.exit.y==i)
 				printf(" X ");
 			else if (pos_equal(L.cursor, pos(j, i)))
 				printf(" C ");
@@ -35,7 +35,7 @@ void	display_lab_V1(labyrinthe L)
 		printf("|\n");
 	}
 	printf("    ");
-	for(j = 0 ; j < L.lab_width ; j++)
+	for(j = 0 ; j < L.width ; j++)
 	{
 		printf("+---");
 	}
@@ -55,17 +55,17 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 	if (mode=='e')
 	{
 		printf("     ");
-		for(j=0 ; j<L.lab_width ; j++)
+		for(j=0 ; j<L.width ; j++)
 			printf("%2d  ",j);
 	}
 	printf("\n");
 
 
 
-	for(i=0 ; i<L.lab_height ; i++)
+	for(i=0 ; i<L.height ; i++)
 	{
 		printf("    ");
-		for(j=0 ; j<L.lab_width ; j++)
+		for(j=0 ; j<L.width ; j++)
 		{
 			if(i==0)
 			{
@@ -76,7 +76,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 					(L.grid[i][j]%2) ? printf("┬───") : printf("────");
 
 				}
-				if (j==L.lab_width-1)
+				if (j==L.width-1)
 					printf("┐");
 			}
 			else
@@ -241,13 +241,13 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 						}
 					}
 				}
-				if (j==L.lab_width-1)
+				if (j==L.width-1)
 					((L.grid[i][j]/8)%2) ? printf("┤") : printf("│");
 
 			}
 		}
 		(mode=='e') ? printf("\n %2d ",i): printf("\n    ");
-		for(j=0 ; j<L.lab_width ; j++)
+		for(j=0 ; j<L.width ; j++)
 		{
 			if (L.grid[i][j]%2)
 				printf("│");
@@ -261,14 +261,14 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 				printf(" ");
 			if (mode == 'c')
 			{
-				if (L.pos_entrance.x==j && L.pos_entrance.y==i)
+				if (L.entrance.x==j && L.entrance.y==i)
 				{
-					if (L.pos_exit.x==j && L.pos_exit.y==i)
+					if (L.exit.x==j && L.exit.y==i)
 						printf("EX!"); //// le ! est de la part de Clément :)
 					else
 						printf(" E ");
 				}
-				else if (L.pos_exit.x==j && L.pos_exit.y==i)
+				else if (L.exit.x==j && L.exit.y==i)
 					printf(" X ");
 				else
 				{
@@ -305,14 +305,14 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 				}
 				else
 				{
-					if (L.pos_entrance.x==j && L.pos_entrance.y==i)
+					if (L.entrance.x==j && L.entrance.y==i)
 					{
-						if (L.pos_exit.x==j && L.pos_exit.y==i)
+						if (L.exit.x==j && L.exit.y==i)
 							printf("EX!"); //// le ! est de la part de Clément :)
 						else
 							printf(" E ");
 					}
-					else if (L.pos_exit.x==j && L.pos_exit.y==i)
+					else if (L.exit.x==j && L.exit.y==i)
 						printf(" X ");
 					else
 						printf("   ");
@@ -322,9 +322,9 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 		printf("│\n");
 	}
 	printf("    └───");
-	for(j=1 ; j<L.lab_width ; j++)
+	for(j=1 ; j<L.width ; j++)
 	{
-		(L.grid[L.lab_height-1][j]%2) ? printf("┴───") : printf("────");
+		(L.grid[L.height-1][j]%2) ? printf("┴───") : printf("────");
 	}
 	printf("┘\n\n");
 }
@@ -352,9 +352,9 @@ void 	display_path(path* chemin)
 
 void	display_distance(labyrinthe *L)
 {
-	for(int i = 0 ; i < L->lab_height ; i++)
+	for(int i = 0 ; i < L->height ; i++)
 	{
-		for(int j = 0 ; j < L->lab_width ; j++)
+		for(int j = 0 ; j < L->width ; j++)
 			printf("%d\t", get_distance_12b(L, pos(j, i)));
 	printf("\n");
 	}
@@ -367,9 +367,9 @@ void	display_marked(labyrinthe L)
 	int i, j;
 	position pos;
 
-	for(i = 0 ; i < L.lab_height ; i++)
+	for(i = 0 ; i < L.height ; i++)
 	{
-		for(j = 0 ; j < L.lab_width ; j++)
+		for(j = 0 ; j < L.width ; j++)
 		{
 			pos.x = j;
 			pos.y = i;
@@ -386,7 +386,7 @@ void	display_marked(labyrinthe L)
 
 void	display_visit_order(labyrinthe L, position *V)
 {
-	for(int i = 0 ; i < L.lab_width * L.lab_height ; i++)
+	for(int i = 0 ; i < L.width * L.height ; i++)
 		printf("(%d, %d) ", V[i].y, V[i].x);
 	printf("\n");
 }
@@ -458,7 +458,7 @@ void	display_menu(labyrinthe L, char mode, path* chemin)
 	switch (mode)
 	{
 	    case 'c': // classic
-			if(L.lab_width==0 || L.lab_height==0)
+			if(L.width==0 || L.height==0)
 			{
 				printf("\n\tIl n'y a pas de labyrinthe chargé.\n");
 				printf(" -n- créer un labyrinthe via l'éditeur.\n");
@@ -467,7 +467,7 @@ void	display_menu(labyrinthe L, char mode, path* chemin)
 			}
 			else
 			{
-				printf("\n\tIl y a un labyrinthe de taille %dx%d en mémoire.\n",L.lab_height,L.lab_width);
+				printf("\n\tIl y a un labyrinthe de taille %dx%d en mémoire.\n",L.height,L.width);
 				printf(" -n- créer un labyrinthe via l'éditeur.\n");
 				printf(" -e- modifier le labyrinthe via l'éditeur.\n");
 				printf(" -a- générer un labyrinthe aléatoirement.\n");
@@ -479,7 +479,7 @@ void	display_menu(labyrinthe L, char mode, path* chemin)
 			break;
 		case 'e': // édition
 				printf("\n\tBienvenue sur le menu d'édition du labyrinthe courant.\n");
-				printf("\tLa labyrinthe courant est de taille %dx%d.\n",L.lab_height,L.lab_width);
+				printf("\tLa labyrinthe courant est de taille %dx%d.\n",L.height,L.width);
 				printf(" -zqsd- déplacer le curseur dans le labyrinthe.\n");
 				printf(" -8462- placer/retirer un mur.\n");
 				printf(" -e- positionner l'entrée.\n");
@@ -489,7 +489,7 @@ void	display_menu(labyrinthe L, char mode, path* chemin)
 			break;
 		case 'x': // analyse
 				printf("\n\tBienvenue sur le menu d'analyse du labyrinthe courant.\n");
-				printf("La labyrinthe courant est de taille %dx%d.\n",L.lab_height,L.lab_width);
+				printf("La labyrinthe courant est de taille %dx%d.\n",L.height,L.width);
 				printf(" -h- lancer une recherche de plus court chemin par heuristique.\n");
 				printf(" -b- lancer une recherche de plus court chemin par backtraking.\n");
 				printf(" -l- lancer une recherche de plus court chemin par parcours en largeur.\n");
@@ -504,7 +504,7 @@ void	display_menu(labyrinthe L, char mode, path* chemin)
 						printf("Analyse par backtraking, ");
 					if (chemin->type=='l')
 						printf("Analyse par parcours en largeur, ");
-					if (chemin->length == L.lab_width*L.lab_height || chemin->length == 255)
+					if (chemin->length == L.width*L.height || chemin->length == 255)
 						{
 							printf("pas de chemin trouvé !");
 							display_lab_V2(L,'c',NULL);

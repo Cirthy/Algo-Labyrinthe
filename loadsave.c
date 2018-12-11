@@ -18,13 +18,13 @@ void save_file(labyrinthe *L)
 		else
 		{
 			//on inscrit les informations générales sur de la 1ère ligne
-			fprintf(file, "%2d %2d ", L->lab_height, L->lab_width);
-			fprintf(file, "%2d %2d ", L->pos_entrance.x, L->pos_entrance.y);
-			fprintf(file,"%2d %2d \n", L->pos_exit.x, L->pos_exit.y);
+			fprintf(file, "%2d %2d ", L->height, L->width);
+			fprintf(file, "%2d %2d ", L->entrance.x, L->entrance.y);
+			fprintf(file,"%2d %2d \n", L->exit.x, L->exit.y);
 
-			for(int i=0; i<(L->lab_height); i++)
+			for(int i=0; i<(L->height); i++)
 			{
-				for(int j=0; j<(L->lab_width); j++)
+				for(int j=0; j<(L->width); j++)
 					fprintf(file, "%2hu ", (L->grid)[i][j]);
 				fprintf(file, "\n");
 			}
@@ -61,20 +61,20 @@ void load_file(labyrinthe *L)
 
 
 	//on récupère les informations de la 1ère ligne	
-	fscanf(file, "%d ", &L->lab_height);	
-	fscanf(file, "%d ", &L->lab_width);
-	fscanf(file, "%d ", &L->pos_entrance.x);
-	fscanf(file, "%d ", &L->pos_entrance.y);
-	fscanf(file, "%d ", &L->pos_exit.x);
-	fscanf(file, "%d", &L->pos_exit.y);
+	fscanf(file, "%d ", &L->height);	
+	fscanf(file, "%d ", &L->width);
+	fscanf(file, "%d ", &L->entrance.x);
+	fscanf(file, "%d ", &L->entrance.y);
+	fscanf(file, "%d ", &L->exit.x);
+	fscanf(file, "%d", &L->exit.y);
 
-	L->grid = (unsigned short **)malloc(sizeof(unsigned short *) * L->lab_height);
-	for(int i = 0 ; i < L->lab_height ; i++)
-		(L->grid)[i] = (unsigned short *)calloc(sizeof(unsigned short), L->lab_width);
+	L->grid = (unsigned short **)malloc(sizeof(unsigned short *) * L->height);
+	for(int i = 0 ; i < L->height ; i++)
+		(L->grid)[i] = (unsigned short *)calloc(sizeof(unsigned short), L->width);
 
-	for(int i=0; i<L->lab_height; i++)
+	for(int i=0; i<L->height; i++)
 	{
-		for(int j=0; j<(L->lab_width); j++)
+		for(int j=0; j<(L->width); j++)
 		{
 			fscanf(file, "%hu", &(L->grid)[i][j]);
 		}

@@ -47,10 +47,10 @@ typedef struct		position
 typedef	struct		labyrinthe
 {
 	unsigned short	**grid;
-	int				lab_height;
-	int				lab_width;
-	position		pos_entrance;
-	position		pos_exit;
+	int				height;
+	int				width;
+	position		entrance;
+	position		exit;
 	position		cursor;
 }					labyrinthe;
 

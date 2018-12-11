@@ -30,7 +30,7 @@ int is_marked (labyrinthe L, position p) {
 path BFS(labyrinthe L) {
     init_distances(L);
 
-    int size_V = L.lab_height * L.lab_width;
+    int size_V = L.height * L.width;
 	position* V = malloc(size_V * sizeof(position));    // order of visit of the vertex
     position* P = malloc(size_V * sizeof(position));    // P[i] predecessor of V[i]
 
@@ -45,8 +45,8 @@ path BFS(labyrinthe L) {
         V[i] = pos_null;
         P[i] = pos_null;
     }
-    V[0] = L.pos_entrance;
-    mark(L, L.pos_entrance);
+    V[0] = L.entrance;
+    mark(L, L.entrance);
 
 
 
@@ -56,7 +56,7 @@ path BFS(labyrinthe L) {
     position visited;
     position next;
 
-    while ( ( V_index != V_visit ) && ( pos_equal(V[V_visit], L.pos_exit) == 0)) {
+    while ( ( V_index != V_visit ) && ( pos_equal(V[V_visit], L.exit) == 0)) {
 
         visited = V[ V_visit ];
         if ( left_wall( cell(L, visited) ) == 0 ) {    // if there is no left wall
@@ -116,14 +116,14 @@ path BFS(labyrinthe L) {
 
     /*** Find the way backwards ***/
 
-    int distance_shortest_path = get_distance(L, L.pos_exit) ;
+    int distance_shortest_path = get_distance(L, L.exit) ;
     position* shortest_path;    // AMELIORATION POSSIBLE : STRUCTURE LISTE CHAÎNEE
     shortest_path = malloc( (distance_shortest_path +1) * sizeof(position));    // (+1) for the entrance
 
     int index_shortest_path = distance_shortest_path;    // course of the table shortest_path from the end
 
     int index_pos;    // index to retrieve positions in V and P
-    index_pos = in_tab(L.pos_exit, V, size_V);    // initialize index_pos at the index of L.pos_exit in the table V ; -1 if L.pos_exit is not in V
+    index_pos = in_tab(L.exit, V, size_V);    // initialize index_pos at the index of L.exit in the table V ; -1 if L.exit is not in V
 
     if (index_pos == -1) {
         printf("Il n'y a pas de chemin entre l'entree et la sortie du labyrinthe.\n");
@@ -154,9 +154,9 @@ path BFS(labyrinthe L) {
     Path.cells = shortest_path;
     Path.type = 'l';
 
-    for(int tempi=0 ; tempi<L.lab_height ; tempi++)
+    for(int tempi=0 ; tempi<L.height ; tempi++)
     {
-		for(int tempj=0 ; tempj<L.lab_width ; tempj++)
+		for(int tempj=0 ; tempj<L.width ; tempj++)
 		{
 			L.grid[tempi][tempj] %= 16 ;
 		}

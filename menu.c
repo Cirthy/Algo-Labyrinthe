@@ -57,62 +57,62 @@ void 	home_menu(labyrinthe* L)
 		        	quit = 1;
 		        break;
 		    case 'n': // créer via l'éditeur
-				if(L->lab_width!=0 && L->lab_height!=0)
+				if(L->width!=0 && L->height!=0)
 			    {
 			    	printf("\r   Attention, un Labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
 			    	scanf("%1c",&ctemp);
 			    	if (ctemp=='y')
 			    	{
 			    		printf("   Hauteur du nouveau labyrinthe vide : ");
-			    		scanf("%d", &(L->lab_height));
+			    		scanf("%d", &(L->height));
 			    		printf("   Largeur du nouveau labyrinthe vide : ");
-			    		scanf("%d", &(L->lab_width));
-						create_empty_lab(L, L->lab_height, L->lab_width);
+			    		scanf("%d", &(L->width));
+						create_empty_lab(L, L->height, L->width);
 						edit_menu(L);
 					}
 				}
 				else
 				{
 			 		printf("\r \n   Hauteur du nouveau labyrinthe vide : ");
-		    		scanf("%d", &(L->lab_height));
+		    		scanf("%d", &(L->height));
 		    		printf("   Largeur du nouveau labyrinthe vide : ");
-		    		scanf("%d", &(L->lab_width));
-					create_empty_lab(L, L->lab_height, L->lab_width);
+		    		scanf("%d", &(L->width));
+					create_empty_lab(L, L->height, L->width);
 					edit_menu(L);
 				}
 				break;
 		    case 'e': // modifier via l'éditeur
-		    	if(L->lab_width!=0 && L->lab_height!=0)
+		    	if(L->width!=0 && L->height!=0)
 			    {
 			    	edit_menu(L);
 			    }
 		        break;
 		    case 'a': // créer aléatoirement
-				if(L->lab_width!=0 && L->lab_height!=0)
+				if(L->width!=0 && L->height!=0)
 			    {
 			    	printf("\r   Attention, un Labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
 			    	scanf("%1c",&ctemp);
 			    	if (ctemp=='y')
 			    	{
 			    		printf("   Hauteur du nouveau labyrinthe aléatoire : ");
-			    		scanf("%d", &(L->lab_height));
+			    		scanf("%d", &(L->height));
 			    		printf("   Largeur du nouveau labyrinthe aléatoire : ");
-			    		scanf("%d", &(L->lab_width));
-						create_alea_lab(L, L->lab_height, L->lab_width);
+			    		scanf("%d", &(L->width));
+						create_alea_lab(L, L->height, L->width);
 					}
 				}
 				else
 				{
 			 		printf("\r \n   Hauteur du nouveau labyrinthe aléatoire : ");
-		    		scanf("%d", &(L->lab_height));
+		    		scanf("%d", &(L->height));
 		    		printf("   Largeur du nouveau labyrinthe aléatoire : ");
-		    		scanf("%d", &(L->lab_width));
-					create_alea_lab(L, L->lab_height, L->lab_width);
+		    		scanf("%d", &(L->width));
+					create_alea_lab(L, L->height, L->width);
 				}
 		    	break;
 
 		    case 'l': // charger depuis un fichier
-				if(L->lab_width!=0 && L->lab_height!=0)
+				if(L->width!=0 && L->height!=0)
 			    {
 			    	printf("\r   Attention, un Labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
 			    	scanf("%1c",&ctemp);
@@ -126,13 +126,13 @@ void 	home_menu(labyrinthe* L)
 				}
 		        break;
 		    case 's': // sauvegarder dans un fichier
-		    	if(L->lab_width!=0 && L->lab_height!=0)
+		    	if(L->width!=0 && L->height!=0)
 			    {
 					save_file(L);
 				}
 		        break;
 		    case 'x': // analyser le labyrinthe
-		    	if(L->lab_width!=0 && L->lab_height!=0)
+		    	if(L->width!=0 && L->height!=0)
 			    {
 					analysis_menu(L);
 				}
@@ -326,8 +326,8 @@ void 	edit_menu(labyrinthe *L)
 	unsigned char		ctemp;
 	int 				quit;
 
-	L->cursor.x = L->lab_width/2;
-	L->cursor.y = L->lab_height/2;
+	L->cursor.x = L->width/2;
+	L->cursor.y = L->height/2;
 
 	// loop do
 	quit = 0;
@@ -365,7 +365,7 @@ void 	edit_menu(labyrinthe *L)
 		        break;
 		    case 's': // DOWN
 		    	L->cursor.y++;
-		    	if (L->cursor.y>=L->lab_height) L->cursor.y=L->lab_height-1;
+		    	if (L->cursor.y>=L->height) L->cursor.y=L->height-1;
 		        break;
 		    case 'q': // LEFT
 		    	L->cursor.x--;
@@ -373,13 +373,13 @@ void 	edit_menu(labyrinthe *L)
 		        break;
 		    case 'd': // RIGHT
 		    	L->cursor.x++;
-		    	if (L->cursor.x>=L->lab_width) L->cursor.x=L->lab_width-1;
+		    	if (L->cursor.x>=L->width) L->cursor.x=L->width-1;
 		        break;
 		    case 'e': // Select ENTRANCE
-		    	L->pos_entrance = L->cursor;
+		    	L->entrance = L->cursor;
 		        break;
 		    case 'x': // Select EXIT
-		    	L->pos_exit = L->cursor;
+		    	L->exit = L->cursor;
 		        break;
 		    case '4': // LW
 		    	if (L->cursor.x>0)
@@ -397,7 +397,7 @@ void 	edit_menu(labyrinthe *L)
 		    	}
 	        	break;
 		    case '2': // BW
-		    	if (L->cursor.y<L->lab_height-1)
+		    	if (L->cursor.y<L->height-1)
 		    	{
 			    	if(bottom_wall(L->grid[L->cursor.y][L->cursor.x]))
 			    	{
@@ -412,7 +412,7 @@ void 	edit_menu(labyrinthe *L)
 			    }
 		        break;
 		    case '6': // RW
-		    	if (L->cursor.x<L->lab_width-1)
+		    	if (L->cursor.x<L->width-1)
 		    	{
 			    	if(right_wall(L->grid[L->cursor.y][L->cursor.x]))
 			    	{

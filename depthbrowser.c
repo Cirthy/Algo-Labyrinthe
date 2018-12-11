@@ -2,7 +2,6 @@
 
 
 
-
 char can_go_there(labyrinthe *L, char dir, int d)
 {
     position next_cell;
@@ -65,15 +64,15 @@ path profondeur_baptiste(labyrinthe *L)
 {
     init_distances(*L);
 
-    L->cursor = L->pos_entrance;
+    L->cursor = L->entrance;
 
     parcour(L,1);
 
 
     path plusCourt;
-    plusCourt.length = get_distance(*L, L->pos_exit);
+    plusCourt.length = get_distance(*L, L->exit);
     plusCourt.cells = malloc((plusCourt.length+1) * sizeof(position));
-    plusCourt.cells[0] = L->pos_exit;
+    plusCourt.cells[0] = L->exit;
 
     int distance_voisine[4];
     position temp;
@@ -84,10 +83,10 @@ path profondeur_baptiste(labyrinthe *L)
 
     for(int i = 1 ; i<plusCourt.length ; i++)
     {
-        distance_voisine[0] = (left_wall(cell(*L,plusCourt.cells[i-1]))) ? L->lab_height*L->lab_width : L->grid[plusCourt.cells[i-1].y][plusCourt.cells[i-1].x-1] / 256;
-        distance_voisine[1] = (bottom_wall(cell(*L,plusCourt.cells[i-1]))) ? L->lab_height*L->lab_width : L->grid[plusCourt.cells[i-1].y+1][plusCourt.cells[i-1].x] / 256;
-        distance_voisine[2] = (right_wall(cell(*L,plusCourt.cells[i-1]))) ? L->lab_height*L->lab_width : L->grid[plusCourt.cells[i-1].y][plusCourt.cells[i-1].x+1] / 256;
-        distance_voisine[3] = (top_wall(cell(*L,plusCourt.cells[i-1]))) ? L->lab_height*L->lab_width : L->grid[plusCourt.cells[i-1].y-1][plusCourt.cells[i-1].x] / 256;
+        distance_voisine[0] = (left_wall(cell(*L,plusCourt.cells[i-1]))) ? L->height*L->width : L->grid[plusCourt.cells[i-1].y][plusCourt.cells[i-1].x-1] / 256;
+        distance_voisine[1] = (bottom_wall(cell(*L,plusCourt.cells[i-1]))) ? L->height*L->width : L->grid[plusCourt.cells[i-1].y+1][plusCourt.cells[i-1].x] / 256;
+        distance_voisine[2] = (right_wall(cell(*L,plusCourt.cells[i-1]))) ? L->height*L->width : L->grid[plusCourt.cells[i-1].y][plusCourt.cells[i-1].x+1] / 256;
+        distance_voisine[3] = (top_wall(cell(*L,plusCourt.cells[i-1]))) ? L->height*L->width : L->grid[plusCourt.cells[i-1].y-1][plusCourt.cells[i-1].x] / 256;
         switch (min_dist_in_tab4(distance_voisine))
         {
             case 0: // case de distance d-1 a gauche
@@ -111,13 +110,13 @@ path profondeur_baptiste(labyrinthe *L)
     }
 
 
-    plusCourt.cells[plusCourt.length] = L->pos_entrance;
+    plusCourt.cells[plusCourt.length] = L->entrance;
 
     plusCourt.type = 'b';
 
-    for(int tempi=0 ; tempi<L->lab_height ; tempi++)
+    for(int tempi=0 ; tempi<L->height ; tempi++)
     {
-		for(int tempj=0 ; tempj<L->lab_width ; tempj++)
+		for(int tempj=0 ; tempj<L->width ; tempj++)
 		{
 			L->grid[tempi][tempj] %= 16 ;
 		}

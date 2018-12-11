@@ -73,10 +73,10 @@ void		set_distance_12b(labyrinthe *L, position p, int distance)
 
 void		set_default_distance(labyrinthe *L)
 {
-	for(int i = 0 ; i < L->lab_height ; i++)
-		for(int j = 0 ; j < L->lab_width ; j++)
+	for(int i = 0 ; i < L->height ; i++)
+		for(int j = 0 ; j < L->width ; j++)
 			set_distance_12b(L, pos(j, i), DISTANCE_MAX);
-	set_distance_12b(L, L->pos_entrance, 0);
+	set_distance_12b(L, L->entrance, 0);
 }
 
 
@@ -94,12 +94,12 @@ int 		init_distances(labyrinthe L) {
     int i;
     int j;
     position tmp;
-    for(i = 0 ; i < L.lab_height ; i++) {
-        for(j = 0 ; j < L.lab_width ; j++) {
-            if ( (i != L.pos_entrance.y) || (j != L.pos_entrance.x) ) {        // distance entrance/entrance = 0
+    for(i = 0 ; i < L.height ; i++) {
+        for(j = 0 ; j < L.width ; j++) {
+            if ( (i != L.entrance.y) || (j != L.entrance.x) ) {        // distance entrance/entrance = 0
                 tmp.x = j;
                 tmp.y = i;
-                set_distance(L, tmp, L.lab_height * L.lab_width);    // "infinite" = height * width (the distances never exceeds that)
+                set_distance(L, tmp, L.height * L.width);    // "infinite" = height * width (the distances never exceeds that)
             }
         }
     }

@@ -10,8 +10,8 @@ int	main(int argc, char const *argv[])
 	
 
 	labyrinthe L;
-	L.lab_height = 0;
-	L.lab_width = 0;
+	L.height = 0;
+	L.width = 0;
 
 	
 
