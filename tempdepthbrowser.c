@@ -2,17 +2,6 @@
 
 
 
-char can_go_there(labyrinthe *L, char dir, int d)
-{
-    position next_cell;
-
-    if(is_wall(L->grid[L->cursor.y][L->cursor.x], dir))
-        return 0;
-    next_cell.y = L->cursor.y + (dir==2) - (dir==8);
-    next_cell.x = L->cursor.x + (dir==4) - (dir==1);
-    return d < get_distance_12b(L, next_cell);
-}
-
 
 void parcour(labyrinthe *L, int d)
 {

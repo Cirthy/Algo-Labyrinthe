@@ -9,6 +9,7 @@
 
 #define			WALL_PROB		3 // probabilité de mettre un mur lors de la génération aléatoire := 1 / WALL_PROB
 #define			DISTANCE_MAX	4095 // 2**12 - 1
+#define			NO_PATH			-1 // Code à mettre dans path.length quand il n'y a pas de chemin
 
 
 // outil de mise en forme coloré
@@ -137,17 +138,23 @@ path 	BFS(labyrinthe L);
 
 
 
-// depthbrowser.c
-char 	can_go_there(labyrinthe *L, char dir, int d);
+/* depthbrowser.c
 void 	parcour(labyrinthe *L, int d);
 int 	min_dist_in_tab4(int *d);
-path 	profondeur_baptiste(labyrinthe *L);
+path 	profondeur_baptiste(labyrinthe *L);*/
 
 
 
 //pathfinding.c
-path	search_path_depth(labyrinthe *L);
-void	browse_maze(labyrinthe *L, int distance);
+int 	mark (labyrinthe L, position p);
+int 	is_marked (labyrinthe L, position p);
+path 	BFS(labyrinthe L);
+
+char 	can_go_there(labyrinthe *L, char dir, int d);
 int		dir_adjacent_cell(labyrinthe *L, position pos);
+void	browse_maze(labyrinthe *L, int distance);
+path	DFS(labyrinthe *L);
+
+
 
 #endif
