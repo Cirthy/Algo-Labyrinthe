@@ -1,11 +1,11 @@
 #include	"labyrinthe.h"
 
-int	main()//int argc, char const *argv[])
+int	main(int argc, char const *argv[])
 {
-	//path path;
+	path path;
 
 	srand(time(NULL));
-	init_displayer();
+	//init_displayer();
 
 
 	
@@ -13,10 +13,6 @@ int	main()//int argc, char const *argv[])
 	labyrinthe L;
 	L.height = 0;
 	L.width = 0;
-
-	/*
-
-	//path chemin;
 
 	if(argc != 3)
 	{
@@ -29,20 +25,10 @@ int	main()//int argc, char const *argv[])
 
 	create_alea_lab(&L, atoi(argv[1]), atoi(argv[2]));
 	display_lab_V1(L);
-
-	path = search_path_depth(&L);
+	path = DFS(&L);
 	display_path(&path);
-	
-	display(L);
-	printf("\n\n");
 
-	chemin = profondeur_baptiste(&L);
-	printf("\n\n");
-
-	display_path(&chemin);
-	*/
-
-	home_menu(&L);
+//	home_menu(&L);
 
 
 

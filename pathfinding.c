@@ -210,6 +210,7 @@ path	DFS(labyrinthe *L) // Renvoie un plus court chemin de l'entrée vers la sor
 	set_default_distance(L);
 	L->cursor = L->entrance;
 	browse_maze(L, 0);
+	display_distance(L);
 	if(get_distance_12b(L, L->exit) == DISTANCE_MAX && !dir_adjacent_cell(L, L->exit)) // On gère le cas où la sortie est à DISTANCE_MAX de l'entrée
 	{
 		path.length = NO_PATH;
@@ -217,15 +218,13 @@ path	DFS(labyrinthe *L) // Renvoie un plus court chemin de l'entrée vers la sor
 		return path; // Pas de chemin de longueur <= DISTANCE_MAX
 	}
 	path.cells = (position*)malloc(sizeof(position) * (get_distance_12b(L, L->exit) + 1));
-	path.length = get_distance_12b(L, L->exit) + 1;
+	path.length = get_distance_12b(L, L->exit);
 	current_pos = L->exit;
-	path.cells[0] = current_pos; // LA tableau des pos commence par la sortie
-	for(int i = 0 ; i < get_distance_12b(L, L->exit) ; i++)
+	path.cells[0] = current_pos; // Le tableau des pos commence par la sortie
+	for(int i = 1 ; i <= get_distance_12b(L, L->exit) ; i++)
 	{
 		current_pos = pos_after_move(current_pos, dir_adjacent_cell(L, current_pos));
 		path.cells[i] = current_pos;
-		display_position(current_pos);
-		printf("\t%d\n", i);
 	}
 	return path;
 }

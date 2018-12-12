@@ -338,8 +338,8 @@ void 	display_path(path* chemin)
 			printf("Pas de chemin\n");
 		else
 		{
-			printf("de type %c, longueur %d : ", chemin->type, chemin->length);
-			for(int i = 0 ; i<=chemin->length ; i++)
+			printf("Longueur %d : ", chemin->length);
+			for(int i = 0 ; i <= chemin->length ; i++)
 			{
 				display_position(chemin->cells[i]);
 				printf("%s", i == chemin->length ? "" : " -> ");
