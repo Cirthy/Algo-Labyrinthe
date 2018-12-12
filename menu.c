@@ -475,13 +475,6 @@ void 	analysis_menu(labyrinthe *L)
 		// refresh
 		system("clear");
 		display_menu(*L,'x', chemin);
-
-					// si tu veux afficher des choses !!!!
-					// entre ici 
-					display_path(chemin);
-
-
-					// et la.
 		// refresh
 
 		system("/bin/stty raw");
@@ -498,19 +491,13 @@ void 	analysis_menu(labyrinthe *L)
 		    	if (ctemp=='y')
 		        	quit = 1;
 		        break;
-		    case 'h': // heuristique
-		    	chemin = NULL;
-		        break;
-		    case 'b': // backtraking (profondeur)
+		    case 'p': // profondeur
 		    	temp = DFS(L);
 		    	chemin = &temp;
 		        break;
 		    case 'l': // largeur
 		    	temp = BFS(*L);
 		    	chemin = &temp;
-		        break;
-		    case 's': // statistique
-
 		        break;
 		    case 'm': // retour menu
 		    	printf("\r        \n        Voulez vous quitter l'analyseur ? (y/n) ");

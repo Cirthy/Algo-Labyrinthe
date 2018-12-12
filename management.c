@@ -79,6 +79,13 @@ void		set_default_distance(labyrinthe *L)
 	set_distance_12b(L, L->entrance, 0);
 }
 
+void        set_distances_to_zero(labyrinthe *L)
+{
+    for(int i=0 ; i<L->height ; i++)
+        for( int j=0 ; j<L->width ; j++)
+            L->grid[i][j] %= 16;
+}
+
 
 int 		get_distance(labyrinthe L, position p)
 {

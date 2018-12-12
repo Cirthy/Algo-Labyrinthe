@@ -125,16 +125,10 @@ int 	in_tab(position p, position* V, int size);
 int 	pos_equal(position s1, position s2);
 void	set_distance_12b(labyrinthe *L, position p, int distance);
 void	set_default_distance(labyrinthe *L);
+void 	set_distances_to_zero(labyrinthe *L);
 int		get_distance_12b(labyrinthe *L, position p);
 void	move_cursor(labyrinthe *L, int dir);
 position pos_after_move(position pos, int dir);
-
-
-
-// widthbrowser.c
-int 	mark (labyrinthe L, position p);
-int 	is_marked (labyrinthe L, position p);
-path 	BFS(labyrinthe L);
 
 
 

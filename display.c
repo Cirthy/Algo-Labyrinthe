@@ -490,21 +490,17 @@ void	display_menu(labyrinthe L, char mode, path* chemin)
 		case 'x': // analyse
 				printf("\n\tBienvenue sur le menu d'analyse du labyrinthe courant.\n");
 				printf("La labyrinthe courant est de taille %dx%d.\n",L.height,L.width);
-				printf(" -h- lancer une recherche de plus court chemin par heuristique.\n");
-				printf(" -b- lancer une recherche de plus court chemin par backtraking.\n");
+				printf(" -p- lancer une recherche de plus court chemin par parcours en profondeur.\n");
 				printf(" -l- lancer une recherche de plus court chemin par parcours en largeur.\n");
-				printf(" -s- afficher les statistiques du labyrinthe.\n");
-				printf(" -m- revenir au menu principal.\n\n");
+				printf(" -m- revenir au menu principal.\n\n\n\n");
 
 				if (chemin)
 				{
-					if (chemin->type=='h')
-						printf("Analyse par heuristique, ");
-					if (chemin->type=='b')
-						printf("Analyse par backtraking, ");
+					if (chemin->type=='p')
+						printf("Analyse par parcours en profondeur, ");
 					if (chemin->type=='l')
 						printf("Analyse par parcours en largeur, ");
-					if (chemin->length == L.width*L.height || chemin->length == 255)
+					if (chemin->length == NO_PATH)
 						{
 							printf("pas de chemin trouvé !");
 							display_lab_V2(L,'c',NULL);

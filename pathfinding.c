@@ -146,14 +146,8 @@ path BFS(labyrinthe L) {
     Path.cells = shortest_path;
     Path.type = 'l';
 
-    for(int tempi=0 ; tempi<L.height ; tempi++)
-    {
-		for(int tempj=0 ; tempj<L.width ; tempj++)
-		{
-			L.grid[tempi][tempj] %= 16 ;
-		}
-    }
-
+    
+    set_distances_to_zero(&L);
 
 
     return Path;
@@ -214,6 +208,7 @@ path	DFS(labyrinthe *L) // Renvoie un plus court chemin de l'entrée vers la sor
 	{
 		path.length = NO_PATH;
 		path.cells = NULL;
+        set_distances_to_zero(L);
 		return path; // Pas de chemin de longueur <= DISTANCE_MAX
 	}
 	path.length = get_distance_12b(L, L->exit);
@@ -225,5 +220,6 @@ path	DFS(labyrinthe *L) // Renvoie un plus court chemin de l'entrée vers la sor
 		current_pos = pos_after_move(current_pos, dir_adjacent_cell(L, current_pos));
 		path.cells[i] = current_pos;
 	}
+    set_distances_to_zero(L);
 	return path;
 }
