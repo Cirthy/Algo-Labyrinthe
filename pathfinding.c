@@ -180,7 +180,7 @@ char can_go_there(labyrinthe *L, char dir, int d) // 1 si le curseur peut se dé
 int		dir_adjacent_cell(labyrinthe *L, position pos) // Donne la direction d'une cellule accessible adjacente plus proche de l'entrée
 {
 	for(int dir = 1 ; dir <= 8 ; dir *= 2)
-		if((get_distance_12b(L, pos_after_move(pos, dir)) == get_distance_12b(L, pos) - 1) && !is_wall(L->grid[pos.y][pos.x], dir))
+		if(!is_wall(L->grid[pos.y][pos.x], dir) && get_distance_12b(L, pos_after_move(pos, dir)) == get_distance_12b(L, pos) - 1)
 			return dir;
 	return 0;
 }
@@ -210,18 +210,17 @@ path	DFS(labyrinthe *L) // Renvoie un plus court chemin de l'entrée vers la sor
 	set_default_distance(L);
 	L->cursor = L->entrance;
 	browse_maze(L, 0);
-	display_distance(L);
 	if(get_distance_12b(L, L->exit) == DISTANCE_MAX && !dir_adjacent_cell(L, L->exit)) // On gère le cas où la sortie est à DISTANCE_MAX de l'entrée
 	{
 		path.length = NO_PATH;
 		path.cells = NULL;
 		return path; // Pas de chemin de longueur <= DISTANCE_MAX
 	}
-	path.cells = (position*)malloc(sizeof(position) * (get_distance_12b(L, L->exit) + 1));
 	path.length = get_distance_12b(L, L->exit);
+	path.cells = (position*)malloc(sizeof(position) * (path.length + 1));
 	current_pos = L->exit;
 	path.cells[0] = current_pos; // Le tableau des pos commence par la sortie
-	for(int i = 1 ; i <= get_distance_12b(L, L->exit) ; i++)
+	for(int i = 1 ; i <= path.length ; i++)
 	{
 		current_pos = pos_after_move(current_pos, dir_adjacent_cell(L, current_pos));
 		path.cells[i] = current_pos;
