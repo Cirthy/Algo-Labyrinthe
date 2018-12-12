@@ -474,12 +474,14 @@ void 	analysis_menu(labyrinthe *L)
 	{
 		// refresh
 		system("clear");
-
 		display_menu(*L,'x', chemin);
-		//if (chemin)
-			//printf("%d\n", chemin->length);
-		//display_path(chemin);
 
+					// si tu veux afficher des choses !!!!
+					// entre ici 
+					display_path(chemin);
+
+
+					// et la.
 		// refresh
 
 		system("/bin/stty raw");
@@ -500,7 +502,7 @@ void 	analysis_menu(labyrinthe *L)
 		    	chemin = NULL;
 		        break;
 		    case 'b': // backtraking (profondeur)
-		    	temp = profondeur_baptiste(L);
+		    	temp = DFS(L);
 		    	chemin = &temp;
 		        break;
 		    case 'l': // largeur

@@ -1,11 +1,12 @@
 #include	"labyrinthe.h"
 
-int	main(int argc, char const *argv[])
+int	main()//int argc, char const *argv[])
 {
-	path path;
+	//path path;
 
 	srand(time(NULL));
-	//init_displayer();
+	init_displayer();
+
 
 	
 
@@ -13,7 +14,7 @@ int	main(int argc, char const *argv[])
 	L.height = 0;
 	L.width = 0;
 
-	
+	/*
 
 	//path chemin;
 
@@ -31,7 +32,7 @@ int	main(int argc, char const *argv[])
 
 	path = search_path_depth(&L);
 	display_path(&path);
-	/*
+	
 	display(L);
 	printf("\n\n");
 
@@ -41,7 +42,7 @@ int	main(int argc, char const *argv[])
 	display_path(&chemin);
 	*/
 
-	//home_menu(&L);
+	home_menu(&L);
 
 
 

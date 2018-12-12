@@ -1,12 +1,10 @@
 NAME = labyrinthe
 
-OUT = exec.out
-
 CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = main.c generator.c display.c menu.c loadsave.c management.c widthbrowser.c depthbrowser.c pathfinding.c
+SRCS = main.c generator.c display.c menu.c loadsave.c management.c pathfinding.c
 
 all : $(NAME)			## Compile le projet
 
@@ -14,7 +12,7 @@ $(NAME) :
 	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
 
 fclean :
-	rm -f $(OUT) $(NAME)
+	rm -f $(NAME)
 
 re : fclean all			## Recompile le projet
 
