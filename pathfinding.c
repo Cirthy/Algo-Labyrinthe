@@ -144,7 +144,7 @@ path BFS(labyrinthe L) {
     path Path;
     Path.length = distance_shortest_path;
     Path.cells = shortest_path;
-    Path.type = 'l';
+    Path.type = LARGEUR;
 
     
     set_distances_to_zero(&L);
@@ -180,7 +180,7 @@ int		dir_adjacent_cell(labyrinthe *L, position pos) // Donne la direction d'une 
 }
 
 
-void	browse_maze(labyrinthe *L, int distance) // Parcourt le labyrinthe et calcule la distance à l'entrée de TOUTES les cases
+void	browse_maze_DFS(labyrinthe *L, int distance) // Parcourt le labyrinthe et calcule la distance à l'entrée de TOUTES les cases
 {
 	if(pos_equal(L->cursor, L->exit) || distance == DISTANCE_MAX)
 		return;
@@ -189,21 +189,51 @@ void	browse_maze(labyrinthe *L, int distance) // Parcourt le labyrinthe et calcu
 		{
 			move_cursor(L, dir);
 			set_distance_12b(L, L->cursor, distance + 1);
-			browse_maze(L, distance + 1);
+			browse_maze_DFS(L, distance + 1);
 			move_cursor(L, dir * 4 % 15);
 		}
 }
 
 
-path	DFS(labyrinthe *L) // Renvoie un plus court chemin de l'entrée vers la sortie
+int		browse_maze_BFS(labyrinthe *L, int distance, position *tab_pos) // Parcourt le labyrinthe et calcule la distance à l'entrée jusqu'à la sortie
+{
+	int        i;
+    int        w;
+    position   *next_pos;
+
+	if(pos_equal(tab_pos[0], pos(-1, -1)) || distance == DISTANCE_MAX)
+		return 1;
+    i = -1;
+	w = 0;
+    next_pos = (position*)malloc(sizeof(position) * L->width * L->height);
+	while(!pos_equal(tab_pos[++i], pos(-1, -1)))
+	{
+        L->cursor = tab_pos[i];
+        for(int dir = 1 ; dir <= 8 ; dir *= 2)
+		{
+			if(can_go_there(L, dir, distance + 1))
+			{
+				set_distance_12b(L, pos_after_move(tab_pos[i], dir), distance + 1);
+                if(pos_equal(pos_after_move(tab_pos[i], dir), L->exit))
+                    return 1;
+				next_pos[w++] = pos_after_move(tab_pos[i], dir);
+			}
+		}
+	}
+	for(i = 0 ; i < w ; i++)
+        tab_pos[i] = next_pos[i];
+    while(!pos_equal(tab_pos[w], pos(-1, -1)))
+        tab_pos[w++] = pos(-1, -1);
+    free(next_pos);
+    return browse_maze_BFS(L, distance + 1, tab_pos);
+}
+
+path	construct_path(labyrinthe *L, char c)
 {
 	path		path;
 	position	current_pos;
 
-	path.type = 'p';
-	set_default_distance(L);
-	L->cursor = L->entrance;
-	browse_maze(L, 0);
+	path.type = c;
 	if(get_distance_12b(L, L->exit) == DISTANCE_MAX && !dir_adjacent_cell(L, L->exit)) // On gère le cas où la sortie est à DISTANCE_MAX de l'entrée
 	{
 		path.length = NO_PATH;
@@ -220,6 +250,28 @@ path	DFS(labyrinthe *L) // Renvoie un plus court chemin de l'entrée vers la sor
 		current_pos = pos_after_move(current_pos, dir_adjacent_cell(L, current_pos));
 		path.cells[i] = current_pos;
 	}
-    set_distances_to_zero(L);
+	return path;
+}
+
+
+path	pathfinding(labyrinthe *L, char c) // Renvoie un plus court chemin de l'entrée vers la sortie
+{
+	path		path;
+	position	*tab_pos;
+
+	set_default_distance(L);
+	L->cursor = L->entrance;
+	if(c == PROFONDEUR)
+		browse_maze_DFS(L, 0);
+	else // c == LARGEUR
+	{
+		tab_pos = (position*)malloc(sizeof(position) * L->width * L->height);
+		tab_pos[0] = L->entrance;
+		for(int i = 1 ; i < L->width * L->height ; i++)
+			tab_pos[i] = pos(-1, -1);
+		browse_maze_BFS(L, 0, tab_pos);
+	}
+	path = construct_path(L, c);
+	set_distances_to_zero(L);
 	return path;
 }

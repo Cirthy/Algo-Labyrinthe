@@ -145,14 +145,23 @@ unsigned int cell(labyrinthe L, position p)
 int			in_tab(position p, position* V, int size) 
 {
     int i;
-    for (i=0; i<size; i++) {
-        if (V[i].x == p.x && V[i].y == p.y) {
+    for (i=0; i<size; i++)
+        if (V[i].x == p.x && V[i].y == p.y)
             return i;    // p is in T at the index i
-        }
-    }
-    printf("(%d, %d) not in V\n", p.x, p.y);
     return -1; // p is not in T
 }
+
+
+/*int         index_in_tab_pos(position p, position *tab_pos, int size)
+{
+    int i;
+
+    i = 0;
+    while(i < size && !pos_equal(tab_pos[i], pos(-1, -1)))
+        if(pos_equal(tab_pos[i++], p))
+            return i - 1;
+    return -1;
+}*/
 
 
 int			pos_equal(position s1, position s2)

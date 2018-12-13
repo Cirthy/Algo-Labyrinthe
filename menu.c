@@ -111,7 +111,7 @@ void 	home_menu(labyrinthe* L)
 				}
 		    	break;
 
-		    case 'l': // charger depuis un fichier
+		    case LARGEUR: // charger depuis un fichier
 				if(L->width!=0 && L->height!=0)
 			    {
 			    	printf("\r   Attention, un Labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
@@ -491,11 +491,11 @@ void 	analysis_menu(labyrinthe *L)
 		    	if (ctemp=='y')
 		        	quit = 1;
 		        break;
-		    case 'p': // profondeur
-		    	temp = DFS(L);
+		    case PROFONDEUR: // profondeur
+		    	temp = pathfinding(L, PROFONDEUR);
 		    	chemin = &temp;
 		        break;
-		    case 'l': // largeur
+		    case LARGEUR: // largeur
 		    	temp = BFS(*L);
 		    	chemin = &temp;
 		        break;

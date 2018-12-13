@@ -362,6 +362,19 @@ void	display_distance(labyrinthe *L)
 }
 
 
+void	display_tab_pos(position *tab_pos)
+{
+	int	i = -1;
+
+	while(!pos_equal(tab_pos[++i], pos(-1, -1)))
+	{
+		display_position(tab_pos[i]);
+		printf("->");
+	}
+	printf("\n");
+}
+
+
 void	display_marked(labyrinthe L)
 {
 	int i, j;
