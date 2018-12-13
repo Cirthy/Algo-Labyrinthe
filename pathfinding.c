@@ -228,6 +228,7 @@ int		browse_maze_BFS(labyrinthe *L, int distance, position *tab_pos) // Parcourt
     return browse_maze_BFS(L, distance + 1, tab_pos);
 }
 
+
 path	construct_path(labyrinthe *L, char c)
 {
 	path		path;
