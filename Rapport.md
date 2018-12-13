@@ -62,18 +62,20 @@ Toute modification du labyrinthe est automatiquement mémorisée.
 
 ### Génération depuis un fichier et export
 
-schéma\
-┌───────────────────────────────┐\
-│                               │\
-│   ╷   ╶───┬───────────────╴   │\
-│   │       │                   │\
-├───┤   ·   └───┬───╴   ┌───╴   │\
-│   │         X │       │       │\
-│   └───┐   ┌───┴───╴   ╵   ·   │\
-│       │   │                   │\
-│   ┌───┘   │   ╶───┐   ┌───────┤\
-│   │       │     E │   │       │\
-└───┴───────┴───────┴───┴───────┘\
+schéma
+<p>
+┌───────────────────────────────┐<br>
+│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+│&nbsp;&nbsp;&nbsp;╷&nbsp;&nbsp;&nbsp;╶───┬───────────────╴&nbsp;&nbsp;&nbsp;│<br>
+│&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+├───┤   ·   └───┬───╴   ┌───╴   │<br>
+│   │         X │       │       │<br>
+│   └───┐   ┌───┴───╴   ╵   ·   │<br>
+│       │   │                   │<br>
+│   ┌───┘   │   ╶───┐   ┌───────┤<br>
+│   │       │     E │   │       │<br>
+└───┴───────┴───────┴───┴───────┘
+</p>
 
 saved_lab\
  5  8  4  4  3  2\
@@ -81,7 +83,7 @@ saved_lab\
  7  1 12 11 10  8 10  4\
 13  3  0 14 11  4  9  4\
  1 14  5  9 10  0  2  6\
- 7 11  6  3 14  7 11 14\
+ 7 11  6  3 14  7 11 14
 
 
 
