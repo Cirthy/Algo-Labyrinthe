@@ -63,19 +63,19 @@ Toute modification du labyrinthe est automatiquement mémorisée.
 ### Génération depuis un fichier et export
 
 schéma
-<p>
-┌───────────────────────────────┐<br>
-│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-│&nbsp;&nbsp;&nbsp;╷&nbsp;&nbsp;&nbsp;╶───┬───────────────╴&nbsp;&nbsp;&nbsp;│<br>
-│&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
-├───┤   ·   └───┬───╴   ┌───╴   │<br>
-│   │         X │       │       │<br>
-│   └───┐   ┌───┴───╴   ╵   ·   │<br>
-│       │   │                   │<br>
-│   ┌───┘   │   ╶───┐   ┌───────┤<br>
-│   │       │     E │   │       │<br>
+┌───────────────────────────────┐
+│                               │
+│   ╷   ╶───┬───────────────╴   │
+│   │       │                   │
+├───┤   ·   └───┬───╴   ┌───╴   │
+│   │         X │       │       │
+│   └───┐   ┌───┴───╴   ╵   ·   │
+│       │   │                   │
+│   ┌───┘   │   ╶───┐   ┌───────┤
+│   │       │     E │   │       │
 └───┴───────┴───────┴───┴───────┘
-</p>
+
+![Lab](/home/baptiste/Images/labyrinthe.png)
 
 saved_lab\
  5  8  4  4  3  2\

@@ -211,7 +211,7 @@ int		browse_maze_BFS(labyrinthe *L, int distance, position *tab_pos) // Parcourt
     i = -1;
 	w = 0;
     next_pos = (position*)malloc(sizeof(position) * L->width * L->height);
-	while(!pos_equal(tab_pos[++i], pos(-1, -1)))
+	while(!pos_equal(d[++i], pos(-1, -1)))
 	{
         L->cursor = tab_pos[i];
         for(int dir = 1 ; dir <= 8 ; dir *= 2)
@@ -244,8 +244,7 @@ path	construct_path(labyrinthe *L, char c)
 	{
 		path.length = NO_PATH;
 		path.cells = NULL;
-        set_distances_to_zero(L);
-		return path; // Pas de chemin de longueur <= DISTANCE_MAX
+        return path; // Pas de chemin de longueur <= DISTANCE_MAX
 	}
 	path.length = get_distance_12b(L, L->exit);
 	path.cells = (position*)malloc(sizeof(position) * (path.length + 1));
