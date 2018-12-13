@@ -496,7 +496,8 @@ void 	analysis_menu(labyrinthe *L)
 		    	chemin = &temp;
 		        break;
 		    case LARGEUR: // largeur
-		    	temp = BFS(*L);
+		    	//temp = BFS(*L);
+		    	temp = pathfinding(L, LARGEUR);
 		    	chemin = &temp;
 		        break;
 		    case 'm': // retour menu

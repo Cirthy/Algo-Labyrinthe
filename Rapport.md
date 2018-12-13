@@ -1,6 +1,8 @@
 # LAB ORATOIRE
 
-Introduction here - mettre des jolis screenshots
+> "Notre Makefile, il fait le café !"
+>
+> -- <cite>LabOratoire</cite>
 
 ## Structures utilisées
 
@@ -13,6 +15,7 @@ Notre structure **labyrinthe** est composée de :
 * La hauteur et la largeur du labyrinthe - `int height; int width;`
 * La position de l'entrée et la sortie du labyrinthe - `position entrance; position exit;`
 * La position d'un curseur, qui est utilisé par les fonctions de recherche de chemin pour "se déplacer" dans le labyrinthe - `position cursor`
+
 Nous avons donc également défini une structure **position** contenant deux coordonnées :
 ```
 typedef struct		position
@@ -25,7 +28,8 @@ Ainsi qu'une structure **path** qui représente des chemins dans le labyrinthe :
 ```
 typedef struct		path
 {
-	char			type; // Contient un code indiquant la provenance de la variable
+	char			type; 	// 'p' : chemin calculé par profondeur
+							// 'l' : chemin calculé par largeur
 	int				length;
 	position		*cells;
 }					path;
@@ -35,6 +39,8 @@ Avec ces structures, nous avons écrit des fonctions de manipulation élémentai
 * De manipuler facilement les positions et les chemins
 
 ## Générations de labyrinthe
+
+Lors de toute nouvelle génération, une confirmation est nécessaire pour écraser le précédent labyrinthe en mémoire, s'il en existe un.
 
 ### Génération aléatoire
 
@@ -47,17 +53,47 @@ Bien entendu, si une cellule possède un mur en commun avec la cellule placée �
 
 ### Génération depuis une interface
 
-Baptiste
+L'éditeur génère un labyrinthe vide (uniquement les murs sur les bords) dans lequel il est possible de se déplacer (via les touches zqsd) et de rajouter ou suprimer des murs (via les touches 8462 du pavé numérique).
+Il est également possible de placer les positions de l'entrée et de la sortie.
+
+De plus, l'éditeur permet de modifier un labyrinthe déjà présent en mémoire.
+
+Toute modification du labyrinthe est automatiquement mémorisée. 
 
 ### Génération depuis un fichier et export
 
-Léa
+schéma
+    ┌───────────────────────────────┐
+    │                               │
+    │   ╷   ╶───┬───────────────╴   │
+    │   │       │                   │
+    ├───┤   ·   └───┬───╴   ┌───╴   │
+    │   │         X │       │       │
+    │   └───┐   ┌───┴───╴   ╵   ·   │
+    │       │   │                   │
+    │   ┌───┘   │   ╶───┐   ┌───────┤
+    │   │       │     E │   │       │
+    └───┴───────┴───────┴───┴───────┘
+
+saved_lab
+ 5  8  4  4  3  2
+ 9  8 10 10 10 10 10 12
+ 7  1 12 11 10  8 10  4
+13  3  0 14 11  4  9  4
+ 1 14  5  9 10  0  2  6
+ 7 11  6  3 14  7 11 14
+
+ 
+
 
 ## Affichage de labyrinthes et de chemins
 
-Baptiste (On gère le cas où le lab est trop gros en ne l'affichant pas)
+Baptiste
+on gere les gros lab mais on ne les affiche pas !
+récupérer la taille de la console avant affichage
 
-## Recherche de chemin
+
+## Recherche du plus court chemin
 
 ### Recherche en profondeur
 
@@ -72,6 +108,9 @@ Cette fonction est appelé dans les conditions suivantes :
 * Au premier appel, son paramètre *distance* vaut 0
 
 La fonction va regarder toutes les cases accessibles depuis la position du curseur. Il faut vérifier s'il n'y a pas de mur entre les deux cellules, mais aussi qu'on étudie bien le plus court chemin entre l'entrée et la cellule-destination. Afin de vérifier cette deuxième condition, il suffit de vérifier que la variable *distance* de notre fonction (car on se déplace d'une case) est inférieure à la distance stockée sur la case.
+
+
+
 
 ### Recherche en largeur
 

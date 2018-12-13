@@ -4,3 +4,7 @@ Johanna Loyer\
 Léa Déjardins\
 Baptiste Beltzer\
 Clément Hoffmann
+
+
+Bugs a corriger.
+-controle dragon/knight

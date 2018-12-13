@@ -20,6 +20,11 @@ int is_marked (labyrinthe L, position p) {
 
 
 path BFS(labyrinthe L) {
+    path Path;
+    Path.type = LARGEUR;
+
+
+
     init_distances(L);
 
     int size_V = L.height * L.width;
@@ -118,7 +123,9 @@ path BFS(labyrinthe L) {
     index_pos = in_tab(L.exit, V, size_V);    // initialize index_pos at the index of L.exit in the table V ; -1 if L.exit is not in V
 
     if (index_pos == -1) {
-        printf("Il n'y a pas de chemin entre l'entree et la sortie du labyrinthe.\n");
+        Path.length = NO_PATH;
+
+        //printf("Il n'y a pas de chemin entre l'entree et la sortie du labyrinthe.\n");
     } else {
 
         // METTRE PREDECESSEUR ENTREE A -2 -2
@@ -128,7 +135,7 @@ path BFS(labyrinthe L) {
             index_shortest_path--;
 
             index_pos = in_tab(P[ index_pos ], V, size_V);
-            }    // A VERIFIER
+            }
         shortest_path[0] = V[0];    // add the entrance
 
 
@@ -141,10 +148,8 @@ path BFS(labyrinthe L) {
     free(V);
     free(P);
 
-    path Path;
     Path.length = distance_shortest_path;
     Path.cells = shortest_path;
-    Path.type = LARGEUR;
 
     
     set_distances_to_zero(&L);

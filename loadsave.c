@@ -31,7 +31,7 @@ void save_file(labyrinthe *L)
 		}
 
 		fclose(file);
-		printf("   Labyrinthe sauvegarder avec succes.\n");
+		printf("   Labyrinthe sauvegardé avec succes.\n");
 		//scanf("%s",name_file);
 		usleep(1200000);
 	}	

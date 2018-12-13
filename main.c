@@ -1,6 +1,6 @@
 #include	"labyrinthe.h"
 
-int	main(int argc, char const *argv[])
+int	main()//int argc, char const *argv[])
 {
 	srand(time(NULL));
 	init_displayer();
@@ -8,7 +8,7 @@ int	main(int argc, char const *argv[])
 	
 	L.height = 0;
 	L.width = 0;
-
+/*
 	if(argc != 3)
 	{
 		printf("2 arg boloss\n");
@@ -20,8 +20,8 @@ int	main(int argc, char const *argv[])
 	{
 		create_alea_lab(&L, atoi(argv[1]), atoi(argv[2]));
 		pathfinding(&L, LARGEUR);
-	}
-//	home_menu(&L);
+	}*/
+	home_menu(&L);
 
 	return 0;
 }
