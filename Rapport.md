@@ -1,8 +1,8 @@
-#LAB ORATOIRE
+# LAB ORATOIRE
 
 Introduction here
 
-##Structures utilisées
+## Structures utilisées
 
 Notre structure **labyrinthe** est composée de :\\
 
@@ -37,9 +37,9 @@ Avec ces structures, nous avons écrit des fonctions de manipulation élémentai
 * De lire ou d'écrire des informations dans les cellules du labyrinthe\
 * De manipuler facilement les positions et les chemins
 
-##Générations de labyrinthe
+## Générations de labyrinthe
 
-###Génération aléatoire
+### Génération aléatoire
 
 Lorsque le labyrinthe est généré de manière aléatoire :
 * Des murs sont placés sur le bord du labyrinthe
@@ -48,35 +48,35 @@ Lorsque le labyrinthe est généré de manière aléatoire :
 
 Bien entendu, si une cellule possède un mur en commun avec la cellule placée à sa droite (par exemple), la cellule à droite possèdera nécessairement le même mur commun à sa gauche.
 
-###Génération depuis une interface
+### Génération depuis une interface
 
 Baptiste
 
-###Génération depuis un fichier et export
+### Génération depuis un fichier et export
 
 Léa
 
-##Affichage de labyrinthes et de chemins
+## Affichage de labyrinthes et de chemins
 
 Baptiste (On gère le cas où le lab est trop gros en ne l'affichant pas)
 
-##Recherche de chemin
+## Recherche de chemin
 
-###Recherche en profondeur
+### Recherche en profondeur
 
 Une fonction parcourt le labyrinthe en profondeur afin 
 
-###Recherche en largeur
+### Recherche en largeur
 
 Johanna
 
-###Stats - Complexité
+## Stats - Complexité
 
 Finalement, nous allons évaluer les coûts en calcul de nos algorithmes de recherche de chemin, et mesurer le temps de calcul sur des gros labyrinthes afin de vérifier ces considérations théoriques.
 
-##Coût de l'algorithme de recherche en profondeur
+### Coût de l'algorithme de recherche en profondeur
 
-##Coût de l'algorithme de recherche en largeur
+### Coût de l'algorithme de recherche en largeur
 
-## Temps de calcul
+### Temps de calcul
 
