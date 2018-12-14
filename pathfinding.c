@@ -27,7 +27,7 @@ path BFS(labyrinthe L) {
 
     init_distances(L);
 
-    int size_V = L.height * L.width;
+    int size_V = DISTANCE_MAX_BFS;
 	position* V = malloc(size_V * sizeof(position));    // order of visit of the vertex
     position* P = malloc(size_V * sizeof(position));    // P[i] predecessor of V[i]
 
@@ -211,7 +211,7 @@ int		browse_maze_BFS(labyrinthe *L, int distance, position *tab_pos) // Parcourt
     i = -1;
 	w = 0;
     next_pos = (position*)malloc(sizeof(position) * L->width * L->height);
-	while(!pos_equal(d[++i], pos(-1, -1)))
+	while(!pos_equal(tab_pos[++i], pos(-1, -1)))
 	{
         L->cursor = tab_pos[i];
         for(int dir = 1 ; dir <= 8 ; dir *= 2)

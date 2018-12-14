@@ -55,11 +55,11 @@ char 	is_in_path(path *p, int x1, int y1, int x2, int y2)
 
 int 	set_distance(labyrinthe L, position p, int distance)
 {
-    L.grid[p.y][p.x] %= 256; // it remains the 8 least significant bits
-    if (distance<=255)
-    	L.grid[p.y][p.x] += distance * 256;
+    L.grid[p.y][p.x] %= 32; // it remains the 8 least significant bits
+    if (distance<DISTANCE_MAX_BFS)
+    	L.grid[p.y][p.x] += distance * 32;
     else
-    	L.grid[p.y][p.x] += 255 * 256;
+    	L.grid[p.y][p.x] += (DISTANCE_MAX_BFS-1) * 32;
 
     return 0;
 }
@@ -89,7 +89,7 @@ void        set_distances_to_zero(labyrinthe *L)
 
 int 		get_distance(labyrinthe L, position p)
 {
-    return L.grid[p.y][p.x] / 256;
+    return L.grid[p.y][p.x] / 32;
 }
 
 int			get_distance_12b(labyrinthe *L, position p)
@@ -106,7 +106,7 @@ int 		init_distances(labyrinthe L) {
             if ( (i != L.entrance.y) || (j != L.entrance.x) ) {        // distance entrance/entrance = 0
                 tmp.x = j;
                 tmp.y = i;
-                set_distance(L, tmp, L.height * L.width);    // "infinite" = height * width (the distances never exceeds that)
+                set_distance(L, tmp, DISTANCE_MAX_BFS);    // "infinite" = height * width (the distances never exceeds that)
             }
         }
     }

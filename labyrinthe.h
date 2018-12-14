@@ -9,6 +9,7 @@
 
 #define			WALL_PROB		3 // probabilité de mettre un mur lors de la génération aléatoire := 1 / WALL_PROB
 #define			DISTANCE_MAX	4095 // 2**12 - 1
+#define 		DISTANCE_MAX_BFS 2047 //2**11 - 1
 #define			NO_PATH			-1 // Code à mettre dans path.length quand il n'y a pas de chemin
 #define			PROFONDEUR		'p'
 #define			LARGEUR			'l'
