@@ -63,17 +63,17 @@ Toute modification du labyrinthe est automatiquement mémorisée.
 ### Génération depuis un fichier et export
 
 schéma
-┌───────────────────────────────┐\
-│                               │\
-│   ╷   ╶───┬───────────────╴   │\
-│   │       │                   │\
-├───┤   ·   └───┬───╴   ┌───╴   │\
-│   │         X │       │       │\
-│   └───┐   ┌───┴───╴   ╵   ·   │\
-│       │   │                   │\
-│   ┌───┘   │   ╶───┐   ┌───────┤\
-│   │       │     E │   │       │\
-└───┴───────┴───────┴───┴───────┘\
+┌───────────────────────────────┐
+│                               │
+│   ╷   ╶───┬───────────────╴   │
+│   │       │                   │
+├───┤   ·   └───┬───╴   ┌───╴   │
+│   │         X │       │       │
+│   └───┐   ┌───┴───╴   ╵   ·   │
+│       │   │                   │
+│   ┌───┘   │   ╶───┐   ┌───────┤
+│   │       │     E │   │       │
+└───┴───────┴───────┴───┴───────┘
 
 ![Lab](/home/baptiste/Images/labyrinthe.png)
 
@@ -118,12 +118,12 @@ La fonction va regarder toutes les cases accessibles depuis la position du curse
 
 `path	BFS(labyrinthe L);`
 
-La fonction `BFS` (*pathfinding.c*) parcourt le labyrinthe en largeur : il explore tous les chemins de longueur 1 depuis l'entrée, puis 2, puis 3, et ainsi de suite jusqu'à trouver la sortie ou avoir parcouru toutes les cellules accessibles sans trouver la sortie. 
+La fonction `BFS` (*pathfinding.c*) parcourt le labyrinthe en largeur : elle explore tous les chemins de longueur 1 depuis l'entrée, puis 2, puis 3, et ainsi de suite jusqu'à trouver la sortie ou après avoir parcouru toutes les cellules accessibles sans trouver la sortie. 
 Ainsi, le premier chemin trouvé est nécessairement le chemin le plus court. 
 
 Le fonctionnement de l'algorithme est le suivant, on a :
 * un tableau de positions `V`(vertex) qui contiendra les cellules du labyrinthe dans l'ordre du parcours
-* un tableau de positions `P`, où chaque `P[i]` est le prédéceur de `V[i]` dans le chemin de l'entrée à la sortie. 
+* un tableau de positions `P`, où chaque `P[i]` est le prédécesseur de `V[i]` dans le chemin de l'entrée à la sortie. 
 * toutes les distances sont initialisées à `L.height * L.width` qui est 1 + la distance maximale que l'on peut trouver dans le pire des cas. 
 
 On commence en visitant l'entrée. De là on ajoute à `V` les cellules adjacentes qui ne sont pas séparées par un mur, en ajoutant aussi dans le tableau `P` la position de l'entrée pour chacun. 
