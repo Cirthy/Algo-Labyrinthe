@@ -124,6 +124,7 @@ path BFS(labyrinthe L) {
 
     if (index_pos == -1) {
         Path.length = NO_PATH;
+        return Path;
 
         //printf("Il n'y a pas de chemin entre l'entree et la sortie du labyrinthe.\n");
     } else {
