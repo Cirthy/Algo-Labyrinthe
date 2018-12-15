@@ -152,19 +152,20 @@ int			in_tab(position p, position* V, int size)
 }
 
 
-/*int         index_in_tab_pos(position p, position *tab_pos, int size)
-{
-    int i;
-
-    i = 0;
-    while(i < size && !pos_equal(tab_pos[i], pos(-1, -1)))
-        if(pos_equal(tab_pos[i++], p))
-            return i - 1;
-    return -1;
-}*/
-
-
 int			pos_equal(position s1, position s2)
 {
     return (s1.x == s2.x) && (s1.y == s2.y) ? 1 : 0;
+}
+
+position    get_max_size_lab()
+{
+    position size;
+
+    struct winsize w;
+    ioctl(0, TIOCGWINSZ, &w);
+
+    size.y = (w.ws_row-12)/2;
+    size.x = (w.ws_col-5)/4;
+
+    return(size);
 }

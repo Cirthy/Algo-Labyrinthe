@@ -138,6 +138,8 @@ void 	home_menu(labyrinthe* L)
 				}
 		        break;
 		    case 'd': // dragon
+		    	if (pos_dragon.x == 1)
+		    		break;
 		    	printf("\r \r");
 		    	system("/bin/stty raw");
 				ctemp = getc(stdin);

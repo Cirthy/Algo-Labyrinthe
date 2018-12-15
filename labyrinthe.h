@@ -6,6 +6,8 @@
 #include		<time.h>		// pour srand(tinme(NULL))
 #include		<unistd.h>		// pour usleep()
 #include 		<string.h>		// pour strcmp
+#include 		<sys/ioctl.h>	// pour accéder a la taille du  terminal
+
 
 #define			WALL_PROB		3 // probabilité de mettre un mur lors de la génération aléatoire := 1 / WALL_PROB
 #define			DISTANCE_MAX	4095 // 2**12 - 1
@@ -75,14 +77,14 @@ position pos_oratoire;
 
 
 
-// generator.c
+// ===== generator.c =====
 void	create_empty_lab(labyrinthe *L, int height, int width);
 void 	create_alea_lab(labyrinthe *L, int height, int width);
 void	init_wall(labyrinthe *L);
 
 
 
-// display.c
+// ===== display.c =====
 void	display_lab_V1(labyrinthe L);
 void	display_lab_V2(labyrinthe L, char mode, path* plusCourt);
 void 	display_path(path* chemin);
@@ -97,30 +99,28 @@ void	display_tab_pos(position *tab_pos); // ERASE PLZ
 
 
 
-// menu.c
+// ===== menu.c =====
 void 	home_menu(labyrinthe* L);
 void 	edit_menu(labyrinthe *L);
 void 	analysis_menu(labyrinthe *L);
 
 
 
-// loadsave.c
+// ===== loadsave.c =====
 void	load_file(labyrinthe *L);
 void	save_file(labyrinthe *L);
 
 
 
 
-// management.c
-
-// Walls
+// ===== management.c =====
+	// Walls
 char	left_wall(unsigned short cell);
 char	bottom_wall(unsigned short cell);
 char	right_wall(unsigned short cell);
 char	top_wall(unsigned short cell);
 char	is_wall(unsigned short cell, int dir);
-
-// Position
+	// Position
 position pos(int x , int y);
 char 	is_in_path(path *p, int x1, int y1, int x2, int y2);
 int		set_distance(labyrinthe L, position p , int distance);
@@ -130,30 +130,22 @@ int		actualize_distance(labyrinthe L, position s1, position s2);
 position pos_after_move(position pos, int dir);
 int 	in_tab(position p, position* V, int size);
 int 	pos_equal(position s1, position s2);
-
-// Distance
+	// Distance
 void	set_distance_12b(labyrinthe *L, position p, int distance);
 void	set_default_distance(labyrinthe *L);
 void 	set_distances_to_zero(labyrinthe *L);
 int		get_distance_12b(labyrinthe *L, position p);
-
-// Other
+	// Other
 unsigned int cell(labyrinthe L, position p);
 void	move_cursor(labyrinthe *L, int dir);
-
-
-/* depthbrowser.c
-void 	parcour(labyrinthe *L, int d);
-int 	min_dist_in_tab4(int *d);
-path 	profondeur_baptiste(labyrinthe *L);*/
+position get_max_size_lab();
 
 
 
-//pathfinding.c
+// ===== pathfinding.c =====
 int 	mark (labyrinthe L, position p);
 int 	is_marked (labyrinthe L, position p);
 path 	BFS(labyrinthe L);
-
 char 	can_go_there(labyrinthe *L, char dir, int d);
 int		dir_adjacent_cell(labyrinthe *L, position pos);
 void	browse_maze_DFS(labyrinthe *L, int distance);

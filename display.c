@@ -46,8 +46,25 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 {
 	int i;
 	int j;
-
+	position maxSize;
 	// │ ─ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ · ╴ ╶ ╵ ╷
+
+	maxSize = get_max_size_lab();
+
+	if (L.height>maxSize.y || L.width>maxSize.x)
+	{
+		printf("\n\n\tLe labyrinthe en mémoire est trop grand pour etre afficher.\n");
+		printf("\tCe problème peut etre reglé on modifiant la taille de la console.\n");
+		printf("\tLa taille maximum des labyrinthes affichable dans la console actuelle est : %dx%d.\n\n", maxSize.y,maxSize.x);
+		if (mode=='e')
+			printf("\tLe mode éditeur n'est pas viable si le labyrinthe ne peut pas s'afficher,\n\tmerci de pressé ESC ou -m- pour revenir au menu principal.\n\n");
+		printf("\tVeuillez nous excusez pour le dérangement occasioné.\n");
+		printf("\t\t\tps : Achetez un écran plus grand.\n");
+		printf("\t\t\tBonne journée !\n");
+		return;
+	}
+
+
 
 
 
