@@ -13,25 +13,26 @@ void save_file(labyrinthe *L)
 		FILE* file = NULL;
 		file = fopen(name_file,"w");
 
+		//on vérifie que le fichier est bien créé
 		if(file == NULL)
 			printf("   Impossible de créer le fichier %s.",name_file);
 		else
 		{
 			//on inscrit les informations générales sur de la 1ère ligne
-			fprintf(file, "%2d %2d ", L->height, L->width);
-			fprintf(file, "%2d %2d ", L->entrance.x, L->entrance.y);
-			fprintf(file,"%2d %2d \n", L->exit.x, L->exit.y);
+			fprintf(file, "%2d %2d ", L->height, L->width);				//taille du labyrinthe : hauteur largeur
+			fprintf(file, "%2d %2d ", L->entrance.y, L->entrance.x);	//position de l'entrée : ligne colonne
+			fprintf(file,"%2d %2d \n", L->exit.y, L->exit.x);			//position de la sortie : ligne colonne
 
 			for(int i=0; i<(L->height); i++)
 			{
 				for(int j=0; j<(L->width); j++)
-					fprintf(file, "%2hu ", (L->grid)[i][j]);
-				fprintf(file, "\n");
+					fprintf(file, "%2hu ", (L->grid)[i][j]);			//valeur de la cellule de position (j,i)
+				fprintf(file, "\n");									// i=numéro de ligne et j=numéro de colonne
 			}
 		}
 
 		fclose(file);
-		printf("   Labyrinthe sauvegardé avec succes.\n");
+		printf("   Labyrinthe sauvegardé avec succes.\n");				// on notifie que la sauvegarde s'est bien déroulée
 		//scanf("%s",name_file);
 		usleep(1200000);
 	}	
@@ -44,7 +45,7 @@ void load_file(labyrinthe *L)
 
 	FILE* file = NULL;
 	
-
+	//on demande le nom du fichier à ouvrir et on vérifie qu'il s'est bien ouvert
 	while(file == NULL)
 	{
 		printf("   (-m- pour retourner au menu) Quel fichier souhaiter vous charger ? ");
@@ -61,12 +62,12 @@ void load_file(labyrinthe *L)
 
 
 	//on récupère les informations de la 1ère ligne	
-	fscanf(file, "%d ", &L->height);	
-	fscanf(file, "%d ", &L->width);
-	fscanf(file, "%d ", &L->entrance.x);
+	fscanf(file, "%d ", &L->height);		//hauteur du labyrinthe
+	fscanf(file, "%d ", &L->width);			//largeur du labyrinthe
 	fscanf(file, "%d ", &L->entrance.y);
-	fscanf(file, "%d ", &L->exit.x);
-	fscanf(file, "%d", &L->exit.y);
+	fscanf(file, "%d ", &L->entrance.x);	//position de l'entrée : ligne colonne
+	fscanf(file, "%d ", &L->exit.y);
+	fscanf(file, "%d", &L->exit.x);			// position de la sortie : ligne colonne
 
 	L->grid = (unsigned short **)malloc(sizeof(unsigned short *) * L->height);
 	for(int i = 0 ; i < L->height ; i++)
@@ -76,7 +77,7 @@ void load_file(labyrinthe *L)
 	{
 		for(int j=0; j<(L->width); j++)
 		{
-			fscanf(file, "%hu", &(L->grid)[i][j]);
+			fscanf(file, "%hu", &(L->grid)[i][j]);	// valeur de la cellule de position (j,i) i=numéro de ligne et j=numéro de colonne
 		}
 	}
 

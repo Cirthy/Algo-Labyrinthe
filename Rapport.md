@@ -62,29 +62,35 @@ Toute modification du labyrinthe est automatiquement mémorisée.
 
 ### Génération depuis un fichier et export
 
-schéma
-┌───────────────────────────────┐
-│                               │
-│   ╷   ╶───┬───────────────╴   │
-│   │       │                   │
-├───┤   ·   └───┬───╴   ┌───╴   │
-│   │         X │       │       │
-│   └───┐   ┌───┴───╴   ╵   ·   │
-│       │   │                   │
-│   ┌───┘   │   ╶───┐   ┌───────┤
-│   │       │     E │   │       │
-└───┴───────┴───────┴───┴───────┘
+`void load_file(labyrinthe *L)`
 
-![Lab](/home/baptiste/Images/labyrinthe.png)
+La fonction `load_file` (*loadsave.c*) demande le nom du ficher où le labyrinthe est enregistré puis l'ouvre en mode lecture pour générer le labyrinthe associé.
 
-saved_lab\
- 5  8  4  4  3  2\
- 9  8 10 10 10 10 10 12\
- 7  1 12 11 10  8 10  4\
-13  3  0 14 11  4  9  4\
- 1 14  5  9 10  0  2  6\
- 7 11  6  3 14  7 11 14
+La première ligne de ce fichier est organisée comme suit :
+* Taille du labyrinthe : hauteur puis largeur
+* Position de l'entrée : numéro de ligne puis de colonne de l'entrée
+* Position de la sortie : numéro de ligne puis de colonne de la sortie
 
+*Exemple de 1ère ligne : 3 4 0 1 2 3*
+* *Taille du labyrinthe : hauteur=3 largeur=4*
+* *Position de l'entrée : ligne n°0 et colonne n°1*
+* *Position de la sortie : ligne n°2 et colonne n°3*
+
+Le restant du fichier comprend les valeurs de chaque cellule (autant de lignes que la valeur de la hauteur et autant de colonnes que la valeur de la largeur du labyrinthe)
+
+Toutes ces valeurs sont lues à la suite par la fonction `fscanf`.\
+Une fois le fichier entièrement lu, on le ferme et on revient au menu.
+
+**Il est important de respecter cette organisation dans le fichier sinon le labyrinthe sera mal initialisé.**
+
+
+`void save_file(labyrinthe *L)`
+
+La fonction `save_file` (*loadsave.c*) permet de sauvegarder le labyrinthe courant dans un fichier. 
+
+On demande à l'utilisateur le nom du fichier de sauvegarde puis, après avoir créé un nouveau fichier, on y inscrit toutes les informations avec la même organisation décrite précédemment à l'aide de la fonction `fprint`.
+
+A la fin de la sauvegarde, on ferme le fichier créé, une notification de succés apparait à l'écran puis on retourne au menu.
 
 
 

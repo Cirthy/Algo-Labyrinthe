@@ -52,7 +52,7 @@ char 	is_in_path(path *p, int x1, int y1, int x2, int y2)
 	return 0;
 }
 
-
+/*
 int 	set_distance(labyrinthe L, position p, int distance)
 {
     L.grid[p.y][p.x] %= 32; // it remains the 8 least significant bits
@@ -62,7 +62,7 @@ int 	set_distance(labyrinthe L, position p, int distance)
     	L.grid[p.y][p.x] += (DISTANCE_MAX_BFS-1) * 32;
 
     return 0;
-}
+}*/
 
 
 void		set_distance_12b(labyrinthe *L, position p, int distance)
@@ -86,17 +86,18 @@ void        set_distances_to_zero(labyrinthe *L)
             L->grid[i][j] %= 16;
 }
 
-
+/*
 int 		get_distance(labyrinthe L, position p)
 {
     return L.grid[p.y][p.x] / 32;
-}
+}*/
 
 int			get_distance_12b(labyrinthe *L, position p)
 {
 	return L->grid[p.y][p.x] / 16;
 }
 
+/*
 int 		init_distances(labyrinthe L) {
     int i;
     int j;
@@ -111,12 +112,12 @@ int 		init_distances(labyrinthe L) {
         }
     }
     return 0;
-}
+}*/
 
 
 int 		actualize_distance(labyrinthe L, position s1, position s2) {
-    if ( get_distance(L, s1) + 1 < get_distance(L, s2) ) {
-        set_distance(L, s2, get_distance(L, s1)+1);
+    if ( get_distance_12b(&L, s1) + 1 < get_distance_12b(&L, s2) ) {
+        set_distance_12b(&L, s2, get_distance_12b(&L, s1)+1);
         return 1;    // distance actualized
     }
     return 0;    // s1 is not a good way to access to s2

@@ -5,17 +5,19 @@
 /* Breadth-first search
 ____________________________________________________________________________________________*/
 
-
+/*
 int mark (labyrinthe L, position p) {
     if ( is_marked(L, p) == 0 ) {
         L.grid[p.y][p.x] += 16;
     }
     return 0;
-}
+}*/
 
 
 int is_marked (labyrinthe L, position p) {
-    return ( (L.grid[p.y][p.x] / 16) % 2);
+    if(get_distance_12b(&L,p)==DISTANCE_MAX)
+    	return 0;
+    return 1;
 } // 1 if marked ; 0 if not
 
 
@@ -24,8 +26,8 @@ path BFS(labyrinthe L) {
     Path.type = LARGEUR;
 
 
-
-    init_distances(L);
+    //init_distances(L);
+    set_default_distance(&L);
 
     int size_V = L.height * L.width;
 	position* V = malloc(size_V * sizeof(position));    // order of visit of the vertex
@@ -43,7 +45,7 @@ path BFS(labyrinthe L) {
         P[i] = pos_null;
     }
     V[0] = L.entrance;
-    mark(L, L.entrance);
+    //mark(L, L.entrance);
 
 
 
@@ -64,7 +66,7 @@ path BFS(labyrinthe L) {
                 V[ V_index ] = next;        // add next at the table of vertex to visit
                 P[ V_index ] = visited;        // "next" predecessor := visited
                 V_index ++;                 // indice to add the next cell after this one
-                mark(L, next);                  
+                //mark(L, next);                  
             }
         } // end if left_wall
 
@@ -76,7 +78,7 @@ path BFS(labyrinthe L) {
                 V[ V_index ] = next;
                 P[ V_index ] = visited;
                 V_index ++;
-                mark(L, next);
+                //mark(L, next);
             }
         } // bottom
 
@@ -88,7 +90,7 @@ path BFS(labyrinthe L) {
                 V[ V_index ] = next;
                 P[ V_index ] = visited;
                 V_index ++;
-                mark(L, next);
+                //mark(L, next);
             }
         } // right
 
@@ -100,7 +102,7 @@ path BFS(labyrinthe L) {
                 V[ V_index ] = next;
                 P[ V_index ] = visited;
                 V_index ++;
-                mark(L, next); 
+                //mark(L, next); 
             }
         } // top
    // avoid loops and regresses
@@ -113,7 +115,7 @@ path BFS(labyrinthe L) {
 
     /*** Find the way backwards ***/
 
-    int distance_shortest_path = get_distance(L, L.exit) ;
+    int distance_shortest_path = get_distance_12b(&L, L.exit) ;
     position* shortest_path;    // AMELIORATION POSSIBLE : STRUCTURE LISTE CHAÎNEE
     shortest_path = malloc( (distance_shortest_path +1) * sizeof(position));    // (+1) for the entrance
 
