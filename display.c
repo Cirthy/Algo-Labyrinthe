@@ -42,7 +42,7 @@ void	display_lab_V1(labyrinthe L)
 	printf("+\n\n");
 }
 
-void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
+void	display_lab_V2(labyrinthe L, char mode, path* shortestPath)
 {
 	int i;
 	int j;
@@ -105,7 +105,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 					else
 					{
 						printf("│ ");
-						if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+						if (shortestPath && is_in_path(shortestPath,j,i-1,j,i))
 						{
 							set_color(BLOOD,RED);
 							printf("│ ");
@@ -128,7 +128,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 								else // RD L
 								{
 									printf("┤ ");
-									if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+									if (shortestPath && is_in_path(shortestPath,j,i-1,j,i))
 									{
 										set_color(BLOOD,RED);
 										printf("│ ");
@@ -143,7 +143,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 							else // RD NONE
 							{
 								printf("┘ ");
-								if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+								if (shortestPath && is_in_path(shortestPath,j,i-1,j,i))
 								{
 									set_color(BLOOD,RED);
 									printf("│ ");
@@ -162,7 +162,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 								else // R L
 								{
 									printf("│ ");
-									if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+									if (shortestPath && is_in_path(shortestPath,j,i-1,j,i))
 									{
 										set_color(BLOOD,RED);
 										printf("│ ");
@@ -177,7 +177,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 							else // R NONE
 							{
 								printf("╵ ");
-								if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+								if (shortestPath && is_in_path(shortestPath,j,i-1,j,i))
 								{
 									set_color(BLOOD,RED);
 									printf("│ ");
@@ -197,7 +197,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 							else // D L
 							{
 								printf("┐ ");
-								if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+								if (shortestPath && is_in_path(shortestPath,j,i-1,j,i))
 								{
 									set_color(BLOOD,RED);
 									printf("│ ");
@@ -213,7 +213,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 						else // D NONE
 						{
 							printf("╴ ");
-							if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+							if (shortestPath && is_in_path(shortestPath,j,i-1,j,i))
 							{
 								set_color(BLOOD,RED);
 								printf("│ ");
@@ -232,7 +232,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 							else // NONE L
 							{
 								printf("╷ ");
-								if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+								if (shortestPath && is_in_path(shortestPath,j,i-1,j,i))
 								{
 									set_color(BLOOD,RED);
 									printf("│ ");
@@ -247,7 +247,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 						else // NONE NONE
 						{
 							printf("· ");
-							if (plusCourt && is_in_path(plusCourt,j,i-1,j,i))
+							if (shortestPath && is_in_path(shortestPath,j,i-1,j,i))
 							{
 								set_color(BLOOD,RED);
 								printf("│ ");
@@ -268,7 +268,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 		{
 			if (L.grid[i][j]%2)
 				printf("│");
-			else if (plusCourt && is_in_path(plusCourt,j,i,j-1,i))
+			else if (shortestPath && is_in_path(shortestPath,j,i,j-1,i))
 				{
 					set_color(BLOOD,RED);
 					printf("─");
@@ -289,20 +289,20 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt)
 					printf(" X ");
 				else
 				{
-					if (plusCourt)
+					if (shortestPath)
 					{
 						set_color(BLOOD,RED);
-						if (is_in_path(plusCourt,j,i,j,i-1) && is_in_path(plusCourt,j,i,j,i+1))
+						if (is_in_path(shortestPath,j,i,j,i-1) && is_in_path(shortestPath,j,i,j,i+1))
 							printf(" │ ");
-						else if (is_in_path(plusCourt,j,i,j+1,i) && is_in_path(plusCourt,j,i,j-1,i))
+						else if (is_in_path(shortestPath,j,i,j+1,i) && is_in_path(shortestPath,j,i,j-1,i))
 							printf("───");
-						else if (is_in_path(plusCourt,j,i,j+1,i) && is_in_path(plusCourt,j,i,j,i+1))
+						else if (is_in_path(shortestPath,j,i,j+1,i) && is_in_path(shortestPath,j,i,j,i+1))
 							printf(" ┌─");
-						else if (is_in_path(plusCourt,j,i,j-1,i) && is_in_path(plusCourt,j,i,j,i+1))
+						else if (is_in_path(shortestPath,j,i,j-1,i) && is_in_path(shortestPath,j,i,j,i+1))
 							printf("─┐ ");
-						else if (is_in_path(plusCourt,j,i,j,i-1) && is_in_path(plusCourt,j,i,j+1,i))
+						else if (is_in_path(shortestPath,j,i,j,i-1) && is_in_path(shortestPath,j,i,j+1,i))
 							printf(" └─");
-						else if (is_in_path(plusCourt,j,i,j,i-1) && is_in_path(plusCourt,j,i,j-1,i))
+						else if (is_in_path(shortestPath,j,i,j,i-1) && is_in_path(shortestPath,j,i,j-1,i))
 							printf("─┘ ");
 						else 
 							printf("   ");
@@ -422,7 +422,7 @@ void	display_visit_order(labyrinthe L, position *V)
 }
 
 
-void	display_menu(labyrinthe L, char mode, path* chemin)
+void	display_menu(labyrinthe L, char mode, path* shortestPath)
 {
 	/*
 	mode :
@@ -524,21 +524,21 @@ void	display_menu(labyrinthe L, char mode, path* chemin)
 				printf(" -l- lancer une recherche de plus court chemin par parcours en largeur.\n");
 				printf(" -m- revenir au menu principal.\n\n\n\n");
 
-				if (chemin)
+				if (shortestPath)
 				{
-					if (chemin->type=='p')
+					if (shortestPath->type=='p')
 						printf("Analyse par parcours en profondeur, ");
-					if (chemin->type=='l')
+					if (shortestPath->type=='l')
 						printf("Analyse par parcours en largeur, ");
-					if (chemin->length == NO_PATH)
+					if (shortestPath->length == NO_PATH)
 						{
 							printf("pas de chemin trouvé !");
 							display_lab_V2(L,'c',NULL);
 						}
 					else
 						{
-							printf("un chemin minimum trouvé de longeur %d.", chemin->length);
-							display_lab_V2(L,'c',chemin);
+							printf("un chemin minimum trouvé de longeur %d.", shortestPath->length);
+							display_lab_V2(L,'c',shortestPath);
 						}
 				}
 				else

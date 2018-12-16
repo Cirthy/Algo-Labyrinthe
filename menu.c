@@ -465,10 +465,10 @@ void 	analysis_menu(labyrinthe *L)
 {
 	unsigned char		ctemp;
 	int 				quit;
-	path				*chemin;
+	path				*shortestPath;
 	path 				temp;
 
-	chemin = NULL;
+	shortestPath = NULL;
 
 	// loop do
 	quit = 0;
@@ -476,7 +476,7 @@ void 	analysis_menu(labyrinthe *L)
 	{
 		// refresh
 		system("clear");
-		display_menu(*L,'x', chemin);
+		display_menu(*L,'x', shortestPath);
 		// refresh
 
 		system("/bin/stty raw");
@@ -495,12 +495,12 @@ void 	analysis_menu(labyrinthe *L)
 		        break;
 		    case PROFONDEUR: // profondeur
 		    	temp = pathfinding(L, PROFONDEUR);
-		    	chemin = &temp;
+		    	shortestPath = &temp;
 		        break;
 		    case LARGEUR: // largeur
 		    	temp = BFS(*L);
 		    	//temp = pathfinding(L, LARGEUR);
-		    	chemin = &temp;
+		    	shortestPath = &temp;
 		        break;
 		    case 'm': // retour menu
 		    	printf("\r        \n        Voulez vous quitter l'analyseur ? (y/n) ");
