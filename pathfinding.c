@@ -62,8 +62,7 @@ path BFS(labyrinthe L) {
             next.y = visited.y;
             next.x = visited.x - 1;
             if (is_marked(L, next) == 0) {    // cell not marked
-                if(get_distance_12b(&L,visited)!=DISTANCE_MAX)
-                	actualize_distance(L, visited, next);    // distance(next) := distance(visited) + 1
+                actualize_distance(L, visited, next);    // distance(next) := distance(visited) + 1
                 V[ V_index ] = next;        // add next at the table of vertex to visit
                 P[ V_index ] = visited;        // "next" predecessor := visited
                 V_index ++;                 // indice to add the next cell after this one
@@ -75,8 +74,7 @@ path BFS(labyrinthe L) {
             next.y = visited.y + 1;
             next.x = visited.x;
             if (is_marked(L, next) == 0) {
-            	if(get_distance_12b(&L,visited)!=DISTANCE_MAX)
-                	actualize_distance(L, visited, next);
+                actualize_distance(L, visited, next);
                 V[ V_index ] = next;
                 P[ V_index ] = visited;
                 V_index ++;
@@ -88,8 +86,7 @@ path BFS(labyrinthe L) {
             next.y = visited.y;
             next.x = visited.x + 1;
             if (is_marked(L, next) == 0) {
-            	if(get_distance_12b(&L,visited)!=DISTANCE_MAX)
-                	actualize_distance(L, visited, next);
+                actualize_distance(L, visited, next);
                 V[ V_index ] = next;
                 P[ V_index ] = visited;
                 V_index ++;
@@ -101,8 +98,7 @@ path BFS(labyrinthe L) {
             next.y = visited.y - 1;
             next.x = visited.x ;
             if (is_marked(L, next) == 0) {
-            	if(get_distance_12b(&L,visited)!=DISTANCE_MAX)
-                	actualize_distance(L, visited, next);
+                actualize_distance(L, visited, next);
                 V[ V_index ] = next;
                 P[ V_index ] = visited;
                 V_index ++;
