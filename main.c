@@ -1,10 +1,10 @@
 #include	"labyrinthe.h"
 
-int	main()//int argc, char const *argv[])
+int	main(int argc, char const *argv[])
 {
 
+/*	labyrinthe L;
 
-/*
 	if(argc != 3)
 	{
 		printf("2 arg boloss\n");
@@ -15,10 +15,11 @@ int	main()//int argc, char const *argv[])
 	for(int i = 0 ; i < 1000 ; i++)
 	{
 		create_alea_lab(&L, atoi(argv[1]), atoi(argv[2]));
-		pathfinding(&L, LARGEUR);
-	}
-*/
+		//pathfinding(&L, LARGEUR);
+		BFS(L);
+	}*/
 
+	
     struct 	winsize w;
     char 	ctemp;
     
