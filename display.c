@@ -65,10 +65,6 @@ void	display_lab_V2(labyrinthe L, char mode, path* shortestPath)
 	}
 
 
-
-
-
-
 	if (mode=='e')
 	{
 		printf("     ");
@@ -422,7 +418,7 @@ void	display_visit_order(labyrinthe L, position *V)
 }
 
 
-void	display_menu(labyrinthe L, char mode, path* shortestPath)
+void	refresh_menu(labyrinthe L, char mode, path* shortestPath)
 {
 	/*
 	mode :
@@ -521,8 +517,9 @@ void	display_menu(labyrinthe L, char mode, path* shortestPath)
 				printf("\n\tBienvenue sur le menu d'analyse du labyrinthe courant.\n");
 				printf("La labyrinthe courant est de taille %dx%d.\n",L.height,L.width);
 				printf(" -p- lancer une recherche de plus court chemin par parcours en profondeur.\n");
-				printf(" -l- lancer une recherche de plus court chemin par parcours en largeur.\n");
-				printf(" -m- revenir au menu principal.\n\n\n\n");
+				printf(" -l- lancer une recherche de plus court chemin par parcours en largeur itératif.\n");
+				printf(" -r- lancer une recherche de plus court chemin par parcours en largeur récursif.\n");
+				printf(" -m- revenir au menu principal.\n\n\n");
 
 				if (shortestPath)
 				{

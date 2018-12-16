@@ -278,6 +278,7 @@ path	pathfinding(labyrinthe *L, char c) // Renvoie un plus court chemin de l'ent
 		for(int i = 1 ; i < L->width * L->height ; i++)
 			tab_pos[i] = pos(-1, -1);
 		browse_maze_BFS(L, 0, tab_pos);
+        free(tab_pos);
 	}
 	path = construct_path(L, c);
 	set_distances_to_zero(L);

@@ -4,12 +4,12 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRCS = main.c generator.c display.c menu.c loadsave.c management.c pathfinding.c
+SRCS = generator.c display.c menu.c loadsave.c management.c pathfinding.c
 
 all : $(NAME)			## Compile le projet
 
 $(NAME) : 
-	$(CC) $(CFLAGS) $(SRCS) -o $(NAME)
+	$(CC) $(CFLAGS) main.c $(SRCS) -o $(NAME)
 
 fclean :
 	rm -f $(NAME)
@@ -22,5 +22,8 @@ coffee :			## Fait un café
 
 help :
 	@fgrep -h "##" $(MAKEFILE_LIST)  | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
+
+stats :
+	$(CC) $(CFLAGS) main_stats.c $(SRCS) -o $(NAME)
 
 

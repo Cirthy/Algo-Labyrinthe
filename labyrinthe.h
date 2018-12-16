@@ -6,7 +6,7 @@
 #include		<time.h>		// pour srand(tinme(NULL))
 #include		<unistd.h>		// pour usleep()
 #include 		<string.h>		// pour strcmp
-#include 		<sys/ioctl.h>	// pour accéder a la taille du  terminal
+#include 		<sys/ioctl.h>	// pour accéder a la taille du terminal
 
 
 #define			WALL_PROB		3 // probabilité de mettre un mur lors de la génération aléatoire := 1 / WALL_PROB
@@ -61,7 +61,7 @@ typedef	struct		labyrinthe
 
 typedef struct  	path
 {
-	char			type; // LARGEUR pour largeur, 'h' pour largeur avec heuristique, PROFONDEUR pour profondeur
+	char			type; // LARGEUR pour largeur, PROFONDEUR pour profondeur
 	int				length;
 	position		*cells;
 }					path;
@@ -90,7 +90,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* plusCourt);
 void 	display_path(path* chemin);
 void	display_marked(labyrinthe L);
 void	display_visit_order(labyrinthe L, position *V);
-void	display_menu(labyrinthe L, char mode, path* chemin);
+void	refresh_menu(labyrinthe L, char mode, path* chemin);
 void 	display_position(position p);
 void 	display_positions_tab(position* T, int size_T);
 void	init_displayer();
@@ -100,7 +100,7 @@ void	display_tab_pos(position *tab_pos); // ERASE PLZ
 
 
 // ===== menu.c =====
-void 	home_menu(labyrinthe* L);
+void 	home_menu(labyrinthe *L);
 void 	edit_menu(labyrinthe *L);
 void 	analysis_menu(labyrinthe *L);
 
