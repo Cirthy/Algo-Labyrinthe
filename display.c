@@ -459,7 +459,7 @@ void	refresh_menu(labyrinth L, char mode, path* shortestPath)
 						}
 					else
 						{
-							printf("un chemin minimum trouvé de longeur %d.", shortestPath->length);
+							printf("un chemin minimum de longeur %d.", shortestPath->length);
 							display_lab_V2(L,'c',shortestPath);
 						}
 				}
