@@ -28,10 +28,10 @@ void	create_empty_lab(labyrinthe *L, int height, int width) // Create an empty l
 		L->grid[i][0] += LW; 				//left wall
 		L->grid[i][L->width-1] += RW; 	//right wall
 	}
-	for(i = 0 ; j < L->width ; j++)
+	for(i = 0 ; i < L->width ; i++)
 	{
-		L->grid[0][j] += TW; 				//top wall
-		L->grid[L->height-1][j] += BW; 	//bottom wall
+		L->grid[0][i] += TW; 				//top wall
+		L->grid[L->height-1][i] += BW; 	//bottom wall
 	}
 }
 
