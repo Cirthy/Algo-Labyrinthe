@@ -3,25 +3,25 @@
 
 char	left_wall(unsigned short cell)
 {
-	return cell % 2;
+	return is_wall(cell, LW);
 }
 
 
 char	bottom_wall(unsigned short cell)
 {
-	return (cell / 2) % 2;
+	return is_wall(cell, BW);
 }
 
 
 char	right_wall(unsigned short cell)
 {
-	return (cell / 4) % 2;
+	return is_wall(cell, RW);
 }
 
 
 char	top_wall(unsigned short cell)
 {
-	return (cell / 8) % 2;
+	return is_wall(cell, TW);
 }
 
 char	is_wall(unsigned short cell, int dir)
@@ -52,18 +52,18 @@ char 	is_in_path(path *p, int x1, int y1, int x2, int y2)
 	return 0;
 }
 
-void		set_distance_12b(labyrinthe *L, position p, int distance)
+void		set_distance(labyrinthe *L, position p, int distance)
 {
 	L->grid[p.y][p.x] = L->grid[p.y][p.x] % 16 + distance * 16;
 }
 
 
-void		set_default_distance(labyrinthe *L)
+void		init_distance(labyrinthe *L)
 {
 	for(int i = 0 ; i < L->height ; i++)
 		for(int j = 0 ; j < L->width ; j++)
-			set_distance_12b(L, pos(j, i), DISTANCE_MAX);
-	set_distance_12b(L, L->entrance, 0);
+			set_distance(L, pos(j, i), DISTANCE_MAX);
+	set_distance(L, L->entrance, 0);
 }
 
 void        set_distances_to_zero(labyrinthe *L)
@@ -79,32 +79,15 @@ int 		get_distance(labyrinthe L, position p)
     return L.grid[p.y][p.x] / 32;
 }*/
 
-int			get_distance_12b(labyrinthe *L, position p)
+int			get_distance(labyrinthe *L, position p)
 {
 	return L->grid[p.y][p.x] / 16;
 }
 
-/*
-int 		init_distances(labyrinthe L) {
-    int i;
-    int j;
-    position tmp;
-    for(i = 0 ; i < L.height ; i++) {
-        for(j = 0 ; j < L.width ; j++) {
-            if ( (i != L.entrance.y) || (j != L.entrance.x) ) {        // distance entrance/entrance = 0
-                tmp.x = j;
-                tmp.y = i;
-                set_distance(L, tmp, DISTANCE_MAX_BFS);    // "infinite" = height * width (the distances never exceeds that)
-            }
-        }
-    }
-    return 0;
-}*/
-
 
 int 		actualize_distance(labyrinthe L, position s1, position s2) {
-    if ( get_distance_12b(&L, s1) + 1 < get_distance_12b(&L, s2) ) {
-        set_distance_12b(&L, s2, get_distance_12b(&L, s1)+1);
+    if ( get_distance(&L, s1) + 1 < get_distance(&L, s2) ) {
+        set_distance(&L, s2, get_distance(&L, s1)+1);
         return 1;    // distance actualized
     }
     return 0;    // s1 is not a good way to access to s2
@@ -124,7 +107,7 @@ position	pos_after_move(position p, int dir)
 }
 
 
-unsigned int cell(labyrinthe L, position p) 
+unsigned short cell(labyrinthe L, position p) 
 {
     return L.grid[p.y][p.x];
 }

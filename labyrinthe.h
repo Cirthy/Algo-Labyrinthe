@@ -15,6 +15,10 @@
 #define			NO_PATH			-1 // Code à mettre dans path.length quand il n'y a pas de chemin
 #define			PROFONDEUR		'p'
 #define			LARGEUR			'l'
+#define			LW				1
+#define			BW				2
+#define			RW				4
+#define			TW				8
 
 // outil de mise en forme coloré
 #define 		set_color(att, fg) 	printf("\033[%d;%dm", att, fg + 30)
@@ -39,8 +43,6 @@
 #define			WHITE			8
 // __________________________________________________________
 
-
-enum wall { LW = 1, BW = 2, RW = 4, TW = 8 };
 
 
 typedef struct		position
@@ -86,16 +88,9 @@ void	init_wall(labyrinthe *L);
 
 // ===== display.c =====
 void	display_lab_V1(labyrinthe L);
-void	display_lab_V2(labyrinthe L, char mode, path* plusCourt);
-void 	display_path(path* chemin);
-void	display_marked(labyrinthe L);
-void	display_visit_order(labyrinthe L, position *V);
-void	refresh_menu(labyrinthe L, char mode, path* chemin);
-void 	display_position(position p);
-void 	display_positions_tab(position* T, int size_T);
+void	display_lab_V2(labyrinthe L, char mode, path* shortestPath);
 void	init_displayer();
-void	display_distance(labyrinthe *L);
-void	display_tab_pos(position *tab_pos); // ERASE PLZ
+void	refresh_menu(labyrinthe L, char mode, path* chemin);
 
 
 
@@ -122,20 +117,17 @@ char	is_wall(unsigned short cell, int dir);
 	// Position
 position pos(int x , int y);
 char 	is_in_path(path *p, int x1, int y1, int x2, int y2);
-int		set_distance(labyrinthe L, position p , int distance);
-int		get_distance(labyrinthe L, position p);
-int		init_distances(labyrinthe L);
 int		actualize_distance(labyrinthe L, position s1, position s2);
 position pos_after_move(position pos, int dir);
 int 	in_tab(position p, position* V, int size);
 int 	pos_equal(position s1, position s2);
 	// Distance
-void	set_distance_12b(labyrinthe *L, position p, int distance);
-void	set_default_distance(labyrinthe *L);
+void	set_distance(labyrinthe *L, position p, int distance);
+void	init_distance(labyrinthe *L);
 void 	set_distances_to_zero(labyrinthe *L);
-int		get_distance_12b(labyrinthe *L, position p);
+int		get_distance(labyrinthe *L, position p);
 	// Other
-unsigned int cell(labyrinthe L, position p);
+unsigned short cell(labyrinthe L, position p);
 void	move_cursor(labyrinthe *L, int dir);
 position get_max_size_lab();
 void	free_lab_grid(labyrinthe *L);
@@ -143,15 +135,14 @@ void	free_lab_grid(labyrinthe *L);
 
 
 // ===== pathfinding.c =====
-int 	mark (labyrinthe L, position p);
-int 	is_marked (labyrinthe L, position p);
 path 	BFS(labyrinthe L);
-char 	can_go_there(labyrinthe *L, char dir, int d);
-int		dir_adjacent_cell(labyrinthe *L, position pos);
+int 	is_marked (labyrinthe L, position p);
+path	pathfinding(labyrinthe *L, char c);
 void	browse_maze_DFS(labyrinthe *L, int distance);
 int		browse_maze_BFS(labyrinthe *L, int distance, position *tab_pos);
-path	pathfinding(labyrinthe *L, char c);
 path    construct_path(labyrinthe *L, char type);
+char 	can_go_there(labyrinthe *L, char dir, int distance);
+int		dir_adjacent_cell(labyrinthe *L, position pos);
 
 
 #endif

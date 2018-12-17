@@ -343,81 +343,6 @@ void	display_lab_V2(labyrinthe L, char mode, path* shortestPath)
 }
 
 
-void 	display_path(path* chemin)
-{
-	if (chemin)
-	{
-		if(chemin->length == -1)
-			printf("Pas de chemin\n");
-		else
-		{
-			printf("Longueur %d : ", chemin->length);
-			for(int i = 0 ; i <= chemin->length ; i++)
-			{
-				display_position(chemin->cells[i]);
-				printf("%s", i == chemin->length ? "" : " -> ");
-			}
-			printf("\n");
-		}
-	}
-}
-
-
-void	display_distance(labyrinthe *L)
-{
-	for(int i = 0 ; i < L->height ; i++)
-	{
-		for(int j = 0 ; j < L->width ; j++)
-			printf("%d\t", get_distance_12b(L, pos(j, i)));
-	printf("\n");
-	}
-	printf("\n\n");
-}
-
-
-void	display_tab_pos(position *tab_pos)
-{
-	int	i = -1;
-
-	while(!pos_equal(tab_pos[++i], pos(-1, -1)))
-	{
-		display_position(tab_pos[i]);
-		printf("->");
-	}
-	printf("\n");
-}
-
-
-void	display_marked(labyrinthe L)
-{
-	int i, j;
-	position pos;
-
-	for(i = 0 ; i < L.height ; i++)
-	{
-		for(j = 0 ; j < L.width ; j++)
-		{
-			pos.x = j;
-			pos.y = i;
-			if(is_marked(L, pos))
-				printf("1\t");
-			else
-				printf("0\t");
-		}
-		printf("\n");
-	}
-	printf("\n\n");
-}
-
-
-void	display_visit_order(labyrinthe L, position *V)
-{
-	for(int i = 0 ; i < L.width * L.height ; i++)
-		printf("(%d, %d) ", V[i].y, V[i].x);
-	printf("\n");
-}
-
-
 void	refresh_menu(labyrinthe L, char mode, path* shortestPath)
 {
 	/*
@@ -545,27 +470,6 @@ void	refresh_menu(labyrinthe L, char mode, path* shortestPath)
 }
 
 
-
-void 	display_position(position p)
-{
-	printf("[%d:%d]", p.x, p.y);
-}
-
-void 	display_positions_tab(position* T, int size_T)
-{
-	int i;
-	for (i=0; i<size_T; i++)
-	{
-		printf("%d : ", i);
-		display_position(T[i]);
-		printf("\n");
-	}
-	printf("\n");
-}
-
-
-
-
 void	init_displayer()
 {
 	dragon[0]  = "$$$$$$$$$$$$$$$$$Y/'$$$$P'a$$$$$$$$$$$$$";
@@ -609,6 +513,3 @@ void	init_displayer()
 	oratoire[4] = "   \\___/|_|  \\__,_|\\__\\___/|_|_|  \\___|  ";
 	oratoire[5] = "                                         ";
 }
-
-
-
