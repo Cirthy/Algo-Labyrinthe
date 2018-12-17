@@ -45,7 +45,8 @@ path BFS(labyrinth L) {
     position visited;
     position next;
 
-    while ( ( V_index != V_visit ) && ( pos_equal(V[V_visit], L.exit) == 0)) {
+
+    while ( V_visit < size_V && V_index < size_V && ( V_index != V_visit ) && ( pos_equal(V[V_visit], L.exit) == 0)) {
 
         visited = V[ V_visit ];
         if ( left_wall( cell(L, visited) ) == 0 ) {    // if there is no left wall
@@ -116,9 +117,10 @@ path BFS(labyrinth L) {
 
     if (index_pos == -1) {
         Path.length = NO_PATH;
+        free(V);
+        free(P);
+        set_distances_to_zero(&L);
         return Path;
-
-        //printf("Il n'y a pas de chemin entre l'entree et la sortie du labyrinth.\n");
     } else {
 
         // METTRE PREDECESSEUR ENTREE A -2 -2
