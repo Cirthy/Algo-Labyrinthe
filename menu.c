@@ -63,6 +63,7 @@ void 	home_menu(labyrinthe* L)
 			    	scanf("%1c",&ctemp);
 			    	if (ctemp=='y')
 			    	{
+			    		free_lab_grid(L);
 			    		printf("   Hauteur du nouveau labyrinthe vide : ");
 			    		scanf("%d", &(L->height));
 			    		printf("   Largeur du nouveau labyrinthe vide : ");
@@ -94,6 +95,7 @@ void 	home_menu(labyrinthe* L)
 			    	scanf("%1c",&ctemp);
 			    	if (ctemp=='y')
 			    	{
+			    		free_lab_grid(L);
 			    		printf("   Hauteur du nouveau labyrinthe aléatoire : ");
 			    		scanf("%d", &(L->height));
 			    		printf("   Largeur du nouveau labyrinthe aléatoire : ");
@@ -117,7 +119,10 @@ void 	home_menu(labyrinthe* L)
 			    	printf("\r   Attention, un Labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
 			    	scanf("%1c",&ctemp);
 			    	if (ctemp=='y')
+			    	{
+			    		free_lab_grid(L);
 						load_file(L);
+			    	}
 				}
 				else
 				{
@@ -127,15 +132,11 @@ void 	home_menu(labyrinthe* L)
 		        break;
 		    case 's': // sauvegarder dans un fichier
 		    	if(L->width!=0 && L->height!=0)
-			    {
 					save_file(L);
-				}
 		        break;
 		    case 'x': // analyser le labyrinthe
 		    	if(L->width!=0 && L->height!=0)
-			    {
 					analysis_menu(L);
-				}
 		        break;
 		    case 'd': // dragon
 		    	if (pos_dragon.x == 1)
@@ -491,26 +492,39 @@ void 	analysis_menu(labyrinthe *L)
 		    	printf("\r        \n        Voulez vous quitter l'analyseur ? (y/n) ");
 		    	scanf("%1c",&ctemp);
 		    	if (ctemp=='y')
+		        {
 		        	quit = 1;
+		        	if(shortestPath)
+			    		free(shortestPath->cells);
+		        }
 		        break;
 		    case PROFONDEUR: // profondeur
+		    	if(shortestPath)
+		    		free(shortestPath->cells);
 		    	temp = pathfinding(L, PROFONDEUR);
 		    	shortestPath = &temp;
 		        break;
 		    case 'r': // largeur recursif
+		    	if(shortestPath)
+		    		free(shortestPath->cells);
 		    	temp = pathfinding(L, LARGEUR);
 		    	shortestPath = &temp;
 		        break;
 		    case LARGEUR: // largeur itératif
+		    	if(shortestPath)
+		    		free(shortestPath->cells);
 		    	temp = BFS(*L);
-		    	//temp = pathfinding(L, LARGEUR);
 		    	shortestPath = &temp;
 		        break;
 		    case 'm': // retour menu
 		    	printf("\r        \n        Voulez vous quitter l'analyseur ? (y/n) ");
 		    	scanf("%1c",&ctemp);
 		    	if (ctemp=='y')
+		        {
 		        	quit = 1;
+		        	if(shortestPath)
+			    		free(shortestPath->cells);
+		        }	
 		        break;
 			default:
 				break;
@@ -520,4 +534,3 @@ void 	analysis_menu(labyrinthe *L)
 		//usleep(500000);
 	}
 }
-

@@ -52,19 +52,6 @@ char 	is_in_path(path *p, int x1, int y1, int x2, int y2)
 	return 0;
 }
 
-/*
-int 	set_distance(labyrinthe L, position p, int distance)
-{
-    L.grid[p.y][p.x] %= 32; // it remains the 8 least significant bits
-    if (distance<DISTANCE_MAX_BFS)
-    	L.grid[p.y][p.x] += distance * 32;
-    else
-    	L.grid[p.y][p.x] += (DISTANCE_MAX_BFS-1) * 32;
-
-    return 0;
-}*/
-
-
 void		set_distance_12b(labyrinthe *L, position p, int distance)
 {
 	L->grid[p.y][p.x] = L->grid[p.y][p.x] % 16 + distance * 16;
@@ -169,4 +156,11 @@ position    get_max_size_lab()
     size.x = (w.ws_col-5)/4;
 
     return(size);
+}
+
+void        free_lab_grid(labyrinthe *L)
+{
+    for(int i = 0 ; i < L->height ; i++)
+        free(L->grid[i]);
+    free(L->grid);
 }
