@@ -51,7 +51,7 @@ void 	home_menu(labyrinth* L)
 		switch (ctemp)
 		{
 		    case 27: // ESC
-		    	printf("\r     \n   Voulez vous quitter ? (y/n) ");
+		    	printf("\r     \n   Voulez-vous quitter ? (y/n) ");
 		    	scanf("%1c",&ctemp);
 		    	if (ctemp=='y')
 		        	quit = 1;
@@ -351,13 +351,13 @@ void 	edit_menu(labyrinth *L)
 		switch (ctemp)
 		{
 		    case 27: // ESC
-		    	printf("\r        (labyrinth en mémoire)\n        Voulez vous quitter l'éditeur ? (y/n) ");
+		    	printf("\r        (labyrinthe en mémoire)\n        Voulez-vous quitter l'éditeur ? (y/n) ");
 		    	scanf("%1c",&ctemp);
 		    	if (ctemp=='y')
 		        	quit = 1;
 		        break;
 		    case 'm': // ESC
-		    	printf("\r        (labyrinth en mémoire)\n        Voulez vous quitter l'éditeur ? (y/n) ");
+		    	printf("\r        (labyrinthe en mémoire)\n        Voulez-vous quitter l'éditeur ? (y/n) ");
 		    	scanf("%1c",&ctemp);
 		    	if (ctemp=='y')
 		        	quit = 1;
@@ -447,14 +447,7 @@ void 	edit_menu(labyrinth *L)
 			default:
 				break;
 		}
-
-
-		//usleep(500000);
 	}
-
-
-
-
 }
 
 
@@ -489,7 +482,7 @@ void 	analysis_menu(labyrinth *L)
 		switch (ctemp)
 		{
 		    case 27: // ESC
-		    	printf("\r        \n        Voulez vous quitter l'analyseur ? (y/n) ");
+				printf("\r        \n        Voulez-vous quitter l'analyseur ? (y/n) ");
 		    	scanf("%1c",&ctemp);
 		    	if (ctemp=='y')
 		        {
@@ -517,7 +510,7 @@ void 	analysis_menu(labyrinth *L)
 		    	shortestPath = &temp;
 		        break;
 		    case 'm': // retour menu
-		    	printf("\r        \n        Voulez vous quitter l'analyseur ? (y/n) ");
+		    	printf("\r        \n        Voulez-vous quitter l'analyseur ? (y/n) ");
 		    	scanf("%1c",&ctemp);
 		    	if (ctemp=='y')
 		        {
@@ -529,8 +522,5 @@ void 	analysis_menu(labyrinth *L)
 			default:
 				break;
 		}
-
-
-		//usleep(500000);
 	}
 }

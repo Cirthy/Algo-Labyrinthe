@@ -53,12 +53,12 @@ void	display_lab_V2(labyrinth L, char mode, path* shortestPath)
 
 	if (L.height>maxSize.y || L.width>maxSize.x)
 	{
-		printf("\n\n\tLe labyrinthe en mémoire est trop grand pour etre afficher.\n");
-		printf("\tCe problème peut etre reglé on modifiant la taille de la console.\n");
-		printf("\tLa taille maximum des labyrinthes affichable dans la console actuelle est : %dx%d.\n\n", maxSize.y,maxSize.x);
+		printf("\n\n\tLe labyrinthe en mémoire est trop grand pour être affiché.\n");
+		printf("\tCe problème peut être réglé en modifiant la taille de la console.\n");
+		printf("\tLa taille maximale des labyrinthes affichables dans la console actuelle est : %dx%d.\n\n", maxSize.y,maxSize.x);
 		if (mode=='e')
 			printf("\tLe mode éditeur n'est pas viable si le labyrinthe ne peut pas s'afficher,\n\tmerci de pressé ESC ou -m- pour revenir au menu principal.\n\n");
-		printf("\tVeuillez nous excusez pour le dérangement occasioné.\n");
+		printf("\tVeuillez nous excuser pour le dérangement occasioné.\n");
 		printf("\t\t\tps : Achetez un écran plus grand.\n");
 		printf("\t\t\tBonne journée !\n");
 		return;
@@ -430,8 +430,8 @@ void	refresh_menu(labyrinth L, char mode, path* shortestPath)
 			break;
 		case 'e': // édition
 				printf("\n\tBienvenue sur le menu d'édition du labyrinthe courant.\n");
-				printf("\tLa labyrinthe courant est de taille %dx%d.\n",L.height,L.width);
-				printf(" -zqsd- déplacer le curseur dans le labyrinth.\n");
+				printf("\tLe labyrinthe courant est de taille %dx%d.\n",L.height,L.width);
+				printf(" -zqsd- déplacer le curseur dans le labyrinthe.\n");
 				printf(" -8462- placer/retirer un mur.\n");
 				printf(" -e- positionner l'entrée.\n");
 				printf(" -x- positionner la sortie.\n");

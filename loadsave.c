@@ -32,7 +32,7 @@ void save_file(labyrinth *L)
 		}
 
 		fclose(file);
-		printf("   labyrinthe sauvegardé avec succes.\n");				// on notifie que la sauvegarde s'est bien déroulée
+		printf("   labyrinthe sauvegardé avec succès.\n");				// on notifie que la sauvegarde s'est bien déroulée
 		//scanf("%s",name_file);
 		usleep(1200000);
 	}	
