@@ -6,15 +6,15 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS = generator.c display.c menu.c loadsave.c management.c pathfinding.c
 
-all : $(NAME)			## Compile le projet
+all : $(NAME)		## Compile le projet
 
 $(NAME) : 
 	$(CC) $(CFLAGS) main.c $(SRCS) -o $(NAME)
 
-fclean :
+fclean :			## Supprime le binaire
 	rm -f $(NAME)
 
-re : fclean all			## Recompile le projet
+re : fclean all		## Recompile le projet
 
 
 coffee :			## Fait un café
@@ -23,7 +23,5 @@ coffee :			## Fait un café
 help :
 	@fgrep -h "##" $(MAKEFILE_LIST)  | fgrep -v fgrep | sed -e 's/\\$$//' | sed -e 's/##//'
 
-stats :
+stats :				## Compile le projet avec main_stats.c
 	$(CC) $(CFLAGS) main_stats.c $(SRCS) -o $(NAME)
-
-
