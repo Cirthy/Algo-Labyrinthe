@@ -112,7 +112,6 @@ void	save_file(labyrinthe *L);
 
 
 
-
 // ===== management.c =====
 	// Walls
 char	left_wall(unsigned short cell);
@@ -139,6 +138,7 @@ int		get_distance_12b(labyrinthe *L, position p);
 unsigned int cell(labyrinthe L, position p);
 void	move_cursor(labyrinthe *L, int dir);
 position get_max_size_lab();
+void        free_lab_grid(labyrinthe *L)
 
 
 
