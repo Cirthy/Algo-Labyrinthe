@@ -151,7 +151,7 @@ int		dir_adjacent_cell(labyrinthe *L, position pos);
 void	browse_maze_DFS(labyrinthe *L, int distance);
 int		browse_maze_BFS(labyrinthe *L, int distance, position *tab_pos);
 path	pathfinding(labyrinthe *L, char c);
-
+path    construct_path(labyrinthe *L, char type);
 
 
 #endif
