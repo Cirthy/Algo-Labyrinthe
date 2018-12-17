@@ -1,9 +1,9 @@
-#include	"labyrinthe.h"
+#include	"labyrinth.h"
 
 int	main()//int argc, char const *argv[])
 {
 
-/*	labyrinthe L;
+/*	labyrinth L;
 
 	if(argc != 3)
 	{
@@ -38,7 +38,7 @@ int	main()//int argc, char const *argv[])
 	srand(time(NULL));
 	init_displayer();
 
-	labyrinthe L;
+	labyrinth L;
 	L.height = 0;
 	L.width = 0;
 

@@ -1,7 +1,7 @@
-#include	"labyrinthe.h"
+#include	"labyrinth.h"
 
 
-void 	home_menu(labyrinthe* L)
+void 	home_menu(labyrinth* L)
 {
 	char			ctemp;
 	char			quit;
@@ -59,7 +59,7 @@ void 	home_menu(labyrinthe* L)
 		    case 'n': // créer via l'éditeur
 				if(L->width!=0 && L->height!=0)
 			    {
-			    	printf("\r   Attention, un Labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
+			    	printf("\r   Attention, un labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
 			    	scanf("%1c",&ctemp);
 			    	if (ctemp=='y')
 			    	{
@@ -91,7 +91,7 @@ void 	home_menu(labyrinthe* L)
 		    case 'a': // créer aléatoirement
 				if(L->width!=0 && L->height!=0)
 			    {
-			    	printf("\r   Attention, un Labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
+			    	printf("\r   Attention, un labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
 			    	scanf("%1c",&ctemp);
 			    	if (ctemp=='y')
 			    	{
@@ -116,7 +116,7 @@ void 	home_menu(labyrinthe* L)
 		    case LARGEUR: // charger depuis un fichier
 				if(L->width!=0 && L->height!=0)
 			    {
-			    	printf("\r   Attention, un Labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
+			    	printf("\r   Attention, un labyrinthe est déjà en mémoire, souhaitez-vous l'écraser (y/n) ? ");
 			    	scanf("%1c",&ctemp);
 			    	if (ctemp=='y')
 			    	{
@@ -134,7 +134,7 @@ void 	home_menu(labyrinthe* L)
 		    	if(L->width!=0 && L->height!=0)
 					save_file(L);
 		        break;
-		    case 'x': // analyser le labyrinthe
+		    case 'x': // analyser le labyrinth
 		    	if(L->width!=0 && L->height!=0)
 					analysis_menu(L);
 		        break;
@@ -324,7 +324,7 @@ void 	home_menu(labyrinthe* L)
 
 
 
-void 	edit_menu(labyrinthe *L)
+void 	edit_menu(labyrinth *L)
 {
 	unsigned char		ctemp;
 	int 				quit;
@@ -351,13 +351,13 @@ void 	edit_menu(labyrinthe *L)
 		switch (ctemp)
 		{
 		    case 27: // ESC
-		    	printf("\r        (Labyrinthe en mémoire)\n        Voulez vous quitter l'éditeur ? (y/n) ");
+		    	printf("\r        (labyrinth en mémoire)\n        Voulez vous quitter l'éditeur ? (y/n) ");
 		    	scanf("%1c",&ctemp);
 		    	if (ctemp=='y')
 		        	quit = 1;
 		        break;
 		    case 'm': // ESC
-		    	printf("\r        (Labyrinthe en mémoire)\n        Voulez vous quitter l'éditeur ? (y/n) ");
+		    	printf("\r        (labyrinth en mémoire)\n        Voulez vous quitter l'éditeur ? (y/n) ");
 		    	scanf("%1c",&ctemp);
 		    	if (ctemp=='y')
 		        	quit = 1;
@@ -462,7 +462,7 @@ void 	edit_menu(labyrinthe *L)
 
 
 
-void 	analysis_menu(labyrinthe *L)
+void 	analysis_menu(labyrinth *L)
 {
 	unsigned char		ctemp;
 	int 				quit;

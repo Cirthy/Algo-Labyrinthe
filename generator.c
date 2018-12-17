@@ -1,7 +1,7 @@
-#include	"labyrinthe.h"
+#include	"labyrinth.h"
 
 
-void 	create_alea_lab(labyrinthe *L, int height, int width)
+void 	create_alea_lab(labyrinth *L, int height, int width)
 {
 	create_empty_lab(L, height, width);
 	L->entrance = pos(rand() % L->width, rand() % L->height);
@@ -10,7 +10,7 @@ void 	create_alea_lab(labyrinthe *L, int height, int width)
 }
 
 
-void	create_empty_lab(labyrinthe *L, int height, int width) // Create an empty lab with walls on the sides
+void	create_empty_lab(labyrinth *L, int height, int width) // Create an empty lab with walls on the sides
 {
 	int		i;
 
@@ -36,7 +36,7 @@ void	create_empty_lab(labyrinthe *L, int height, int width) // Create an empty l
 }
 
 
-void	init_wall(labyrinthe *L) // Set random walls (with a probability of 1 / WALL_PROB)
+void	init_wall(labyrinth *L) // Set random walls (with a probability of 1 / WALL_PROB)
 {
 	for(int i = 0 ; i < L->height ; i++)
 		for(int j = 0 ; j < L->width ; j++)

@@ -1,9 +1,9 @@
-#include	"labyrinthe.h"
+#include	"labyrinth.h"
 
 int	main()
 {
 
-	labyrinthe L;
+	labyrinth L;
 	for(int i=0 ; i<1000 ; i++)
 	{
 		create_alea_lab(&L, 1000, 1000);

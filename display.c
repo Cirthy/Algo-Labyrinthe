@@ -1,7 +1,7 @@
-#include	"labyrinthe.h"
+#include	"labyrinth.h"
 
 
-void	display_lab_V1(labyrinthe L)
+void	display_lab_V1(labyrinth L)
 {
 	int i;
 	int j;
@@ -42,7 +42,7 @@ void	display_lab_V1(labyrinthe L)
 	printf("+\n\n");
 }
 
-void	display_lab_V2(labyrinthe L, char mode, path* shortestPath)
+void	display_lab_V2(labyrinth L, char mode, path* shortestPath)
 {
 	int i;
 	int j;
@@ -343,7 +343,7 @@ void	display_lab_V2(labyrinthe L, char mode, path* shortestPath)
 }
 
 
-void	refresh_menu(labyrinthe L, char mode, path* shortestPath)
+void	refresh_menu(labyrinth L, char mode, path* shortestPath)
 {
 	/*
 	mode :
@@ -431,7 +431,7 @@ void	refresh_menu(labyrinthe L, char mode, path* shortestPath)
 		case 'e': // édition
 				printf("\n\tBienvenue sur le menu d'édition du labyrinthe courant.\n");
 				printf("\tLa labyrinthe courant est de taille %dx%d.\n",L.height,L.width);
-				printf(" -zqsd- déplacer le curseur dans le labyrinthe.\n");
+				printf(" -zqsd- déplacer le curseur dans le labyrinth.\n");
 				printf(" -8462- placer/retirer un mur.\n");
 				printf(" -e- positionner l'entrée.\n");
 				printf(" -x- positionner la sortie.\n");

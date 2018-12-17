@@ -1,6 +1,6 @@
-#include "labyrinthe.h"
+#include "labyrinth.h"
 
-void save_file(labyrinthe *L)
+void save_file(labyrinth *L)
 {
 	char name_file[100]="";
 
@@ -32,14 +32,14 @@ void save_file(labyrinthe *L)
 		}
 
 		fclose(file);
-		printf("   Labyrinthe sauvegardé avec succes.\n");				// on notifie que la sauvegarde s'est bien déroulée
+		printf("   labyrinthe sauvegardé avec succes.\n");				// on notifie que la sauvegarde s'est bien déroulée
 		//scanf("%s",name_file);
 		usleep(1200000);
 	}	
 }
 
 
-void load_file(labyrinthe *L)
+void load_file(labyrinth *L)
 {
 	char name_file[100]="";
 
@@ -62,8 +62,8 @@ void load_file(labyrinthe *L)
 
 
 	//on récupère les informations de la 1ère ligne	
-	fscanf(file, "%d ", &L->height);		//hauteur du labyrinthe
-	fscanf(file, "%d ", &L->width);			//largeur du labyrinthe
+	fscanf(file, "%d ", &L->height);		//hauteur du labyrinth
+	fscanf(file, "%d ", &L->width);			//largeur du labyrinth
 	fscanf(file, "%d ", &L->entrance.y);
 	fscanf(file, "%d ", &L->entrance.x);	//position de l'entrée : ligne colonne
 	fscanf(file, "%d ", &L->exit.y);

@@ -1,4 +1,4 @@
-#include	"labyrinthe.h"
+#include	"labyrinth.h"
 
 
 char	left_wall(unsigned short cell)
@@ -52,13 +52,13 @@ char 	is_in_path(path *p, int x1, int y1, int x2, int y2)
 	return 0;
 }
 
-void		set_distance(labyrinthe *L, position p, int distance)
+void		set_distance(labyrinth *L, position p, int distance)
 {
 	L->grid[p.y][p.x] = L->grid[p.y][p.x] % 16 + distance * 16;
 }
 
 
-void		init_distance(labyrinthe *L)
+void		init_distance(labyrinth *L)
 {
 	for(int i = 0 ; i < L->height ; i++)
 		for(int j = 0 ; j < L->width ; j++)
@@ -66,7 +66,7 @@ void		init_distance(labyrinthe *L)
 	set_distance(L, L->entrance, 0);
 }
 
-void        set_distances_to_zero(labyrinthe *L)
+void        set_distances_to_zero(labyrinth *L)
 {
     for(int i=0 ; i<L->height ; i++)
         for( int j=0 ; j<L->width ; j++)
@@ -74,18 +74,18 @@ void        set_distances_to_zero(labyrinthe *L)
 }
 
 /*
-int 		get_distance(labyrinthe L, position p)
+int 		get_distance(labyrinth L, position p)
 {
     return L.grid[p.y][p.x] / 32;
 }*/
 
-int			get_distance(labyrinthe *L, position p)
+int			get_distance(labyrinth *L, position p)
 {
 	return L->grid[p.y][p.x] / 16;
 }
 
 
-int 		actualize_distance(labyrinthe L, position s1, position s2) {
+int 		actualize_distance(labyrinth L, position s1, position s2) {
     if ( get_distance(&L, s1) + 1 < get_distance(&L, s2) ) {
         set_distance(&L, s2, get_distance(&L, s1)+1);
         return 1;    // distance actualized
@@ -94,7 +94,7 @@ int 		actualize_distance(labyrinthe L, position s1, position s2) {
 }
 
 
-void		move_cursor(labyrinthe *L, int dir)
+void		move_cursor(labyrinth *L, int dir)
 {
 	L->cursor.x += (dir == 4) - (dir == 1);
 	L->cursor.y += (dir == 2) - (dir == 8);
@@ -107,7 +107,7 @@ position	pos_after_move(position p, int dir)
 }
 
 
-unsigned short cell(labyrinthe L, position p) 
+unsigned short cell(labyrinth L, position p) 
 {
     return L.grid[p.y][p.x];
 }
@@ -141,7 +141,7 @@ position    get_max_size_lab()
     return(size);
 }
 
-void        free_lab_grid(labyrinthe *L)
+void        free_lab_grid(labyrinth *L)
 {
     for(int i = 0 ; i < L->height ; i++)
         free(L->grid[i]);

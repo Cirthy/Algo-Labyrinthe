@@ -1,5 +1,5 @@
-#ifndef			LABYRINTHE_H
-#define			LABYRINTHE_H
+#ifndef			labyrinth_H
+#define			labyrinth_H
 
 #include		<stdio.h>
 #include		<stdlib.h>
@@ -51,7 +51,7 @@ typedef struct		position
 	int				y;	
 }					position;
 
-typedef	struct		labyrinthe
+typedef	struct		labyrinth
 {
 	unsigned short	**grid;
 	int				height;
@@ -59,7 +59,7 @@ typedef	struct		labyrinthe
 	position		entrance;
 	position		exit;
 	position		cursor;
-}					labyrinthe;
+}					labyrinth;
 
 typedef struct  	path
 {
@@ -80,30 +80,30 @@ position pos_oratoire;
 
 
 // ===== generator.c =====
-void	create_empty_lab(labyrinthe *L, int height, int width);
-void 	create_alea_lab(labyrinthe *L, int height, int width);
-void	init_wall(labyrinthe *L);
+void	create_empty_lab(labyrinth *L, int height, int width);
+void 	create_alea_lab(labyrinth *L, int height, int width);
+void	init_wall(labyrinth *L);
 
 
 
 // ===== display.c =====
-void	display_lab_V1(labyrinthe L);
-void	display_lab_V2(labyrinthe L, char mode, path* shortestPath);
+void	display_lab_V1(labyrinth L);
+void	display_lab_V2(labyrinth L, char mode, path* shortestPath);
 void	init_displayer();
-void	refresh_menu(labyrinthe L, char mode, path* chemin);
+void	refresh_menu(labyrinth L, char mode, path* chemin);
 
 
 
 // ===== menu.c =====
-void 	home_menu(labyrinthe *L);
-void 	edit_menu(labyrinthe *L);
-void 	analysis_menu(labyrinthe *L);
+void 	home_menu(labyrinth *L);
+void 	edit_menu(labyrinth *L);
+void 	analysis_menu(labyrinth *L);
 
 
 
 // ===== loadsave.c =====
-void	load_file(labyrinthe *L);
-void	save_file(labyrinthe *L);
+void	load_file(labyrinth *L);
+void	save_file(labyrinth *L);
 
 
 
@@ -117,32 +117,32 @@ char	is_wall(unsigned short cell, int dir);
 	// Position
 position pos(int x , int y);
 char 	is_in_path(path *p, int x1, int y1, int x2, int y2);
-int		actualize_distance(labyrinthe L, position s1, position s2);
+int		actualize_distance(labyrinth L, position s1, position s2);
 position pos_after_move(position pos, int dir);
 int 	in_tab(position p, position* V, int size);
 int 	pos_equal(position s1, position s2);
 	// Distance
-void	set_distance(labyrinthe *L, position p, int distance);
-void	init_distance(labyrinthe *L);
-void 	set_distances_to_zero(labyrinthe *L);
-int		get_distance(labyrinthe *L, position p);
+void	set_distance(labyrinth *L, position p, int distance);
+void	init_distance(labyrinth *L);
+void 	set_distances_to_zero(labyrinth *L);
+int		get_distance(labyrinth *L, position p);
 	// Other
-unsigned short cell(labyrinthe L, position p);
-void	move_cursor(labyrinthe *L, int dir);
+unsigned short cell(labyrinth L, position p);
+void	move_cursor(labyrinth *L, int dir);
 position get_max_size_lab();
-void	free_lab_grid(labyrinthe *L);
+void	free_lab_grid(labyrinth *L);
 
 
 
 // ===== pathfinding.c =====
-path 	BFS(labyrinthe L);
-int 	is_marked (labyrinthe L, position p);
-path	pathfinding(labyrinthe *L, char c);
-void	browse_maze_DFS(labyrinthe *L, int distance);
-int		browse_maze_BFS(labyrinthe *L, int distance, position *tab_pos);
-path    construct_path(labyrinthe *L, char type);
-char 	can_go_there(labyrinthe *L, char dir, int distance);
-int		dir_adjacent_cell(labyrinthe *L, position pos);
+path 	BFS(labyrinth L);
+int 	is_marked (labyrinth L, position p);
+path	pathfinding(labyrinth *L, char c);
+void	browse_maze_DFS(labyrinth *L, int distance);
+int		browse_maze_BFS(labyrinth *L, int distance, position *tab_pos);
+path    construct_path(labyrinth *L, char type);
+char 	can_go_there(labyrinth *L, char dir, int distance);
+int		dir_adjacent_cell(labyrinth *L, position pos);
 
 
 #endif
