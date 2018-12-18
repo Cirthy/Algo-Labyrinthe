@@ -59,7 +59,7 @@ void load_file(labyrinth *L)
 	}
 
 
-
+	free_lab_grid(L);	// on efface le labyrinthe en mémoire
 
 	//on récupère les informations de la 1ère ligne	
 	fscanf(file, "%d ", &L->height);		//hauteur du labyrinth

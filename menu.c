@@ -120,7 +120,6 @@ void 	home_menu(labyrinth* L)
 			    	scanf("%1c",&ctemp);
 			    	if (ctemp=='y')
 			    	{
-			    		free_lab_grid(L);
 						load_file(L);
 			    	}
 				}
